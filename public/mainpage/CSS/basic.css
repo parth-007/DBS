@@ -1,0 +1,138 @@
+.trns * {
+    transition: none !important;
+    -moz-transition: none !important;
+    -ms-transition: none !important;
+    -o-transition: none !important;
+}
+
+.fl-lft{
+    float: left;
+}
+
+.fl-rght{
+    float: right;
+}
+
+.tx-al-rght{
+    text-align: right;
+}
+
+.tx-al-lft{
+    text-align: left;
+}
+
+.tx-al-cntr{
+    text-align: center;
+}
+
+.mrg-r5{
+    margin-right: 5px;
+}
+
+.mrg-r10{
+    margin-right: 10px;
+}
+
+.mrg-r20{
+    margin-right: 20px;
+}
+
+.mrg-l5{
+    margin-left: 5px;
+}
+
+.mrg-l10{
+    margin-left: 10px;
+}
+
+.mrg-l20{
+    margin-left: 20px;
+}
+
+.mrg5{
+    margin: 5px;
+}
+
+.mrg10{
+    margin: 10px;
+}
+
+.mrg20{
+    margin: 20px;
+}
+
+.flx-div{
+    display: flex;
+}
+
+.disp-no{
+    display: none;
+}
+
+.btn{
+    cursor: pointer;
+    background: transparent;
+    padding: 8px 20px;
+    border-radius: 100px;
+    color: white;
+    border: 1px solid white;
+    font-family: 'Montserrat-rg';
+    font-size: 18px;
+    transition: background-color .3s, color .3s;
+    -moz-transition: background-color .3s, color .3s;
+}
+
+.btn:hover{
+    background: white;
+    color: rgb(50, 50, 50);
+}
+
+form{
+    line-height: 40px;
+}
+
+form input[type="text"], form input[type="password"], form input[type="email"], form input[type="number"], textarea{
+    padding: 10px 10px;
+    width: 300px;
+    background: transparent;
+    border: transparent;
+    border-bottom: 1px solid white;
+    color: white;
+    font-family: "Montserrat-rg";
+    font-size: 20px;
+    transition: border .3s;
+    -moz-transition: border .3s;
+}
+
+form input[type="text"]:focus, form input[type="password"]:focus, form input[type="email"]:focus, form input[type="number"]:focus, textarea:focus{
+    outline: 0;
+    border-bottom: 3px solid rgb(23, 200, 183);
+}
+
+form{
+    background: rgb(60, 60, 60);
+    text-align: left;
+    margin: auto;
+    width: fit-content;
+    padding: 40px 80px;
+    font-size: 15px;
+    font-family: "Montserrat-rg";
+}
+
+form label{
+    transition: .3s;
+}
+
+form input:not([type="radio"]):focus + label, form textarea:focus + label{
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+form .lbl-style:focus-within + label{
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+form input[type="radio"]:checked + label{
+    color: rgb(23, 200, 183);
+}
