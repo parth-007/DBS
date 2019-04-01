@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.9
+-- version 4.8.4
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Apr 01, 2019 at 05:21 PM
--- Server version: 5.7.21
--- PHP Version: 7.2.4
+-- Generation Time: Apr 01, 2019 at 07:58 PM
+-- Server version: 5.7.24
+-- PHP Version: 7.2.14
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -113,6 +113,7 @@ CREATE TABLE IF NOT EXISTS `tblresource` (
   `resourcename` varchar(20) NOT NULL,
   `capacity` int(11) NOT NULL,
   `buildingid` int(11) NOT NULL,
+  `is_active` int(11) NOT NULL,
   PRIMARY KEY (`resource_id`),
   KEY `con2` (`buildingid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
@@ -166,6 +167,7 @@ CREATE TABLE IF NOT EXISTS `tbluser` (
   `phonenumber` varchar(14) NOT NULL,
   `password` varchar(255) NOT NULL,
   `is_verified` int(11) NOT NULL,
+  `is_active` int(11) NOT NULL,
   PRIMARY KEY (`email`),
   KEY `con3` (`usertypeid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
