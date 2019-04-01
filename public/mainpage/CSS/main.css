@@ -1,0 +1,259 @@
+@font-face{
+    font-family: 'Product Sans';
+    src: url('Fonts/ProductSansRegular.ttf');
+}
+
+@font-face{
+    font-family: 'Montserrat-th';
+    src: url('Fonts/Montserrat-thin.ttf');
+}
+
+@font-face{
+    font-family: 'Montserrat-rg';
+    src: url('Fonts/Montserrat-regular.ttf');
+}
+
+@font-face{
+    font-family: 'Montserrat-md';
+    src: url('Fonts/Montserrat-Medium.ttf');
+}
+
+@font-face{
+    font-family: 'Montserrat-bld';
+    src: url('Fonts/Montserrat-Bold.ttf');
+}
+
+body{
+    margin: 0;
+    font-family: 'Montserrat-rg';
+    text-align: center;
+    align-items: center;
+}
+
+a{
+    text-decoration: none;
+    color: inherit;
+}
+
+/* HEADER START */
+
+header{
+    width: 100%;
+    height: 100px;
+    font-family: 'Montserrat-th';
+    background: rgba(60, 60, 60, 1);
+    color: white;
+    z-index: 2;
+}
+
+.hdr-div{
+    display: flex;
+    margin: 15px 5%;
+    align-items: center;
+}
+
+.hdr-div > div{
+    flex: 0 0 auto;
+    margin: 0 10px;
+}
+
+.hdr-div img{
+    width: auto;
+    height: 50px;
+}
+
+.hdr-ttl{
+    font-size: 36px;
+    margin: 0;
+    font-family: "Product Sans";
+    letter-spacing: 5px;
+}
+
+/* HEADER ENDS */
+/* "home.html" SLIDER STARTS */
+
+.mySlides {
+    display: none;
+}
+
+.slideshow-container {
+    position: relative;
+}
+
+.prev, .next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    padding: 16px;
+    margin-top: -22px;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+}
+
+.next {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+}
+
+.prev{
+    left: 0;
+}
+
+.prev:hover, .next:hover {
+    background-color: rgba(0,0,0,0.8);
+}
+
+.text {
+    color: #f2f2f2;
+    font-size: 20px;
+    padding-bottom: 10px;
+    position: absolute;
+    text-align: center;
+}
+
+.mySlides:nth-child(1) .text{
+    left: 14%;
+    bottom: 16%;
+}
+
+.mySlides:nth-child(2) .text{
+    left: 13%;
+    bottom: 16%;
+}
+
+.mySlides:nth-child(3) .text{
+    left: 13%;
+    bottom: 16%;
+}
+  
+.dot {
+    cursor: pointer;
+    height: 5px;
+    width: 30px;
+    margin: 0 4px;
+    background-color: #bbb;
+    border-radius: 100px;
+    display: inline-block;
+    transition: background-color 0.6s ease;
+    -moz-transition: background-color 0.6s ease;
+}
+  
+.active, .dot:hover {
+    background-color: #717171;
+}
+  
+.fade {
+    -webkit-animation-name: fade;
+    -webkit-animation-duration: 1.5s;
+    animation-name: fade;
+    animation-duration: 1.5s;
+}
+  
+@-webkit-keyframes fade {
+    from {opacity: .4} 
+    to {opacity: 1}
+}
+  
+@keyframes fade {
+    from {opacity: .4} 
+    to {opacity: 1}
+}
+
+/* "home.html" SLIDER ENDS */
+/* "home.html" ABOUT CONTENT STARTS */
+
+.about-content{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 80px 7%;
+}
+
+.img-div{
+    flex: 0 0 30%;
+}
+
+.img-div img{
+    width: 100%;
+}
+
+.info-div{
+    flex: 0 0 55%;
+    text-align: justify;
+    line-height: 30px;
+    letter-spacing: 2px;
+}
+
+.about-ttl{
+    font-family: 'Montserrat-bld';
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+/* "home.html" ABOUT CONTENT ENDS */
+/* "home.html" FOOTER STARTS */
+
+footer{
+    width: 100%;
+    font-family: 'Montserrat-rg';
+    background: rgba(60, 60, 60, 1);
+    color: white;
+    display: flex;
+    justify-content: space-around;
+}
+
+.contact-info{
+    padding: 40px 80px;
+}
+
+/* "home.html" FOOTER ENDS */
+/* "login.html" FORM STARTS*/
+
+.btn-radio{
+    cursor: pointer;
+    background: transparent;
+    padding: 8px 20px;
+    border-radius: 100px;
+    color: rgb(60, 60, 60);
+    border: 1px solid rgb(60, 60, 60);
+    font-family: 'Montserrat-rg';
+    font-size: 18px;
+    transition: background-color .3s, color .3s;
+    -moz-transition: background-color .3s, color .3s;
+}
+
+.btn-radio:hover{
+    background: rgb(60, 60, 60);
+    color: white;
+}
+
+input#lgn-form:checked + label, input#sgn-form:checked + label{
+    background: rgb(60, 60, 60);
+    color: white;
+}
+
+.frm-lgn{
+    color: white;
+    position: relative;
+    width: 100%;
+    min-width: 400px;
+    margin: 50px 0;
+    text-align: center;
+}
+
+.input-grp{
+    display: flex;
+    flex-direction: column-reverse;
+    margin: 25px 0;
+}
+
+input#lgn-form:checked ~ div.flx-div>div.frm-lgn:last-child, #sgn-form:checked ~ div.flx-div>div.frm-lgn:first-child{
+    display: none;
+}
+
+/* "login.html" FORM Ends */
