@@ -16,3 +16,5 @@ Route::get('login','main\Main@login');
 Route::get('inspect','main\Main@inspect');
 Route::get('admin/dashboard','admin\AdminDashboard@index');
 Route::get('dashboard','client\ClientDashboard@index');
+Route::get('request','client\Respond_Request@index');
+Route::get('client_display','client\Client_Display@index');
