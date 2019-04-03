@@ -16,3 +16,6 @@ Route::get('login','main\Main@login');
 Route::get('inspect','main\Main@inspect');
 Route::get('admin/dashboard','admin\AdminDashboard@index');
 Route::get('dashboard','client\ClientDashboard@index');
+Route::get('admin/buildings','admin\AdminDashBoard@building');
+Route::get('admin/resources','admin\AdminDashBoard@resource');
+Route::get('admin/users','admin\AdminDashBoard@user');
