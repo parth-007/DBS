@@ -4,7 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
+use DB;
 class AdminDashBoard extends Controller
 {
     function index(){
@@ -14,7 +14,9 @@ class AdminDashBoard extends Controller
         return view('admin/building');
     }
     function resource(){
-        return view('admin/resource');
+        
+        $data['resource'] = DB::table("tblresource")->get();
+        return view('admin/resource',$data);
     }
     function user(){
         return view('admin/user');
