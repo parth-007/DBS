@@ -30,8 +30,9 @@
         <div class="fl-rght hdr-div">
             <div>
                 <h4>
-                    <a href="#about">
-                        About <i class="far fa-question-circle mrg-l5" style=" color: rgb(23, 200, 183);"></i>
+                    <a href="{{url('/')}}">
+                        Home <i class="fas fa-home mrg-l5" style=" color: rgb(23, 200, 183);"></i>
+                        
                     </a>
                 </h4>
             </div>
