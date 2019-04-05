@@ -33,19 +33,19 @@ class AdminDashBoard extends Controller
         else{
             $computer = 0;
         }
-        if($req->podium = "on"){
+        if($req->podium == "on"){
             $podium = 1;
         }
         else{
             $podium =0;
         }
-        if($req->mic = "on"){
+        if($req->mic == "on"){
             $mic = 1;
         }
         else{
             $mic = 0;
         }
-        if($req->projector = "on"){
+        if($req->projector == "on"){
             $projector = 1;
         }
         else{
@@ -77,6 +77,7 @@ class AdminDashBoard extends Controller
         return redirect('admin/resources');
     }
     function updateResource(Request $req){
+        
         if($req->updt_ac == "on"){
             $ac = 1;
         }
@@ -89,19 +90,19 @@ class AdminDashBoard extends Controller
         else{
             $computer = 0;
         }
-        if($req->updt_podium = "on"){
+        if($req->updt_podium == "on"){
             $podium = 1;
         }
         else{
             $podium =0;
         }
-        if($req->updt_mic = "on"){
+        if($req->updt_mic == "on"){
             $mic = 1;
         }
         else{
             $mic = 0;
         }
-        if($req->updt_projector = "on"){
+        if($req->updt_projector == "on"){
             $projector = 1;
         }
         else{
@@ -118,6 +119,7 @@ class AdminDashBoard extends Controller
         // echo $podium;
         // echo $mic;
         // echo $projector;
+        //  die();
         // echo $buildingid;
         // echo $resourcename;
         // echo $capacity;
@@ -125,10 +127,10 @@ class AdminDashBoard extends Controller
         // DB::table('tblfacility')->where('facilityid',$facilityid)->update(['ac'=>$ac,'computer'=>$computer,'podium'=>$podium,"mike"=>$mic,"projector"=>$projector]);
         $temp = DB::table('tblfacility')->where('ac',$ac)->where('computers',$computer)->where('podium',$podium)->where('mike',$mic)->where('projector',$projector)->get('facilityid');
         $facilityid = $temp[0]->facilityid;
-        echo $facilityid;
+        // echo $facilityid;
         
         DB::table('tblresource')->where('resource_id',$updt_id)->update(["resourcename"=>$resourcename,"capacity"=>$capacity,"buildingid"=>$buildingid,"facilityid"=>$facilityid]);
-        // return redirect('admin/resources');
+        return redirect('admin/resources');
 
     }
     function fetchForUpdate($update_id){
