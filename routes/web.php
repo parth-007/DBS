@@ -22,4 +22,5 @@ Route::get('admin/users','admin\AdminDashBoard@user');
 Route::get('admin/resources','admin\AdminDashBoard@resource');
 Route::post('admin/resources/insert','admin\AdminDashBoard@insertResource');
 Route::get('admin/resourses/delete/{id}','admin\AdminDashBoard@deleteResource');
-Route::get('admin/resourses/update/{id}','admin\AdminDashBoard@updateResource');
+Route::post('admin/resources/update/','admin\AdminDashBoard@updateResource');
+Route::get('admin/resources/fetchForUpdate/{update_id}','admin\AdminDashBoard@fetchForUpdate');
