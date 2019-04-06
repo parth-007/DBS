@@ -12,6 +12,7 @@ class Client_Display extends Controller
     	$users = DB::table('tblbooking')
     			->join('tbluser','email','=','useremail')
     			->select('email','phonenumber','resourceid','purpose','expected_audience','bookingid')
+    			->where('email',session('email'))
     			->get();
     	 return view('client/display', ['users' => $users]);
     	// return view('client/display');
