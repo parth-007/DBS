@@ -33,7 +33,7 @@
             var password = $('#password').val();
             $.ajax({
                 type: 'POST',
-                url: '/admin_log_check',
+                url: '/admin/log_check',
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
@@ -46,7 +46,7 @@
                     }
                     else
                     {
-                        window.location = "admin/dashboard";
+                        window.location = "dashboard";
                     }
                 }
             });

@@ -7,6 +7,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <!-- Tell the browser to be responsive to screen width -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -27,6 +28,7 @@
     <!-- You can change the theme colors from here -->
     <link href="{{asset('client/css/colors/blue.css')}}" id="theme" rel="stylesheet">
 
+    <script src="{{asset('client/assets/plugins/jquery/jquery.min.js')}}"></script>
    
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -365,9 +367,11 @@
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav">
                         <li class="nav-small-cap">SERVICES</li>
+                       
+                      
                         <li>
                             <!-- <a class="has-arrow" href="#" aria-expanded="false"> -->
-                            <a href="#">
+                            <a href="{{url('client/booking')}}">
                             <i class="mdi mdi-gauge"></i>
                             <span class="hide-menu">
                             Book Resources

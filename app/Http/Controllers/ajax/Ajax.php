@@ -36,7 +36,7 @@ class Ajax extends Controller
 	}
 	function admin_log_info_check(Request $req)
 	{
-		$num = DB::table('tbluser')->where('email',$req->mail)->where('password',$req->password)->where('usertypeid',1)->count();
+		$num = DB::table('tbladmin')->where('email',$req->mail)->where('password',$req->password)->count();
     	if($num==0)
     	{
     		echo "1";
