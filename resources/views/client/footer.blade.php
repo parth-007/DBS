@@ -34,26 +34,17 @@
     <!-- ============================================================== -->
     <!-- This page plugins -->
     <!-- ============================================================== -->
-    <!-- chartist chart -->
+    {{-- <!-- chartist chart -->
     <script src="{{asset('client/assets/plugins/chartist-js/dist/chartist.min.js')}}"></script>
     <script src="{{asset('client/assets/plugins/chartist-plugin-tooltip-master/dist/chartist-plugin-tooltip.min.js')}}"></script>
     <!-- Chart JS -->
     <script src="{{asset('client/assets/plugins/echarts/echarts-all.js')}}"></script>
-    <script src="{{asset('client/assets/plugins/toast-master/js/jquery.toast.js')}}"></script>
+    <script src="{{asset('client/assets/plugins/toast-master/js/jquery.toast.js')}}"></script>--}}
     <!-- Chart JS -->
-    <script src="{{asset('client/js/dashboard1.js')}}"></script>
-    <script src="{{asset('client/js/toastr.js')}}"></script>
-    <script>
-        $.toast({
-            heading: 'Welcome to Monster admin',
-            text: 'Use the predefined ones, or specify a custom position object.',
-            position: 'top-right',
-            loaderBg:'#ff6849',
-            icon: 'info',
-            hideAfter: 3000, 
-            stack: 6
-        });
-    </script>
+    {{-- <script src="{{asset('client/js/dashboard1.js')}}"></script>
+    <script src="{{asset('client/js/toastr.js')}}"></script> 
+    <script> 
+    </script> --}}
     <!-- ============================================================== -->
     <!-- Style switcher -->
     <!-- ============================================================== -->

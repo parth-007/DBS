@@ -16,3 +16,6 @@ Route::get('login','main\Main@login');
 Route::get('inspect','main\Main@inspect');
 Route::get('admin/dashboard','admin\AdminDashboard@index');
 Route::get('dashboard','client\ClientDashboard@index');
+Route::get('profile','client\ClientDashboard@userProfile');
+
+Route::post('updateProfile','client\ClientDashboard@updateProfile');
