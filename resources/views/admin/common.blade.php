@@ -229,7 +229,7 @@
                             <a class="nav-link dropdown-toggle text-muted  " href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="images/users/5.jpg" alt="user" class="profile-pic" /></a>
                             <div class="dropdown-menu dropdown-menu-right animated zoomIn">
                                 <ul class="dropdown-user">
-                                    <li><a href="#"><i class="ti-user"></i> Profile</a></li>
+                                    <li><a href="{{url('admin/profile')}}"><i class="ti-user"></i> Profile</a></li>
                                     <li><a href="#"><i class="ti-wallet"></i> Balance</a></li>
                                     <li><a href="#"><i class="ti-email"></i> Inbox</a></li>
                                     <li><a href="#"><i class="ti-settings"></i> Setting</a></li>

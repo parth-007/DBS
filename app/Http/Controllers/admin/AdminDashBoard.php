@@ -195,5 +195,28 @@ class AdminDashBoard extends Controller
         $data['users']=DB::table('tbluser')->join('tbluser_type','tbluser.usertypeid','=','tbluser_type.usertypeid')->select('tbluser.email','tbluser.phonenumber','tbluser_type.usertype','tbluser.is_active')->get();
         return view('admin/users',$data);
     }
+
+    function userProfile(){
+        $useremail="admin_booking@daiict.ac.in";
+        $data['user']=DB::table('tbladmin')
+        ->where('email',$useremail)
+        ->first();
+        return view('admin/profile',$data);
+    }
+
+    function updateProfile(Request $req){
+        $useremail="admin_booking@daiict.ac.in";
+        if($req->txt_password=='' || $req->txt_password==null){
+            $data=DB::table('tbladmin')
+            ->where('email', $useremail)
+            ->update(['username'=>$req->txt_username,"phone"=>$req->txt_phoneno]);
+        }
+        else{
+            $data=DB::table('tbladmin')
+            ->where('email', $useremail)
+            ->update(['username'=>$req->txt_username,"phone"=>$req->txt_phoneno,"password"=>$req->txt_password]);
+        }
+        echo $data;
+    }
     
 }
