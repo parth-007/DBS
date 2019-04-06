@@ -38,7 +38,7 @@
                         $('#updt_podium').attr("checked",true);
                     else
                         $('#updt_podium').attr("checked",false);
-                    if(ob['tblfacility'][0]['mike'] == 1)
+                    if(ob['tblfacility'][0]['mic'] == 1)
                         $('#updt_mic').attr("checked",true);
                     else
                         $('#updt_mic').attr("checked",false);
