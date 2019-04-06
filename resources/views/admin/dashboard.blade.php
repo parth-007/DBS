@@ -1,8 +1,10 @@
 @include('admin/common')
         <!-- Page wrapper  -->
+
         <div class="page-wrapper">
             <!-- Bread crumb -->
             <div class="row page-titles">
+                 {{session('admin_email')}}
                 <div class="col-md-5 align-self-center">
                     <h3 class="text-primary">Dashboard</h3> </div>
                 <div class="col-md-7 align-self-center">
@@ -12,6 +14,7 @@
                     </ol>
                 </div>
             </div>
+
             <!-- End Bread crumb -->
             <!-- Container fluid  -->
             <div class="container-fluid">
@@ -394,4 +397,5 @@
                 <!-- End PAge Content -->
             </div>
             <!-- End Container fluid  -->
+        </div>
 @include('admin/footer')

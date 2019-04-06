@@ -34,4 +34,18 @@ class Ajax extends Controller
     		echo 0;
     	}
 	}
+	function admin_log_info_check(Request $req)
+	{
+		$num = DB::table('tbluser')->where('email',$req->mail)->where('password',$req->password)->where('usertypeid',1)->count();
+    	if($num==0)
+    	{
+    		echo "1";
+    		
+    	}
+    	else
+    	{
+    		session(['admin_email'=>$req->mail]);
+    		echo 0;
+    	}
+	}
 }
