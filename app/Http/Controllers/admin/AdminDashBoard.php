@@ -97,7 +97,7 @@ class AdminDashBoard extends Controller
         // echo $capacity;
         // echo $isallocate;
 
-        $temp = DB::table('tblfacility')->where('ac',$ac)->where('computers',$computer)->where('podium',$podium)->where('mike',$mic)->where('projector',$projector)->get('facilityid');
+        $temp = DB::table('tblfacility')->where('ac',$ac)->where('computers',$computer)->where('podium',$podium)->where('mic',$mic)->where('projector',$projector)->get('facilityid');
         $facilityid = $temp[0]->facilityid;
         
         DB::table('tblresource')->insert(["resourcename"=>$resourcename,"capacity"=>$capacity,"buildingid"=>$buildingid,"facilityid"=>$facilityid,"isAllocate"=>$isallocate]);
@@ -156,8 +156,8 @@ class AdminDashBoard extends Controller
         // echo $resourcename;
         // echo $capacity;
         // echo $updt_id;
-        // DB::table('tblfacility')->where('facilityid',$facilityid)->update(['ac'=>$ac,'computer'=>$computer,'podium'=>$podium,"mike"=>$mic,"projector"=>$projector]);
-        $temp = DB::table('tblfacility')->where('ac',$ac)->where('computers',$computer)->where('podium',$podium)->where('mike',$mic)->where('projector',$projector)->get('facilityid');
+        // DB::table('tblfacility')->where('facilityid',$facilityid)->update(['ac'=>$ac,'computer'=>$computer,'podium'=>$podium,"mic"=>$mic,"projector"=>$projector]);
+        $temp = DB::table('tblfacility')->where('ac',$ac)->where('computers',$computer)->where('podium',$podium)->where('mic',$mic)->where('projector',$projector)->get('facilityid');
         $facilityid = $temp[0]->facilityid;
         // echo $facilityid;
         
@@ -181,7 +181,7 @@ class AdminDashBoard extends Controller
         // $ac = $tblfacility[0]->ac;
         // $computers = $tblfacility[0]->computers;
         // $podium = $tblfacility[0]->podium;
-        // $mike = $tblfacility[0]->mike;
+        // $mic = $tblfacility[0]->mic;
         // $projector = $tblfacility[0]->projector;
         
         $arr['tblresource'] = $tblresource;
