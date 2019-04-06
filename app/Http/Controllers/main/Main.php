@@ -17,4 +17,5 @@ class Main extends Controller
     function inspect(){
         return view('mainpage/inspect');
     }
+    
 }
