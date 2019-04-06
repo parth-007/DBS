@@ -46,7 +46,7 @@
                     }
                     else
                     {
-                        window.location = "admin/dashboard";
+                        window.location = "dashboard";
                     }
                 }
             });
