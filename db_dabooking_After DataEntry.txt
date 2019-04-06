@@ -1,0 +1,247 @@
+-- phpMyAdmin SQL Dump
+-- version 4.8.4
+-- https://www.phpmyadmin.net/
+--
+-- Host: 127.0.0.1:3306
+-- Generation Time: Mar 26, 2019 at 02:12 PM
+-- Server version: 5.7.24
+-- PHP Version: 7.2.14
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `db_dabooking`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tblbooking`
+--
+
+DROP TABLE IF EXISTS `tblbooking`;
+CREATE TABLE IF NOT EXISTS `tblbooking` (
+  `bookingid` int(11) NOT NULL AUTO_INCREMENT,
+  `starttime` timestamp NOT NULL,
+  `endtime` timestamp NOT NULL,
+  `dayofweek` varchar(10) NOT NULL,
+  `useremail` varchar(255) NOT NULL,
+  `resourceid` int(11) NOT NULL,
+  `requesttime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `purpose` int(11) NOT NULL,
+  `expected_audience` int(11) NOT NULL,
+  PRIMARY KEY (`bookingid`),
+  KEY `con11` (`useremail`),
+  KEY `con15` (`resourceid`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tblbuilding`
+--
+
+DROP TABLE IF EXISTS `tblbuilding`;
+CREATE TABLE IF NOT EXISTS `tblbuilding` (
+  `buildingid` int(11) NOT NULL AUTO_INCREMENT,
+  `buildingname` varchar(10) NOT NULL,
+  PRIMARY KEY (`buildingid`)
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tblbuilding`
+--
+
+INSERT INTO `tblbuilding` (`buildingid`, `buildingname`) VALUES
+(1, 'CEP'),
+(2, 'LAB'),
+(3, 'LT'),
+(4, 'OAT');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tblprogramme`
+--
+
+DROP TABLE IF EXISTS `tblprogramme`;
+CREATE TABLE IF NOT EXISTS `tblprogramme` (
+  `programmeid` int(11) NOT NULL AUTO_INCREMENT,
+  `programmename` varchar(20) NOT NULL,
+  PRIMARY KEY (`programmeid`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tblreport`
+--
+
+DROP TABLE IF EXISTS `tblreport`;
+CREATE TABLE IF NOT EXISTS `tblreport` (
+  `reportid` int(11) NOT NULL AUTO_INCREMENT,
+  `bookingid` int(11) NOT NULL,
+  `report` varchar(4000) NOT NULL,
+  `fileupload` varchar(200) NOT NULL,
+  PRIMARY KEY (`reportid`),
+  KEY `con7` (`bookingid`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tblrequest`
+--
+
+DROP TABLE IF EXISTS `tblrequest`;
+CREATE TABLE IF NOT EXISTS `tblrequest` (
+  `requestid` int(11) NOT NULL,
+  `bookingid` int(11) NOT NULL,
+  `endtime` timestamp NOT NULL,
+  `starttime` timestamp NOT NULL,
+  `expected_audience` int(11) NOT NULL,
+  `purpose` varchar(200) NOT NULL,
+  `requesttime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `requesteremail` varchar(255) NOT NULL,
+  PRIMARY KEY (`requestid`),
+  KEY `con6` (`bookingid`),
+  KEY `con10` (`requesteremail`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tblresource`
+--
+
+DROP TABLE IF EXISTS `tblresource`;
+CREATE TABLE IF NOT EXISTS `tblresource` (
+  `resource_id` int(11) NOT NULL AUTO_INCREMENT,
+  `resourcename` varchar(20) NOT NULL,
+  `capacity` int(11) NOT NULL,
+  `buildingid` int(11) NOT NULL,
+  PRIMARY KEY (`resource_id`),
+  KEY `con2` (`buildingid`)
+) ENGINE=MyISAM AUTO_INCREMENT=24 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tblresource`
+--
+
+INSERT INTO `tblresource` (`resource_id`, `resourcename`, `capacity`, `buildingid`,'facilityid') VALUES
+(1, '102', 190, 1),
+(2, '103', 110, 1),
+(3, '104', 48, 1),
+(4, '105', 48, 1),
+(5, '106', 120, 1),
+(6, '107', 30, 1),
+(7, '110', 182, 1),
+(8, '201', -1, 1),
+(9, '202', 80, 1),
+(10, '203', 80, 1),
+(11, '204', -1, 1),
+(12, '205', -1, 1),
+(13, '206', 40, 1),
+(14, '207', 120, 1),
+(15, '208', -1, 1),
+(16, '209', 120, 1),
+(17, '210', 30, 1),
+(18, '211', 30, 1),
+(19, '212', 30, 1),
+(20, 'LT1', 300, 3),
+(21, 'LT2', 300, 3),
+(22, 'LT3', 300, 3),
+(23, 'OAT', 900, 4);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbltimetable_child`
+--
+
+DROP TABLE IF EXISTS `tbltimetable_child`;
+CREATE TABLE IF NOT EXISTS `tbltimetable_child` (
+  `timetable_childid` int(11) NOT NULL AUTO_INCREMENT,
+  `programmeid` int(11) NOT NULL,
+  `dayofweek` varchar(10) NOT NULL,
+  `timestart` timestamp NOT NULL,
+  `timeend` timestamp NOT NULL,
+  `buildingid` int(11) NOT NULL,
+  `courseid` int(11) NOT NULL,
+  PRIMARY KEY (`timetable_childid`),
+  KEY `ttbl_build` (`buildingid`),
+  KEY `ttbl_COURSE` (`courseid`),
+  KEY `con8` (`programmeid`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbltimetable_master`
+--
+
+DROP TABLE IF EXISTS `tbltimetable_master`;
+CREATE TABLE IF NOT EXISTS `tbltimetable_master` (
+  `timetablemasterid` int(11) NOT NULL AUTO_INCREMENT,
+  `programmeid` int(11) NOT NULL,
+  `semester` int(11) NOT NULL,
+  PRIMARY KEY (`timetablemasterid`),
+  KEY `con11` (`programmeid`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbluser`
+--
+
+DROP TABLE IF EXISTS `tbluser`;
+CREATE TABLE IF NOT EXISTS `tbluser` (
+  `email` varchar(255) NOT NULL,
+  `usertypeid` int(11) NOT NULL,
+  `phonenumber` varchar(14) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `is_verified` int(11) NOT NULL,
+  PRIMARY KEY (`email`),
+  KEY `con3` (`usertypeid`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbluser_type`
+--
+
+DROP TABLE IF EXISTS `tbluser_type`;
+CREATE TABLE IF NOT EXISTS `tbluser_type` (
+  `usertypeid` int(11) NOT NULL AUTO_INCREMENT,
+  `usertype` varchar(10) NOT NULL,
+  PRIMARY KEY (`usertypeid`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tblverify_linkes`
+--
+
+DROP TABLE IF EXISTS `tblverify_linkes`;
+CREATE TABLE IF NOT EXISTS `tblverify_linkes` (
+  `userid` int(11) NOT NULL AUTO_INCREMENT,
+  `link` varchar(200) NOT NULL,
+  PRIMARY KEY (`userid`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

@@ -16,3 +16,5 @@ Route::get('login','main\Main@login');
 Route::get('inspect','main\Main@inspect');
 Route::get('admin/dashboard','admin\AdminDashboard@index');
 Route::get('dashboard','client\ClientDashboard@index');
+Route::get('client/booking','client\ClientDashboard@book');
+Route::any('client/show_slots','client\ClientDashboard@show_slots');
