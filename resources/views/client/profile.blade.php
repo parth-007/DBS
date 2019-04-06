@@ -42,6 +42,7 @@
                                         <div class="form-group">
                                             <label for="exampleInputPassword1">Confirm Password</label>
                                             <input type="password" class="form-control" id="txt_cpassword" name="txt_cpassword" placeholder="Confirm Password">
+                                            <label id="hide_label" class="hid_label" style="color: red;"></label>
                                         </div>
                                         <button type="submit" class="btn btn-success waves-effect waves-light m-r-10">Submit</button>
                                     </form>
@@ -122,10 +123,11 @@
                     e.preventDefault();
                     if($("#txt_password").val()!=$("#txt_cpassword").val())
                     {
-                        alert("Password Doesn't match");
+                        $("#hide_label").text("Password doesn't match");
                     }
                     else
                     {
+                        $("#hide_label").text("");
                         $.ajax({
                         url: 'updateProfile',
                         type: 'POST',
