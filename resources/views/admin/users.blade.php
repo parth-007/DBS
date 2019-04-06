@@ -3,21 +3,35 @@
 <script>
         $(document).ready(function(){
           $(document).on("click",".userstatus",function(){
-            var status = ($(this).text());
+            var status = 0;
+            var hold=$(this);
+            if($(this).text()=="Active")
+              status = 1; 
             var email = ($(this).parent().prev().prev().prev().text());
             $.ajax({
-                url:"{{url('admin/AdminDashBoard/status_change/')}}",
-                type:"post",
-                data:{"status":status,"email":email,}
-                success:function(data)
-                {
-                    if(data==1)
-                      $("#a_status_ac").html('Active');  
-                    else
-                      $("#a_status_iac").html('In-active');  
-                    }
-                }
-            });
+            url: '{{url('admin/AdminDashBoard/status_change/')}}',
+            type: 'POST',
+            dataType: 'json',
+            data: {'email': email,'status':status,'_token':'{{csrf_token()}}'},
+          })
+          .done(function(response) {
+            if(response==1 || response=="1")
+            {
+              if(status==0)
+                hold.parent().html('<a id="a_status_ac" href="#" onclick="change_user_status({{@$user->email}})" class="badge userstatus badge-info" title="Click to change status to active">Active');
+              else
+              hold.parent().html('<a id="a_status_ac" href="#" onclick="change_user_status({{@$user->email}})" class="badge userstatus badge-danger" title="Click to change status to Inactive">In-Active');
+            }
+            console.log("success");
+          })
+          .fail(function() {
+            console.log("error");
+          })
+          .always(function() {
+            console.log("complete");
+          });
+
+            
           });
       });
         

@@ -1,10 +1,9 @@
 -- phpMyAdmin SQL Dump
 -- version 4.8.4
-
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Apr 06, 2019 at 08:40 AM
+-- Generation Time: Apr 06, 2019 at 09:25 AM
 -- Server version: 5.7.24
 -- PHP Version: 7.2.14
 
@@ -292,9 +291,18 @@ CREATE TABLE IF NOT EXISTS `tbluser` (
   `phonenumber` varchar(14) NOT NULL,
   `password` varchar(255) NOT NULL,
   `is_verified` int(11) NOT NULL,
+  `is_active` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`email`),
   KEY `con3` (`usertypeid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tbluser`
+--
+
+INSERT INTO `tbluser` (`email`, `username`, `usertypeid`, `phonenumber`, `password`, `is_verified`, `is_active`) VALUES
+('admin1@gmail.com', 'admin1', 1, '1230456789', '741852', 1, 0),
+('club1@da.com', 'club1', 5, '5204106307', '745896', 1, 1);
 
 -- --------------------------------------------------------
 
