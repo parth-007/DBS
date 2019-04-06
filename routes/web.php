@@ -4,6 +4,9 @@ Route::get('login','main\Main@login');
 Route::get('inspect','main\Main@inspect');
 Route::get('admin/dashboard','admin\AdminDashboard@index');
 Route::get('dashboard','client\ClientDashboard@index');
+Route::get('client/booking','client\ClientDashboard@book');
+Route::any('client/show_slots','client\ClientDashboard@show_slots');
+
 Route::get('profile','client\ClientDashboard@userProfile');
 Route::post('updateProfile','client\ClientDashboard@updateProfile');
 Route::get('request','client\Respond_Request@index');
@@ -27,3 +30,4 @@ Route::post('admin/resources/insert','admin\AdminDashBoard@insertResource');
 Route::get('admin/resourses/delete/{id}','admin\AdminDashBoard@deleteResource');
 Route::post('admin/resources/update/','admin\AdminDashBoard@updateResource');
 Route::get('admin/resources/fetchForUpdate/{update_id}','admin\AdminDashBoard@fetchForUpdate');
+?>
