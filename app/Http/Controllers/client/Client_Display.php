@@ -8,6 +8,10 @@ use App\Http\Controllers\Controller;
 
 class Client_Display extends Controller
 {
+	function __construct()
+    {
+        $this->middleware('Backend');
+    }
     function index(){
     	$users = DB::table('tblbooking')
     			->join('tbluser','email','=','useremail')

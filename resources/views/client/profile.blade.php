@@ -135,6 +135,7 @@
                         if(response=="1" || response==1)
                         {
                             //window.location="/dashboard";
+                            $('#user_lbl').text($('#txt_username').val());
                             alert("Profile updated");
                         }
                         console.log("success");
