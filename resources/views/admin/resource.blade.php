@@ -292,7 +292,12 @@
                                 <td>{{ $res->resource_id}}</td>
                                 <td>{{ $res->resourcename}}</td>
                                 <td>{{ $res->capacity}}</td>
-                                <td>{{ $res->isAllocate}}</td>
+                                <td>@if($res->isAllocate == 1)
+                                        Yes
+                                    @else
+                                        No
+                                    @endif
+                                </td>
                                 <td><a href="" onclick="updateHandler({{$res->resource_id}})" data-toggle="modal" data-target="#updateModal" class="badge badge-info">Update</a></td>
                                 <!-- <button type="button" class="btn btn-info" data-toggle="modal"  data-whatever="@mdo">Add resource</button> -->
                                 <td><a href='{{ url("admin/resourses/delete/{$res->resource_id}")}}' class="badge badge-info">Delete</a></td>
