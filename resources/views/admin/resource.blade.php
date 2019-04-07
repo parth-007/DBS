@@ -7,6 +7,36 @@
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>Document</title>
         <script>
+        $(document).ready(function(){
+
+            $(document).on("keyup","#txtSearch",function(){
+                var str=$(this).val();
+                $.ajax({
+                    url: '{{url('admin/resources/searchOnResources')}}',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {'str': str,'_token':'{{csrf_token()}}'},
+                    })
+                    .done(function(response) {
+                    // alert(response);
+                    
+                    })
+                    .fail(function() {
+                    console.log("error");
+                    })
+                    .always(function(response) {
+                    if(response["responseText"]=="" || response["responseText"]==null)
+                    {
+                        $(".resourceData").html("No data matches your search...");
+                    }
+                    else
+                    {
+                        $(".resourceData").html(response["responseText"]);
+                    }
+                    console.log("complete");
+                });
+            });
+        });
         function updateHandler(update_id){
             console.log('clicked '+update_id);
 
@@ -61,8 +91,11 @@
                      
                 }
             });
+        
 
         }
+
+
         </script>
         
     </head>
@@ -85,7 +118,12 @@
         <div class="card-body">
             
             <!-- <button type="button" class="btn btn-info">Add building</button> -->
-            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal" data-whatever="@mdo">Add resource</button>
+                    <div class="col-mid-12 col-lg-12">
+                        <button type="button" class="btn btn-info col-md-3 col-lg-3" data-toggle="modal" data-target="#myModal" data-whatever="@mdo" style="display: inline-block">Add resource</button>
+                        <div class="col-md-5 col-lg-5" style="display:inline-block;min-width:auto"></div>
+                        <input type="text" id="txtSearch" class="form-control col-md-3 col-lg-3"  placeholder="Type to search..." style="display: inline;margin-left:auto;">
+                    </div>
+                    
                         <!-- Insert model -->
                         <div class="container">
                             <div class="modal" id="myModal">
@@ -242,16 +280,19 @@
                         <tr>
                             <th>Resource-id</th>
                             <th>Resource-name</th>
-                            <th></th>
-                            <th></th>
+                            <th>Capacity</th>
+                            <th>isAllcate</th>
+                            <th>Update</th>
+                            <th>Delete</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody class="resourceData" id="resourceData">
                          @foreach($resource as $res)
                             <tr>
                                 <td>{{ $res->resource_id}}</td>
                                 <td>{{ $res->resourcename}}</td>
-                                
+                                <td>{{ $res->capacity}}</td>
+                                <td>{{ $res->isAllocate}}</td>
                                 <td><a href="" onclick="updateHandler({{$res->resource_id}})" data-toggle="modal" data-target="#updateModal" class="badge badge-info">Update</a></td>
                                 <!-- <button type="button" class="btn btn-info" data-toggle="modal"  data-whatever="@mdo">Add resource</button> -->
                                 <td><a href='{{ url("admin/resourses/delete/{$res->resource_id}")}}' class="badge badge-info">Delete</a></td>

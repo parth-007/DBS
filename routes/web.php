@@ -30,4 +30,6 @@ Route::post('admin/resources/insert','admin\AdminDashBoard@insertResource');
 Route::get('admin/resourses/delete/{id}','admin\AdminDashBoard@deleteResource');
 Route::post('admin/resources/update/','admin\AdminDashBoard@updateResource');
 Route::get('admin/resources/fetchForUpdate/{update_id}','admin\AdminDashBoard@fetchForUpdate');
+Route::post('admin/resources/searchOnResources','admin\AdminDashBoard@searchOnResources');
+
 ?>

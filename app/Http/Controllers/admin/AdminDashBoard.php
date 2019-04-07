@@ -195,5 +195,29 @@ class AdminDashBoard extends Controller
         $data['users']=DB::table('tbluser')->join('tbluser_type','tbluser.usertypeid','=','tbluser_type.usertypeid')->select('tbluser.email','tbluser.phonenumber','tbluser_type.usertype','tbluser.is_active')->get();
         return view('admin/users',$data);
     }
+
+    function searchOnResources(Request $req){
+        $str = $req->str;
+        $resource=DB::table("tblresource")
+        ->join('tblbuilding','tblbuilding.buildingid','=','tblresource.buildingid')
+            ->where('buildingname','like','%'.$str.'%')
+            ->orWhere('resourcename', 'like', '%'.$str.'%')
+            ->orWhere('capacity', 'like', '%'.$str.'%')
+            ->select('resource_id','resourcename','capacity','isAllocate')
+            ->get();
+            $data="";
+            $counter=1;
+            foreach($resource as $res)
+            { 
+                $data.='<tr><td>'.$res->resource_id.'</td>
+                <td>'.$res->resourcename.'</td>
+                <td>'.$res->capacity.'</td>
+                <td>'.$res->isAllocate.'</td>
+                <td>'.'<a href="" onclick="updateHandler('.$res->resource_id.')" data-toggle="modal" data-target="#updateModal" class="badge badge-info">Update</a></td>
+                <td>'.'<a href=\'url("admin/resourses/delete/{'.$res->resource_id.'}")}}\' class="badge badge-info">Delete</a></td>';
+                $data.='</tr>';
+            }
+            echo strval($data);
+    }
     
 }
