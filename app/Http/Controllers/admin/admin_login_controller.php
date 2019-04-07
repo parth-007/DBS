@@ -7,7 +7,16 @@ use App\Http\Controllers\Controller;
 
 class admin_login_controller extends Controller
 {
+	function __construct()
+    {
+        $this->middleware('Backend');
+    }
     function index(){
     	return view('admin/admin_login');
+    }
+     function logout()
+    {
+    	session()->forget('admin_email');
+    	return redirect('admin/login');
     }
 }

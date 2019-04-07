@@ -9,6 +9,10 @@ use App\Http\Controllers\Controller;
 
 class Mail_Controller extends Controller 
 {
+	function __construct()
+    {
+        $this->middleware('Backend');
+    }
    function basic_email() {
       $data = array('name'=>"Virat Gandhi");
    

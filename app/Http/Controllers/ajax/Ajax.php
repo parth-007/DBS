@@ -30,7 +30,10 @@ class Ajax extends Controller
     	}
     	else
     	{
+    		$data = DB::table('tbluser')->where('email',$req->mail)->first();
+
     		session(['email'=>$req->mail]);
+    		session(['username'=>$data->username]);
     		echo 0;
     	}
 	}
@@ -44,6 +47,7 @@ class Ajax extends Controller
     	}
     	else
     	{
+
     		session(['admin_email'=>$req->mail]);
     		echo 0;
     	}
