@@ -6,7 +6,6 @@ Route::get('admin/dashboard','admin\AdminDashboard@index');
 Route::get('dashboard','client\ClientDashboard@index');
 Route::get('client/booking','client\ClientDashboard@book');
 Route::any('client/show_slots','client\ClientDashboard@show_slots');
-
 Route::get('profile','client\ClientDashboard@userProfile');
 Route::post('updateProfile','client\ClientDashboard@updateProfile');
 Route::get('request','client\Respond_Request@index');
@@ -16,9 +15,7 @@ Route::post('client/login','client\Login_controller@log_in');
 Route::get('logout','client\Login_controller@log_out');
 Route::post('dup_mail','ajax\Ajax@dup_mail_check');
 Route::post('log_check','ajax\Ajax@log_info_check');
-
 Route::get('send','mailController@send');
-
 Route::get('admin/login','admin\admin_login_controller@index');
 Route::post('admin/log_check','ajax\Ajax@admin_log_info_check');
 Route::get('admin/buildings','admin\AdminDashBoard@building');
@@ -33,10 +30,10 @@ Route::get('admin/resourses/delete/{id}','admin\AdminDashBoard@deleteResource');
 Route::post('admin/resources/update/','admin\AdminDashBoard@updateResource');
 Route::get('admin/resources/fetchForUpdate/{update_id}','admin\AdminDashBoard@fetchForUpdate');
 Route::get('admin/logout','admin\admin_login_controller@logout');
-
 Route::get('client/Login_controller/activate_account/{userid}/{activate_code}', 'client\Login_controller@activate_account');
-
-
-
+Route::post('client/forget_pass','client\Login_controller@forget_password');
+Route::get('client/Login_controller/reset_password/{userid}/{activate_code}', 'client\Login_controller@reset_pass');
+Route::post('client/reset_mail','ajax\Ajax@reset_mail_check');
+Route::post('client/reset','client\Login_controller@reset');
 ?>
 
