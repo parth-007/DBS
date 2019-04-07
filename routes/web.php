@@ -16,7 +16,9 @@ Route::post('client/login','client\Login_controller@log_in');
 Route::get('logout','client\Login_controller@log_out');
 Route::post('dup_mail','ajax\Ajax@dup_mail_check');
 Route::post('log_check','ajax\Ajax@log_info_check');
-Route::get('sendbasicemail','client\Mail_Controller@basic_email');
+
+Route::get('send','mailController@send');
+
 Route::get('admin/login','admin\admin_login_controller@index');
 Route::post('admin/log_check','ajax\Ajax@admin_log_info_check');
 Route::get('admin/buildings','admin\AdminDashBoard@building');
