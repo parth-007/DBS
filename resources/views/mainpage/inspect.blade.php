@@ -166,7 +166,7 @@
                     <label>Message : </label>
                 </div>
                 <div class="tx-al-rght">
-                    <input type="submit" value="Send" class="btn">
+                    <input type="submit" value="Send" class="btn" style="border-color: white;">
                 </div>
                 <label class="disp-no">*Sent Successfully.</label>
             </form>
