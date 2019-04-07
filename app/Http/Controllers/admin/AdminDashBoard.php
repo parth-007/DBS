@@ -53,6 +53,8 @@ class AdminDashBoard extends Controller
         return view('admin/resource',$data);
     }
     function insertResource(Request $req){
+        // echo $req->isAllocate;
+        // die;
         if($req->ac == "on"){
             $ac = 1;
         }
@@ -86,7 +88,7 @@ class AdminDashBoard extends Controller
         $buildingid = $req->buildingname;
         $resourcename = $req->resourcename;
         $capacity = $req->capacity;
-        $isallocate = 0;
+        $isallocate = $req->isAllocate;
         // echo $ac;
         // echo $computer;
         // echo $podium;
@@ -145,7 +147,7 @@ class AdminDashBoard extends Controller
         $capacity = $req->updt_capacity;
         $updt_id = $req->updt_id;
         $facilityid = $req->facility_id;
-
+        $isAllocate = $req->updt_isAllocate;
         // echo $ac;
         // echo $computer;
         // echo $podium;
@@ -161,7 +163,7 @@ class AdminDashBoard extends Controller
         $facilityid = $temp[0]->facilityid;
         // echo $facilityid;
         
-        DB::table('tblresource')->where('resource_id',$updt_id)->update(["resourcename"=>$resourcename,"capacity"=>$capacity,"buildingid"=>$buildingid,"facilityid"=>$facilityid]);
+        DB::table('tblresource')->where('resource_id',$updt_id)->update(["resourcename"=>$resourcename,"capacity"=>$capacity,"buildingid"=>$buildingid,"facilityid"=>$facilityid,"isAllocate"=>$isAllocate]);
         return redirect('admin/resources');
 
     }
