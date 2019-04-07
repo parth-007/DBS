@@ -111,6 +111,7 @@
                     <input type="password" id="password" name="password" required>
                     <label>Password : </label>
                 </div>
+                {{@$error}}
                 <div class="tx-al-rght">
                     <input type="button" id="login_button" name="login" value="Login" class="btn">
                 </div>
@@ -123,6 +124,7 @@
                 <hr style="border: none; background: rgba(255, 255, 255, 0.3); height: .5px;">
                 <div class="input-grp">
                     <label class="disp-no" id="dup_label" style="color: red;">*This email is already in our network</label>
+
                     <input type="email" name="mail2" id="mail2" required>
                     <label>DA Mail-ID : </label>
                 </div>

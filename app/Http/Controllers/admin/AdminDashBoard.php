@@ -8,6 +8,11 @@ use DB;
 
 class AdminDashBoard extends Controller
 {
+
+    function __construct(){
+        $this->middleware('CheckisAdmin');
+        $this->middleware('Backend');
+    }
     function index(){
 
     	return view('admin/dashboard');

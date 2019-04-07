@@ -32,4 +32,11 @@ Route::post('admin/resources/insert','admin\AdminDashBoard@insertResource');
 Route::get('admin/resourses/delete/{id}','admin\AdminDashBoard@deleteResource');
 Route::post('admin/resources/update/','admin\AdminDashBoard@updateResource');
 Route::get('admin/resources/fetchForUpdate/{update_id}','admin\AdminDashBoard@fetchForUpdate');
+Route::get('admin/logout','admin\admin_login_controller@logout');
+
+Route::get('client/Login_controller/activate_account/{userid}/{activate_code}', 'client\Login_controller@activate_account');
+
+
+
 ?>
+
