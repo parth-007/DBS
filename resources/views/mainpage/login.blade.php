@@ -6,14 +6,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" type="text/css" media="screen" href="{{asset('mainpage/CSS/fontawesomeWeb/css/all.css')}}" />
-
     <link rel="stylesheet" type="text/css" media="screen" href="{{asset('mainpage/CSS/main.css')}}" />
     <link rel="stylesheet" type="text/css" media="screen" href="{{asset('mainpage/CSS/basic.css')}}" />
-
 </head>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript">
+    
+    function pop_up() {
+        // alert("Hi");
+        document.body.style.overflow = "hidden";
+        document.getElementById('pop-up').className = "popup-show";
+    }
+
+    function pop_down() {
+        // alert("Hi");
+        document.body.style.overflow = "auto";
+        document.getElementById('pop-up').className = "popup-hid";
+    }
+
     $(document).ready(function(){
         $("#mail2").blur(function(){
             var mail = $("#mail2").val();
