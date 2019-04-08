@@ -14,8 +14,10 @@ class AdminDashBoard extends Controller
         $this->middleware('Backend');
     }
     function index(){
-
-    	return view('admin/dashboard');
+        $count['resources_count']=DB::table('tblresource')->count();
+        $count['users_count']=DB::table('tbluser')->count();
+        $count['bookings_count']=DB::table('tblbooking')->count();
+    	return view('admin/dashboard',$count);
     }
     function building(){
         $data['buildings']=DB::table('tblbuilding')->get();
