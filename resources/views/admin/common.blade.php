@@ -11,10 +11,11 @@
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
     <title>DBS Admin Dashboard</title>
+    <link href="{{asset('admin/css/lib/toastr/toastr.min.css')}}" rel="stylesheet">
     <!-- Bootstrap Core CSS -->
     <link href="{{asset('admin/css/lib/bootstrap/bootstrap.min.css')}}" rel="stylesheet">
     <!-- Custom CSS -->
-
+    
     <link href="{{asset('admin/css/lib/calendar2/semantic.ui.min.css')}}" rel="stylesheet">
     <link href="{{asset('admin/css/lib/calendar2/pignose.calendar.min.css')}}" rel="stylesheet">
     <link href="{{asset('admin/css/lib/owl.carousel.min.css')}}" rel="stylesheet" />
@@ -23,6 +24,8 @@
     <link href="{{asset('admin/css/style.css')}}" rel="stylesheet">
 
     <script src="{{asset('admin/js/lib/jquery/jquery.min.js')}}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/additional-methods.min.js"></script>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:** -->
@@ -30,6 +33,11 @@
     <script src="https:**oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https:**oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 <![endif]-->
+        <style>
+            .error{
+                color:red;
+            }
+        </style>
 </head>
 
 <body class="fix-header fix-sidebar">
@@ -229,11 +237,11 @@
                             <a class="nav-link dropdown-toggle text-muted  " href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="images/users/5.jpg" alt="user" class="profile-pic" /></a>
                             <div class="dropdown-menu dropdown-menu-right animated zoomIn">
                                 <ul class="dropdown-user">
-                                    <li><a href="#"><i class="ti-user"></i> Profile</a></li>
+                                    <li><a href="{{url('admin/profile')}}"><i class="ti-user"></i> Profile</a></li>
                                     <li><a href="#"><i class="ti-wallet"></i> Balance</a></li>
                                     <li><a href="#"><i class="ti-email"></i> Inbox</a></li>
                                     <li><a href="#"><i class="ti-settings"></i> Setting</a></li>
-                                    <li><a href="#"><i class="fa fa-power-off"></i> Logout</a></li>
+                                    <li><a href="{{url('admin/logout')}}"><i class="fa fa-power-off"></i> Logout</a></li>
                                 </ul>
                             </div>
                         </li>

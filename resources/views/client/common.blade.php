@@ -7,7 +7,6 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <!-- Tell the browser to be responsive to screen width -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -22,13 +21,15 @@
     <link href="{{asset('client/assets/plugins/chartist-plugin-tooltip-master/dist/chartist-plugin-tooltip.css')}}" rel="stylesheet">
     <link href="{{asset('client/assets/plugins/css-chart/css-chart.css')}}" rel="stylesheet">
     <!-- toast CSS --> --}}
-    <link href="{{asset('client/assets/plugins/toast-master/css/jquery.toast.css')}}" rel="stylesheet">
+    
     <!-- Custom CSS -->
     <link href="{{asset('client/css/style.css')}}" rel="stylesheet">
     <!-- You can change the theme colors from here -->
     <link href="{{asset('client/css/colors/blue.css')}}" id="theme" rel="stylesheet">
-
     <script src="{{asset('client/assets/plugins/jquery/jquery.min.js')}}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/additional-methods.min.js"></script>
+
    
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -37,19 +38,24 @@
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 <![endif]-->
 <script>
-    (function(i, s, o, g, r, a, m) {
-        i['GoogleAnalyticsObject'] = r;
-        i[r] = i[r] || function() {
-            (i[r].q = i[r].q || []).push(arguments)
-        }, i[r].l = 1 * new Date();
-        a = s.createElement(o), m = s.getElementsByTagName(o)[0];
-        a.async = 1;
-        a.src = g;
-        m.parentNode.insertBefore(a, m)
-    })(window, document, 'script', '../../../../../www.google-analytics.com/analytics.js', 'ga');
-    ga('create', 'UA-85622565-1', 'auto');
-    ga('send', 'pageview');
-    </script>
+    // (function(i, s, o, g, r, a, m) {
+    //     i['GoogleAnalyticsObject'] = r;
+    //     i[r] = i[r] || function() {
+    //         (i[r].q = i[r].q || []).push(arguments)
+    //     }, i[r].l = 1 * new Date();
+    //     a = s.createElement(o), m = s.getElementsByTagName(o)[0];
+    //     a.async = 1;
+    //     a.src = g;
+    //     m.parentNode.insertBefore(a, m)
+    // })(window, document, 'script', '../../../../../www.google-analytics.com/analytics.js', 'ga');
+    // ga('create', 'UA-85622565-1', 'auto');
+    // ga('send', 'pageview');
+    // </script>
+    <style>
+        .error{
+            color:red;
+        }
+    </style>
 </head>
 
 <body class="fix-header fix-sidebar card-no-border">
@@ -202,12 +208,12 @@
                         <!-- ============================================================== -->
                         <!-- Messages -->
                         <!-- ============================================================== -->
-                        <!-- <li class="nav-item dropdown mega-dropdown"> <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="mdi mdi-view-grid"></i></a>
+                        <li class="nav-item dropdown mega-dropdown"> <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="mdi mdi-view-grid"></i></a>
                             <div class="dropdown-menu animated bounceInDown">
                                 <ul class="mega-dropdown-menu row">
                                     <li class="col-lg-3 col-xlg-2 m-b-30">
                                         <h4 class="m-b-20">CAROUSEL</h4>
-                                        
+                                        <!-- CAROUSEL -->
                                         <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
                                             <div class="carousel-inner" role="listbox">
                                                 <div class="carousel-item active">
@@ -223,11 +229,11 @@
                                             <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev"> <span class="carousel-control-prev-icon" aria-hidden="true"></span> <span class="sr-only">Previous</span> </a>
                                             <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next"> <span class="carousel-control-next-icon" aria-hidden="true"></span> <span class="sr-only">Next</span> </a>
                                         </div>
-                                        
+                                        <!-- End CAROUSEL -->
                                     </li>
                                     <li class="col-lg-3 m-b-30">
                                         <h4 class="m-b-20">ACCORDION</h4>
-                                        
+                                        <!-- Accordian -->
                                         <div id="accordion" class="nav-accordion" role="tablist" aria-multiselectable="true">
                                             <div class="card">
                                                 <div class="card-header" role="tab" id="headingOne">
@@ -266,7 +272,7 @@
                                     </li>
                                     <li class="col-lg-3  m-b-30">
                                         <h4 class="m-b-20">CONTACT US</h4>
-                                        
+                                        <!-- Contact -->
                                         <form>
                                             <div class="form-group">
                                                 <input type="text" class="form-control" id="exampleInputname1" placeholder="Enter Name"> </div>
@@ -280,7 +286,7 @@
                                     </li>
                                     <li class="col-lg-3 col-xlg-4 m-b-30">
                                         <h4 class="m-b-20">List style</h4>
-                                        
+                                        <!-- List style -->
                                         <ul class="list-style-none">
                                             <li><a href="javascript:void(0)"><i class="fa fa-check text-success"></i> You can give link</a></li>
                                             <li><a href="javascript:void(0)"><i class="fa fa-check text-success"></i> Give link</a></li>
@@ -291,7 +297,7 @@
                                     </li>
                                 </ul>
                             </div>
-                        </li> -->
+                        </li>
                         <!-- ============================================================== -->
                         <!-- End Messages -->
                         <!-- ============================================================== -->
@@ -300,10 +306,10 @@
                     <!-- User profile and search -->
                     <!-- ============================================================== -->
                     <ul class="navbar-nav my-lg-0">
-                        <!-- <li class="nav-item hidden-sm-down">
+                        <li class="nav-item hidden-sm-down">
                             <form class="app-search">
                                 <input type="text" class="form-control" placeholder="Search for..."> <a class="srh-btn"><i class="ti-search"></i></a> </form>
-                        </li> -->
+                        </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="{{asset('client/assets/images/users/1.jpg')}}" alt="user" class="profile-pic" /></a>
                             <div class="dropdown-menu dropdown-menu-right animated flipInY">
@@ -323,14 +329,14 @@
                                     <li role="separator" class="divider"></li>
                                     <li><a href="#"><i class="ti-settings"></i> Account Setting</a></li>
                                     <li role="separator" class="divider"></li>
-                                    <li><a href="\logout"><i class="fa fa-power-off"></i> Logout</a></li>
+                                    <li><a href="#"><i class="fa fa-power-off"></i> Logout</a></li>
                                 </ul>
                             </div>
                         </li>
-                        <!-- <li class="nav-item dropdown">
+                        <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="flag-icon flag-icon-us"></i></a>
                             <div class="dropdown-menu  dropdown-menu-right animated bounceInDown"> <a class="dropdown-item" href="#"><i class="flag-icon flag-icon-in"></i> India</a> <a class="dropdown-item" href="#"><i class="flag-icon flag-icon-fr"></i> French</a> <a class="dropdown-item" href="#"><i class="flag-icon flag-icon-cn"></i> China</a> <a class="dropdown-item" href="#"><i class="flag-icon flag-icon-de"></i> Dutch</a> </div>
-                        </li> -->
+                        </li>
                     </ul>
                 </div>
             </nav>
@@ -349,79 +355,61 @@
                     <!-- User profile image -->
                     <!-- <div class="profile-img"> <img src="{{asset('client/assets/images/users/1.jpg')}}" alt="user" /> </div> -->
                     <!-- User profile text-->
-                    <div class="profile-text"> 
-                        <!-- <a href="#" class="dropdown-toggle link u-dropdown" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true"> -->Markarn Doe 
+                    <!--   -->
+                    <!-- div class="profile-text"> 
+                        <!-- <a href="#" class="dropdown-toggle link u-dropdown" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true"> -->
+                        <p id="user_lbl"><?php echo session('username');?> </p>
                         <span class="caret"></span>
                         <!-- </a> -->
                         <!-- <div class="dropdown-menu animated flipInY">
+                            
+                            <div class="profile-text"> <a href="#" class="dropdown-toggle link u-dropdown" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">Markarn Doe <span class="caret"></span></a>
+                        <div class="dropdown-menu animated flipInY">
                             <a href="#" class="dropdown-item"><i class="ti-user"></i> My Profile</a>
                             <a href="#" class="dropdown-item"><i class="ti-wallet"></i> My Balance</a>
                             <a href="#" class="dropdown-item"><i class="ti-email"></i> Inbox</a>
                             <div class="dropdown-divider"></div> <a href="#" class="dropdown-item"><i class="ti-settings"></i> Account Setting</a>
                             <div class="dropdown-divider"></div> <a href="login.html" class="dropdown-item"><i class="fa fa-power-off"></i> Logout</a>
-                        </div> -->
+                        </div>
                     </div>
                 </div>
                 <!-- End User profile text-->
                 <!-- Sidebar navigation-->
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav">
-                        <li class="nav-small-cap">SERVICES</li>
-                       
-                      
+                        <li class="nav-small-cap">PERSONAL</li>
                         <li>
-                            <!-- <a class="has-arrow" href="#" aria-expanded="false"> -->
-                            <a href="{{url('client/booking')}}">
-                            <i class="mdi mdi-gauge"></i>
-                            <span class="hide-menu">
-                            Book Resources
-                            <!-- <span class="label label-rounded label-success">5</span> -->
-                            </span>
-                            </a>
-                            <!-- <ul aria-expanded="false" class="collapse">
+                            <a class="has-arrow" href="#" aria-expanded="false"><i class="mdi mdi-gauge"></i><span class="hide-menu">Dashboard <span class="label label-rounded label-success">5</span></span></a>
+                            <ul aria-expanded="false" class="collapse">
                                 <li><a href="index.html">Modern Dashboard</a></li>
                                 <li><a href="index2.html">Awesome Dashboard</a></li>
                                 <li><a href="index3.html">Classy Dashboard</a></li>
                                 <li><a href="index4.html">Analytical Dashboard</a></li>
                                 <li><a href="index5.html">Minimal Dashboard</a></li>
-                            </ul> -->
+                            </ul>
                         </li>
                         <li>
-                            <!-- <a class="has-arrow " href="#" aria-expanded="false"> -->
-                            <a href="\client_display">
-                            <i class="mdi mdi-bullseye">
-                            </i>
-                            <span class="hide-menu">Display (Booked)</span>
-                            </a>
-                            <!-- <ul aria-expanded="false" class="collapse">
+                            <a class="has-arrow " href="#" aria-expanded="false"><i class="mdi mdi-bullseye"></i><span class="hide-menu">Apps</span></a>
+                            <ul aria-expanded="false" class="collapse">
                                 <li><a href="app-calendar.html">Calendar</a></li>
                                 <li><a href="app-chat.html">Chat app</a></li>
                                 <li><a href="app-ticket.html">Support Ticket</a></li>
                                 <li><a href="app-contact.html">Contact / Employee</a></li>
                                 <li><a href="app-contact2.html">Contact Grid</a></li>
                                 <li><a href="app-contact-detail.html">Contact Detail</a></li>
-                            </ul> -->
+                            </ul>
                         </li>
                         <li>
-                            <!-- <a class="has-arrow " href="#" aria-expanded="false"> -->
-                            <a href="\request">
-                            <i class="mdi mdi-email"></i>
-                            <span class="hide-menu">Respond to Request</span>
-                            </a>
-                            <!-- <ul aria-expanded="false" class="collapse">
+                            <a class="has-arrow " href="#" aria-expanded="false"><i class="mdi mdi-email"></i><span class="hide-menu">Inbox</span></a>
+                            <ul aria-expanded="false" class="collapse">
                                 <li><a href="app-email.html">Mailbox</a></li>
                                 <li><a href="app-email-detail.html">Mailbox Detail</a></li>
                                 <li><a href="app-compose.html">Compose Mail</a></li>
-                            </ul> -->
+                            </ul>
                         </li>
                         <li>
-                            <!-- <a class="has-arrow" href="#" aria-expanded="false"> -->
-                            <a href="\logout">
-                            <!-- <i class="mdi mdi-chart-bubble"> -->
-                            <i class="mdi mdi-power">
-                            </i><span class="hide-menu">Log Out</span>
-                            </a>
-                            <!-- <ul aria-expanded="false" class="collapse">
+                            <a class="has-arrow" href="#" aria-expanded="false"><i class="mdi mdi-chart-bubble"></i><span class="hide-menu">Ui Elements</span></a>
+                            <ul aria-expanded="false" class="collapse">
                                 <li><a href="ui-cards.html">Cards</a></li>
                                 <li><a href="ui-user-card.html">User Cards</a></li>
                                 <li><a href="ui-buttons.html">Buttons</a></li>
@@ -448,10 +436,10 @@
                                 <li><a href="ui-carousel.html">Carousel</a></li>
                                 <li><a href="ui-date-paginator.html">Date-paginator</a></li>
                                 <li><a href="ui-dragable-portlet.html">Dragable Portlet</a></li>
-                            </ul> -->
+                            </ul>
                         </li>
-                        <!-- <li class="nav-devider"></li> -->
-                        <!-- <li class="nav-small-cap">FORMS, TABLE &amp; WIDGETS</li>
+                        <li class="nav-devider"></li>
+                        <li class="nav-small-cap">FORMS, TABLE &amp; WIDGETS</li>
                         <li>
                             <a class="has-arrow" href="#" aria-expanded="false"><i class="mdi mdi-file"></i><span class="hide-menu">Forms</span></a>
                             <ul aria-expanded="false" class="collapse">
@@ -597,21 +585,21 @@
                                 </li>
                                 <li><a href="#">item 1.4</a></li>
                             </ul>
-                        </li> -->
+                        </li>
                     </ul>
                 </nav>
                 <!-- End Sidebar navigation -->
             </div>
             <!-- End Sidebar scroll-->
             <!-- Bottom points-->
-            <!-- <div class="sidebar-footer">
-                
+            <div class="sidebar-footer">
+                <!-- item-->
                 <a href="#" class="link" data-toggle="tooltip" title="Settings"><i class="ti-settings"></i></a>
-                
+                <!-- item-->
                 <a href="#" class="link" data-toggle="tooltip" title="Email"><i class="mdi mdi-gmail"></i></a>
-                
+                <!-- item-->
                 <a href="#" class="link" data-toggle="tooltip" title="Logout"><i class="mdi mdi-power"></i></a>
-            </div> -->
+            </div>
             <!-- End Bottom points-->
         </aside>
         <!-- ============================================================== -->
