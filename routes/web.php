@@ -42,6 +42,10 @@ Route::post('client/reset_mail','ajax\Ajax@reset_mail_check');
 Route::post('client/reset','client\Login_controller@reset');
 Route::get('admin/profile','admin\AdminDashBoard@userProfile');
 Route::post('admin/updateProfile','admin\AdminDashBoard@updateProfile');
+Route::get('admin/faculty','admin\AdminDashBoard@faculty');
+Route::get('client/Login_controller/activate_account/{userid}/{activate_code}', 'client\Login_controller@activate_account');
+Route::post('admin/add_faculty','admin\AdminDashBoard@add_faculty');
+Route::get('admin/AdminDashBoard/verify_faculty/{email}/{code}/{pass}','admin\AdminDashBoard@verify_faculty');
 
 ?>
 
