@@ -15,7 +15,6 @@ class CheckAdmin
      */
     public function handle($request, Closure $next)
     {
-
         if(!$request->session()->has('admin_email'))
         {
             return redirect('admin/login');

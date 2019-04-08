@@ -12,6 +12,7 @@ class Mail_Controller extends Controller
 	function __construct()
     {
         $this->middleware('Backend');
+        $this->middleware('CheckisClient');
     }
    function basic_email() {
       $data = array('name'=>"Virat Gandhi");
