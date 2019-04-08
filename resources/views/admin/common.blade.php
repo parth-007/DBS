@@ -255,6 +255,7 @@
                                 <li><a href="{{url('admin/buildings')}}">Building</a></li>
                                 <li><a href="{{url('admin/resources')}}">Resources</a></li>
                                 <li><a href="{{url('admin/users')}}">Users</a></li>
+                                <li><a href="{{url('admin/disableusers')}}">Enable/Disable Multiple Users</a></li>
                             </ul>
                         </li>
                     </ul>

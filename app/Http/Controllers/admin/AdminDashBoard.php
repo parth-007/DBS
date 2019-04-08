@@ -38,17 +38,52 @@ class AdminDashBoard extends Controller
     }
     public function status_change(Request $req){
         $email = $req->email;
-        $status = $req->status;
-        if($status==1)
-            $status=0;
-        else    
-            $status=1;    
+        $status = $req->status;    
         $up=DB::table("tbluser")->where('email',$email)->update(['is_active'=>$status]);
         echo $up;
     }
+    //INM 06-04-2019
+    public function showHint(Request $req)
+    {
+        $str = $req->str;
+        $res=DB::table("tbluser")
+        ->join('tbluser_type','tbluser_type.usertypeid','=','tbluser.usertypeid')
+            ->where('email','like','%'.$str.'%')
+            ->orWhere('username', 'like', '%'.$str.'%')
+            ->orWhere('phonenumber', 'like', '%'.$str.'%')
+            ->orWhere('tbluser_type.usertype', 'like', '%'.$str.'%')
+            ->select('email','username','phonenumber','tbluser_type.usertype','tbluser.is_active','tbluser.is_verified')
+            ->orderBy('tbluser_type.usertypeid','asc')
+            ->get();
+            $data="";
+            $counter=1;
+            foreach($res as $user)
+            { 
+                $data.='<tr><td>'.$counter++.'</td>
+                <td>'.$user->email.'</td>
+                <td>'.$user->username.'</td>
+                <td>'.$user->usertype.'</td>
+                <td>'.$user->phonenumber.'</td>';
+                if ($user->is_verified==1){
+                    $data.='<td>Yes</td>';
+                }
+                else{
+                    $data.='<td>No</td>';
+                }
+                if ($user->is_active==1) {
+                    $data.='<td><a href="#" class="badge userstatus badge-info">Active</td>';
+                }
+                else {
+                    $data.='<td><a href="#" class="badge userstatus badge-danger">In-active</td>';
+                }
+                $data.='</tr>';
+            }
+            echo strval($data);
+    }
+    
     function resource(){
         
-        $data['resource'] = DB::table("tblresource")->paginate(10);
+        $data['resource'] = DB::table("tblresource")->paginate(20);
         $data['buildings']=DB::table('tblbuilding')->get();
         return view('admin/resource',$data);
     }
@@ -192,8 +227,111 @@ class AdminDashBoard extends Controller
         // echo json_encode($tblfacility);
     }
     function user(){
-        $data['users']=DB::table('tbluser')->join('tbluser_type','tbluser.usertypeid','=','tbluser_type.usertypeid')->select('tbluser.email','tbluser.phonenumber','tbluser_type.usertype','tbluser.is_active')->get();
+        $data['users']=DB::table('tbluser')
+            ->join('tbluser_type','tbluser.usertypeid','=','tbluser_type.usertypeid')
+            ->select('tbluser.email','username','tbluser.phonenumber','tbluser_type.usertype','tbluser.is_active','tbluser.is_verified')
+            ->orderBy('tbluser_type.usertypeid','asc')
+            ->paginate(5);
         return view('admin/users',$data);
     }
-    
+    //INM 07-04-2019
+    function showBySearchPattern(Request $req){
+        $selpattern = $req->selpattern;
+        $str = $req->str;
+        if($selpattern==1)
+            $str=$str.'%';
+        elseif($selpattern==2)
+            $str='%'.$str;
+        elseif($selpattern==3)
+            $str=$str;
+        $res=DB::table("tbluser")
+        ->join('tbluser_type','tbluser_type.usertypeid','=','tbluser.usertypeid')
+            ->where('email','like',$str)
+            ->orWhere('username','like',$str)
+            ->select('email','username','phonenumber','tbluser_type.usertype','tbluser.is_active','tbluser.is_verified')
+            ->orderBy('tbluser_type.usertypeid','asc')
+            ->get();
+            $data="";
+            $counter=1;
+            $active="Active";
+            $inactive="In-active";
+            foreach($res as $user)
+            { 
+                $data.='<tr><td>'.$counter++.'</td>
+                <td>'.$user->email.'</td>
+                <td>'.$user->username.'</td>
+                <td>'.$user->usertype.'</td>
+                <td>'.$user->phonenumber.'</td>';
+                if ($user->is_verified==1){
+                    $data.='<td>Yes</td>';
+                }
+                else{
+                    $data.='<td>No</td>';
+                }
+                if ($user->is_active==1)
+                    $data.='<td>'.$active.'</td>';
+                else
+                    $data.='<td>'.$inactive.'</td>';
+                $data.='</tr>';
+            }
+        echo strval($data);
+    }
+    //INM 07-04-2019
+    function multiplestudentstatusupdate(Request $req){
+        $str = $req->str;
+        $status=$req->status;
+        $selpattern = $req->selpattern;
+        $str = $req->str;
+        if($selpattern==1)
+            $str=$str.'%';
+        elseif($selpattern==2)
+            $str='%'.$str;
+        elseif($selpattern==3)
+            $str=$str;
+        $status = $req->status;
+        DB::table("tbluser")
+            ->where('email','like',$str)->update(['is_active'=>$status]);
+
+        //after update displaying data
+        $res=DB::table("tbluser")
+        ->join('tbluser_type','tbluser_type.usertypeid','=','tbluser.usertypeid')
+            ->where('email','like',$str)
+            ->orWhere('username','like',$str)
+            ->select('email','username','phonenumber','tbluser_type.usertype','tbluser.is_active','tbluser.is_verified')
+            ->orderBy('tbluser_type.usertypeid','asc')
+            ->get();
+            $data="";
+            $counter=1;
+            $active="Active";
+            $inactive="In-active";
+            foreach($res as $user)
+            { 
+                $data.='<tr><td>'.$counter++.'</td>
+                <td>'.$user->email.'</td>
+                <td>'.$user->username.'</td>
+                <td>'.$user->usertype.'</td>
+                <td>'.$user->phonenumber.'</td>';
+                if ($user->is_verified==1){
+                    $data.='<td>Yes</td>';
+                }
+                else{
+                    $data.='<td>No</td>';
+                }
+                if ($user->is_active==1)
+                    $data.='<td>'.$active.'</td>';
+                else
+                    $data.='<td>'.$inactive.'</td>';
+                $data.='</tr>';
+            }
+        echo strval($data);   
+    }
+    //INM 07-04-2019
+    function disableusers(){
+        $data['users']=DB::table('tbluser')
+                ->join('tbluser_type','tbluser.usertypeid','=','tbluser_type.usertypeid')
+                ->select('tbluser.email','username','tbluser.phonenumber','tbluser_type.usertype','tbluser.is_active','tbluser.is_verified')
+                ->orderBy('tbluser_type.usertypeid','asc')
+                ->paginate(5);
+        return view('admin/disableusers',$data);
+    }
 }

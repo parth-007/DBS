@@ -22,9 +22,13 @@ Route::post('admin/log_check','ajax\Ajax@admin_log_info_check');
 Route::get('admin/buildings','admin\AdminDashBoard@building');
 Route::post('admin/buildings/insertbuilding','admin\AdminDashBoard@insert');
 Route::get('admin/AdminDashBoard/fetch_account/{id}','admin\AdminDashBoard@fetch_account');
-Route::post('admin/AdminDashBoard/status_change/','admin\AdminDashBoard@status_change');
+Route::post('admin/AdminDashBoard/status_change/','admin\AdminDashBoard@status_change');//INM 06-04-2019
+Route::post('admin/AdminDashBoard/showHint/','admin\AdminDashBoard@showHint');//INM 06-04-2019
 Route::get('admin/buildings/delete/{id}','admin\AdminDashBoard@delete');
 Route::get('admin/users','admin\AdminDashBoard@user');
+Route::get('admin/disableusers','admin\AdminDashBoard@disableusers');// INM 07-04-2019
+Route::POST('admin/AdminDashBoard/showBySearchPattern/','admin\AdminDashBoard@showBySearchPattern');// INM 07-04-2019
+Route::POST('admin/AdminDashBoard/multiplestudentstatusupdate/','admin\AdminDashBoard@multiplestudentstatusupdate');// INM 07-04-2019
 Route::get('admin/resources','admin\AdminDashBoard@resource');
 Route::post('admin/resources/insert','admin\AdminDashBoard@insertResource');
 Route::get('admin/resourses/delete/{id}','admin\AdminDashBoard@deleteResource');
