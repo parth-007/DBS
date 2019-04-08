@@ -33,11 +33,15 @@ Route::post('admin/resources/insert','admin\AdminDashBoard@insertResource');
 Route::get('admin/resourses/delete/{id}','admin\AdminDashBoard@deleteResource');
 Route::post('admin/resources/update/','admin\AdminDashBoard@updateResource');
 Route::get('admin/resources/fetchForUpdate/{update_id}','admin\AdminDashBoard@fetchForUpdate');
+Route::post('admin/resources/searchOnResources','admin\AdminDashBoard@searchOnResources');
 Route::get('admin/logout','admin\admin_login_controller@logout');
 Route::get('client/Login_controller/activate_account/{userid}/{activate_code}', 'client\Login_controller@activate_account');
 Route::post('client/forget_pass','client\Login_controller@forget_password');
 Route::get('client/Login_controller/reset_password/{userid}/{activate_code}', 'client\Login_controller@reset_pass');
 Route::post('client/reset_mail','ajax\Ajax@reset_mail_check');
 Route::post('client/reset','client\Login_controller@reset');
+Route::get('admin/profile','admin\AdminDashBoard@userProfile');
+Route::post('admin/updateProfile','admin\AdminDashBoard@updateProfile');
+
 ?>
 

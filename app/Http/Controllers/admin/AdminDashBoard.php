@@ -93,6 +93,8 @@ class AdminDashBoard extends Controller
         return view('admin/resource',$data);
     }
     function insertResource(Request $req){
+        // echo $req->isAllocate;
+        // die;
         if($req->ac == "on"){
             $ac = 1;
         }
@@ -126,7 +128,7 @@ class AdminDashBoard extends Controller
         $buildingid = $req->buildingname;
         $resourcename = $req->resourcename;
         $capacity = $req->capacity;
-        $isallocate = 0;
+        $isallocate = $req->isAllocate;
         // echo $ac;
         // echo $computer;
         // echo $podium;
@@ -185,7 +187,7 @@ class AdminDashBoard extends Controller
         $capacity = $req->updt_capacity;
         $updt_id = $req->updt_id;
         $facilityid = $req->facility_id;
-
+        $isAllocate = $req->updt_isAllocate;
         // echo $ac;
         // echo $computer;
         // echo $podium;
@@ -201,7 +203,7 @@ class AdminDashBoard extends Controller
         $facilityid = $temp[0]->facilityid;
         // echo $facilityid;
         
-        DB::table('tblresource')->where('resource_id',$updt_id)->update(["resourcename"=>$resourcename,"capacity"=>$capacity,"buildingid"=>$buildingid,"facilityid"=>$facilityid]);
+        DB::table('tblresource')->where('resource_id',$updt_id)->update(["resourcename"=>$resourcename,"capacity"=>$capacity,"buildingid"=>$buildingid,"facilityid"=>$facilityid,"isAllocate"=>$isAllocate]);
         return redirect('admin/resources');
 
     }
@@ -339,4 +341,57 @@ class AdminDashBoard extends Controller
                 ->paginate(5);
         return view('admin/disableusers',$data);
     }
+
+    function searchOnResources(Request $req){
+        $str = $req->str;
+        $resource=DB::table("tblresource")
+        ->join('tblbuilding','tblbuilding.buildingid','=','tblresource.buildingid')
+            ->where('buildingname','like','%'.$str.'%')
+            ->orWhere('resourcename', 'like', '%'.$str.'%')
+            ->orWhere('capacity', 'like', '%'.$str.'%')
+            ->select('resource_id','resourcename','capacity','isAllocate')
+            ->get();
+            $data="";
+            $counter=1;
+            foreach($resource as $res)
+            { 
+                if($res->isAllocate == 1)
+                    $isAllocate_msg = "Yes";
+                elseif($res->isAllocate == 0)
+                    $isAllocate_msg = "No";
+
+                $data.='<tr><td>'.$res->resource_id.'</td>
+                <td>'.$res->resourcename.'</td>
+                <td>'.$res->capacity.'</td>
+                <td>'.$isAllocate_msg.'</td>
+                <td>'.'<a href="" onclick="updateHandler('.$res->resource_id.')" data-toggle="modal" data-target="#updateModal" class="badge badge-info">Update</a></td>
+                <td>'.'<a href=\'url("admin/resourses/delete/{'.$res->resource_id.'}")}}\' class="badge badge-info">Delete</a></td>';
+                $data.='</tr>';
+            }
+            echo strval($data);
+    }            
+    
+    function userProfile(){
+        $useremail="admin_booking@daiict.ac.in";
+        $data['user']=DB::table('tbladmin')
+        ->where('email',$useremail)
+        ->first();
+        return view('admin/profile',$data);
+    }
+
+    function updateProfile(Request $req){
+        $useremail="admin_booking@daiict.ac.in";
+        if($req->txt_password=='' || $req->txt_password==null){
+            $data=DB::table('tbladmin')
+            ->where('email', $useremail)
+            ->update(['username'=>$req->txt_username,"phone"=>$req->txt_phoneno]);
+        }
+        else{
+            $data=DB::table('tbladmin')
+            ->where('email', $useremail)
+            ->update(['username'=>$req->txt_username,"phone"=>$req->txt_phoneno,"password"=>$req->txt_password]);
+        }
+        echo $data;
+    }
+    
 }
