@@ -21,11 +21,14 @@
     <link href="{{asset('client/assets/plugins/chartist-plugin-tooltip-master/dist/chartist-plugin-tooltip.css')}}" rel="stylesheet">
     <link href="{{asset('client/assets/plugins/css-chart/css-chart.css')}}" rel="stylesheet">
     <!-- toast CSS --> --}}
-    <link href="{{asset('client/assets/plugins/toast-master/css/jquery.toast.css')}}" rel="stylesheet">
+    
     <!-- Custom CSS -->
     <link href="{{asset('client/css/style.css')}}" rel="stylesheet">
     <!-- You can change the theme colors from here -->
     <link href="{{asset('client/css/colors/blue.css')}}" id="theme" rel="stylesheet">
+    <script src="{{asset('client/assets/plugins/jquery/jquery.min.js')}}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/additional-methods.min.js"></script>
 
    
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -48,6 +51,11 @@
     // ga('create', 'UA-85622565-1', 'auto');
     // ga('send', 'pageview');
     // </script>
+    <style>
+        .error{
+            color:red;
+        }
+    </style>
 </head>
 
 <body class="fix-header fix-sidebar card-no-border">

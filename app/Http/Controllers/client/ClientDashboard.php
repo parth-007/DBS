@@ -47,14 +47,14 @@ class ClientDashboard extends Controller
 
    	}
     function userProfile(){
-        $useremail="201812109@daiict.ac.in";
+        $useremail="201812108@daiict.ac.in";
         $data['user']=DB::table('tbluser')
         ->where('email',$useremail)
         ->first();
         return view('client/profile',$data);
     }
     function updateProfile(Request $req){
-        $useremail="201812109@daiict.ac.in";
+        $useremail="201812108@daiict.ac.in";
         if($req->txt_password=='' || $req->txt_password==null){
             $data=DB::table('tbluser')
             ->where('email', $useremail)

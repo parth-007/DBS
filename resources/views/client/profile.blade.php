@@ -20,13 +20,14 @@
                 <!-- Row -->
                 <!-- /.row -->
                 <div class="row">
+                    
                     <div class="col-md-12">
                         <div class="card card-body">
                             <h3 class="box-title m-b-0">Profile</h3>
                             <p class="text-muted m-b-30 font-13">Update Profile</p>
                             <div class="row">  
                                 <div class="col-sm-12 col-xs-12">
-                                <form method="post" action="{{url('updateProfile')}}" id="frm_profile">
+                                <form method="post" id="frm_profile">
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">User Name</label>
                                             <input type="text" class="form-control" id="txt_username" name="txt_username" placeholder="Enter Username" value="{{@$user->username}}" required>
@@ -45,6 +46,7 @@
                                             <label id="hide_label" class="hid_label" style="color: red;"></label>
                                         </div>
                                         <button type="submit" class="btn btn-success waves-effect waves-light m-r-10">Submit</button>
+                                        <br/><br/><h2 id="lbl_success" style="color:blue;display:none">Profile Updated</h2>
                                     </form>
                                 </div>
                             </div>
@@ -117,37 +119,54 @@
             <!-- End Container fluid  -->
             <!-- ============================================================== -->
             <!-- ============================================================== -->
-            <script src="{{asset('client/assets/plugins/jquery/jquery.min.js')}}"></script>
+            
             <script>
-                $("#frm_profile").submit(function(e){
-                    e.preventDefault();
-                    if($("#txt_password").val()!=$("#txt_cpassword").val())
-                    {
-                        $("#hide_label").text("Password doesn't match");
-                    }
-                    else
-                    {
-                        $("#hide_label").text("");
-                        $.ajax({
-                        url: 'updateProfile',
-                        type: 'POST',
-                        data: $("#frm_profile").serialize()+"&_token={{csrf_token()}}",
-                    })
-                    .done(function(response) {
-                        if(response=="1" || response==1)
-                        {
-                            //window.location="/dashboard";
-                            alert("Profile updated");
+                $(document).ready(function(){
+                $.validator.addMethod("lettersonly", function(value, element) {
+                    return this.optional(element) || /^[a-z\s]+$/i.test(value);
+                }, "Only alphabetical characters"); 
+                $("#frm_profile").validate({
+                    rules: {
+                        txt_username:{
+                            lettersonly:true,
+                        },
+                        txt_password:{
+                            minlength:8,
+                        },
+                        txt_cpassword: {
+                            equalTo: "#txt_password"
+                        },
+                        txt_phoneno:{
+                            minlength: 10,
+                            maxlength:10
                         }
-                        console.log("success");
-                    })
-                    .fail(function() {
-                        console.log("error");
-                    })
-                    .always(function() {
-                        console.log("always");
-                    });
                     }
                 });
+                $("#frm_profile").submit(function(e){
+                    e.preventDefault();
+                    if($("#frm_profile").valid())
+                    {
+                            $.ajax({
+                            url: 'updateProfile',
+                            type: 'POST',
+                            data: $("#frm_profile").serialize()+"&_token={{csrf_token()}}",
+                        })
+                        .done(function(response) {
+                            if(response=="1" || response==1)
+                            { 
+                                $("#lbl_success").fadeIn(500);
+                                $("#lbl_success").fadeOut(5000);
+                            }
+                            console.log("success");
+                        })
+                        .fail(function() {
+                            console.log("error");
+                        })
+                        .always(function() {
+                            console.log("always");
+                        });
+                    }
+                });
+            });
             </script>
 @include('client/footer')

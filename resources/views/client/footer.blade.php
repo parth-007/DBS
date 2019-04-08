@@ -52,6 +52,7 @@
     <!-- Style switcher -->
     <!-- ============================================================== -->
     <script src="{{asset('client/assets/plugins/styleswitcher/jQuery.style.switcher.js')}}"></script>
+    
 </body>
 
 
