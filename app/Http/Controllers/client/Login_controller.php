@@ -51,7 +51,7 @@ class Login_controller extends Controller
         if($data)
         {
             DB::table('tbluser')->where('email',$user)->update(['is_verified'=>1]);
-            DB::table('tblverify_linkes')->where(['userid'=>$user,'link'=>$link])->delete();
+            // DB::table('tblverify_linkes')->where(['userid'=>$user,'link'=>$link])->delete();
             return view('client\reset',["user"=>$user]);
         }
         else{

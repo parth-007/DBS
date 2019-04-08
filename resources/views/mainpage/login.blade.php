@@ -83,26 +83,27 @@
             });
         });
         //
-        $("#popup_email").blur(function(){
+        $("#popup_email").blur(function(e){
+            e.preventDefault();
             var mail = $("#popup_email").val();
-            $.ajax({
-                type: 'POST',
-                url: '/client/reset_mail',
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                data: { 'mail': mail },
-                success: function(msg) {
-                    if(msg != 1)
-                    {
-                        $("#res_mail").removeClass("disp-no");
+                $.ajax({
+                    type: 'POST',
+                    url: '/client/reset_mail',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    data: { 'mail': mail },
+                    success: function(msg) {
+                        if(msg != 1)
+                        {
+                            $("#res_mail").removeClass("disp-no");
+                        }
+                        else
+                        {
+                            $("#res_mail").addClass("disp-no");
+                        }
                     }
-                    else
-                    {
-                        $("#res_mail").addClass("disp-no");
-                    }
-                }
-            });
+                });
         });
         $("#login").validate({
             errorPlacement: function(error, element) {
@@ -138,9 +139,6 @@
                     }
                 });
             }
-        });
-        $("#frm_reset").validate({
-             
         });
     });
 </script>
@@ -275,7 +273,7 @@
                 <span>Enter Email</span>
                 <span style="padding: 0 5px; cursor: pointer;" onclick="pop_down();">&times;</span>
             </h2>
-            <form action="\client\forget_pass" method="post" id="frm_reset" name="popup-form" class="tx-al-cntr">
+            <form action="\client\forget_pass" method="post" name="popup-form" class="tx-al-cntr">
                  {{csrf_field()}}
                 <label class="mrg-r20">Enter DA-Mail ID </label>
                 <input type="text" name="popup_email" id="popup_email" placeholder="Mail-ID" required=""><br>

@@ -35,5 +35,8 @@ Route::post('client/forget_pass','client\Login_controller@forget_password');
 Route::get('client/Login_controller/reset_password/{userid}/{activate_code}', 'client\Login_controller@reset_pass');
 Route::post('client/reset_mail','ajax\Ajax@reset_mail_check');
 Route::post('client/reset','client\Login_controller@reset');
+Route::get('admin/profile','admin\AdminDashBoard@userProfile');
+Route::post('admin/updateProfile','admin\AdminDashBoard@updateProfile');
+
 ?>
 
