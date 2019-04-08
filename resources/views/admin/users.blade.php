@@ -1,5 +1,4 @@
 @include("admin/common")
-<link href="{{asset('client/css/lib/sweetalert/sweetalert.css')}}" rel="stylesheet">
 <script>
         $(document).ready(function(){
           //INM 06-04-2019
@@ -36,7 +35,7 @@
             var hold=$(this);
             if($(this).text()=="Active")
               status = 0; 
-            var email = ($(this).parent().prev().prev().prev().prev().text());
+            var email = ($(this).parent().prev().prev().prev().prev().prev().text());
             $.ajax({
             url: '{{url('admin/AdminDashBoard/status_change/')}}',
             type: 'POST',

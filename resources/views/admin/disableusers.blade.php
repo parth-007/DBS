@@ -7,13 +7,12 @@
         $("#btn_active").prop('disabled',true);
         $(document).on("click",".status_update",function(){
         var str=$("#txtsearch").val();
-        var status=0;
         var selpattern=$("#selpattern").val();
-        if($(this).text()=="Active"){
-            status=1;
+        if($(this).text()=="Enable all"){
+            var status=1;
         }
-        else if($(this).text()=="In-Active"){
-            status=0;
+        else if($(this).text()=="Disable all"){
+            var status=0;
         }
         if(selpattern!=-1 && str!=""){
                 $.ajax({
@@ -58,8 +57,6 @@
             $("#btn_inactive").prop('disabled',false);
             $("#btn_active").prop('disabled',false);
         }
-        // alert(selpattern);
-        // alert(str);
         if(selpattern!=-1 && str!=""){
                 $.ajax({
                 url: '{{url('admin/AdminDashBoard/showBySearchPattern')}}',
