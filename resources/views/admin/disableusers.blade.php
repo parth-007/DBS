@@ -3,17 +3,17 @@
 <script>
         $(document).ready(function(){
         //INM 07-04-2019
-        $("#btn_inactive").prop('disabled',true);
-        $("#btn_active").prop('disabled',true);
+        // $("#btn_inactive").prop('disabled',true);
+        // $("#btn_active").prop('disabled',true);
         $(document).on("click",".status_update",function(){
         var str=$("#txtsearch").val();
-        var status=0;
+        // var status=0;
         var selpattern=$("#selpattern").val();
-        if($(this).text()=="Active"){
-            status=1;
+        if($(this).text()=="Enable all"){
+            var status=1;
         }
-        else if($(this).text()=="In-Active"){
-            status=0;
+        else if($(this).text()=="Disable all"){
+            var status=0;
         }
         if(selpattern!=-1 && str!=""){
                 $.ajax({
@@ -42,22 +42,22 @@
         }
         });  
         //INM 08-04-2019
-        $(document).on("change","#selpattern",function(){
-            $("#txtsearch").val("");
-        });
+        // $(document).on("change","#selpattern",function(){
+        //     $("#txtsearch").val("");
+        // });
         //INM 07-04-2019
         $(document).on("keyup","#txtsearch",function(){
         var str=$(this).val();
         var selpattern=$("#selpattern").val();
-        if(str=="")
-        {
-            $("#btn_inactive").prop('disabled',true);
-            $("#btn_active").prop('disabled',true);
-        }
-        else{
-            $("#btn_inactive").prop('disabled',false);
-            $("#btn_active").prop('disabled',false);
-        }
+        // if(str=="")
+        // {
+        //     $("#btn_inactive").prop('disabled',true);
+        //     $("#btn_active").prop('disabled',true);
+        // }
+        // else{
+        //     $("#btn_inactive").prop('disabled',false);
+        //     $("#btn_active").prop('disabled',false);
+        // }
         // alert(selpattern);
         // alert(str);
         if(selpattern!=-1 && str!=""){
