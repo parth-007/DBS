@@ -230,6 +230,8 @@ class AdminDashBoard extends Controller
                 $data.='</tr>';
             }
             echo strval($data);
+    }            
+    
     function userProfile(){
         $useremail="admin_booking@daiict.ac.in";
         $data['user']=DB::table('tbladmin')
