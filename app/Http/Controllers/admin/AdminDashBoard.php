@@ -211,10 +211,15 @@ class AdminDashBoard extends Controller
             $counter=1;
             foreach($resource as $res)
             { 
+                if($res->isAllocate == 1)
+                    $isAllocate_msg = "Yes";
+                elseif($res->isAllocate == 0)
+                    $isAllocate_msg = "No";
+
                 $data.='<tr><td>'.$res->resource_id.'</td>
                 <td>'.$res->resourcename.'</td>
                 <td>'.$res->capacity.'</td>
-                <td>'.$res->isAllocate.'</td>
+                <td>'.$isAllocate_msg.'</td>
                 <td>'.'<a href="" onclick="updateHandler('.$res->resource_id.')" data-toggle="modal" data-target="#updateModal" class="badge badge-info">Update</a></td>
                 <td>'.'<a href=\'url("admin/resourses/delete/{'.$res->resource_id.'}")}}\' class="badge badge-info">Delete</a></td>';
                 $data.='</tr>';
