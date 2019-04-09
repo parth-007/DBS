@@ -11,6 +11,7 @@ class Client_Display extends Controller
 	function __construct()
     {
         $this->middleware('Backend');
+        $this->middleware('CheckisClient');
     }
     function index(){
     	$users = DB::table('tblbooking')

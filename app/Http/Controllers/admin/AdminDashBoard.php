@@ -4,7 +4,9 @@ namespace App\Http\Controllers\admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Mail\FacultyVerify;
 use DB;
+use Mail;
 
 class AdminDashBoard extends Controller
 {
@@ -12,6 +14,7 @@ class AdminDashBoard extends Controller
     function __construct(){
         $this->middleware('CheckisAdmin');
         $this->middleware('Backend');
+        
     }
     function index(){
         $count['resources_count']=DB::table('tblresource')->count();
@@ -396,4 +399,49 @@ class AdminDashBoard extends Controller
         echo $data;
     }
     
+    function faculty(){
+        $typeid = DB::table('tbluser_type')->where('tbluser_type.usertype','faculty')->first()->usertypeid;
+        
+        $data['f_data'] = DB::table('tbluser')->where('tbluser.usertypeid',$typeid)->where('is_verified',1)->get();
+
+        
+        return view('admin/faculty_view',$data);
+    }
+    function add_faculty(Request $req)
+    {
+        $email = $req->email;
+        $name = $req->name;
+        $phone = $req->phone;
+        $length = 8;
+
+        $passcode=substr(str_shuffle(str_repeat($x='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil($length/strlen($x)) )),1,$length);
+
+
+
+        $typeid = DB::table('tbluser_type')->where('tbluser_type.usertype','faculty')->first()->usertypeid;
+        DB::table('tbluser')->insert(['email'=>$email,'username'=>$name,'phonenumber'=>$phone,'usertypeid'=>$typeid,'password'=>$passcode,'is_verified'=>0,'is_active'=>0]);
+
+        $length = 30;
+        $activation_code=substr(str_shuffle(str_repeat($x='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil($length/strlen($x)) )),1,$length);
+
+         $link=$req->root().'/admin/AdminDashBoard/verify_faculty/'.$email.'/'.$activation_code.'/'.$passcode;
+        DB::table('tblverify_linkes')->insert(['userid'=>$email,'link'=>$activation_code]);
+
+         Mail::to($email)->send(new FacultyVerify($link,$passcode));
+        
+        return redirect('admin/faculty');
+
+    }
+    function verify_faculty($email,$code,$pass){
+        $data = DB::table('tblverify_linkes')->where(['userid'=>$email,'link'=>$code])->first();
+        if($data)
+        {
+            DB::table('tbluser')->where('email',$email)->update(['is_verified'=>1,'is_active'=>1]);
+            DB::table('tblverify_linkes')->where(['userid'=>$email,'link'=>$code])->delete();
+            return redirect('login');
+        }
+        else{
+            return redirect('login')->with('error','Invalid Activation Link');
+        }
+    }
 }
