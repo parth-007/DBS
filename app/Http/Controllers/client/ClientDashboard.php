@@ -57,31 +57,47 @@ class ClientDashboard extends Controller
       $data['mydata'] = DB::table('tblresource as r')->select('r.resource_id','r.resourcename','r.capacity','f.ac','f.computers','f.mic','f.projector','f.podium','b.bookingid','b.starttime','b.endtime','b.useremail','b.purpose','b.expected_audience','u.username','u.phonenumber','tt.timetable_childid','tt.timestart','tt.timeend','tt.courseid','tt.faculty_email','u1.username as faculty_name')->Join('tblbooking as b','r.resource_id','=','b.resourceid','left outer')->Join('tbluser as u','u.email','=','b.useremail','left')->Join('tbltimetable_child as tt','tt.resourceid','=','r.resource_id','left')->Join('tbluser as u1','u1.email','=','tt.faculty_email','left')->Join('tblfacility as f','f.facilityid','=','r.facilityid','left')->Join('tblbuilding as tb','tb.buildingid','=','r.buildingid','left')->where('r.isAllocate',1)->where('r.buildingid',$req->building)->where(function($q) use($mybd){
         $q->whereNull('b.bookingid')->orWhere('b.starttime','like',$mybd.'%')->orWhere('b.endtime','like',$mybd.'%');})->where(function($q1) use($day){$q1->whereNull('tt.timetable_childid')->orWhere('tt.dayofweek',$day);})->get();
 
-       echo '<pre>';
-       print_r($data);die;
-      // foreach ($data['mydata'] as $value) {
-      //     if($value->bookingid)
-      //     {
-      //         if(($ts->ge($value->starttime) && $ts->lt($value->endtime)) || ($ts1->gt($value->starttime) && $ts1->le($value->endtime)) || ($ts->le($value->starttime) && $ts1->ge($value->endtime)))
-      //         {
-      //           #booked
-               
-      //           print_r($data['mydata']);
-      //         }
+       // $dc = Carbon::parse($ts);
+       // $dc1 = Carbon::parse($ts1);
+       
+       $dc = strtotime($ts);
+       $dc1 = strtotime($ts1);
 
-      //     }
-      //     else if($value->timetable_childid){
-      //       if(($ts->ge($value->timestart) && $ts->lt($value->timeend)) || ($ts1->gt($value->timestart) && $ts1->le($value->timeend)) || ($ts->le($value->timestart) && $ts1->ge($value->timeend)))
-      //       {
-      //         #Timetable
-      //         print_r($data['mydata']);
-      //       }
-      //     } 
-      //     else{
-      //       print_r($data['mydata']);
-      //       #free
-      //     }
-      // }
+      foreach ($data['mydata'] as $value) {
+
+          if($value->bookingid)
+          {
+
+            $stime = strtotime($value->starttime);
+            $etime = strtotime($value->endtime);
+
+            // $stime = strtotime($row['DATETIMEAPP']);
+            // $etime = Carbon::parse($value->endtime);
+            // echo $stime;echo $etime;echo $dc->>=($stime);die;  
+            // echo "   ";
+            // echo $stime;echo "     ";
+            // echo $etime;echo "     "; echo $stime>=$etime;
+              if(($dc>=($stime) && $dc<($etime)) || ($dc1>($stime) && $dc1<=($etime)) || ($dc<=($stime) && $dc1>=($etime)))
+              {
+                print_r($value);
+                #they are already booked, so you can't book.. it overlaps with other bookings.
+               
+                
+              }
+
+          }
+          // else if($value->timetable_childid){
+          //   if(($ts->ge($value->timestart) && $ts->lt($value->timeend)) || ($ts1->gt($value->timestart) && $ts1->le($value->timeend)) || ($ts->le($value->timestart) && $ts1->ge($value->timeend)))
+          //   {
+          //     #Timetable
+          //     print_r($data['mydata']);
+          //   }
+          // } 
+          // else{
+          //   print_r($data['mydata']);
+          //   #free
+          // }
+      }
 
    	}
     function userProfile(){
