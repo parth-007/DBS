@@ -19,10 +19,10 @@
     <!--Custom JavaScript -->
 
 
-    <!-- Amchart -->
+    {{-- <!-- Amchart -->
      <script src="{{asset('admin/js/lib/morris-chart/raphael-min.js')}}"></script>
     <script src="{{asset('admin/js/lib/morris-chart/morris.js')}}"></script>
-    <script src="{{asset('admin/js/lib/morris-chart/dashboard1-init.js')}}"></script>
+    <script src="{{asset('admin/js/lib/morris-chart/dashboard1-init.js')}}"></script> --}}
 
 
 	<script src="{{asset('admin/js/lib/calendar-2/moment.latest.min.js')}}"></script>
@@ -41,7 +41,9 @@
     <!-- scripit init-->
 
     <script src="{{asset('admin/js/custom.min.js')}}"></script>
-
+    <script src="{{asset('admin/js/lib/toastr/toastr.min.js')}}"></script>
+    <!-- scripit init-->
+    <script src="{{asset('admin/js/lib/toastr/toastr.init.js')}}"></script>
 </body>
 
 </html>

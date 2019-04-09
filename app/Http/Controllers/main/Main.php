@@ -7,7 +7,6 @@ use App\Http\Controllers\Controller;
 
 class Main extends Controller
 {
-    //
     function index(){
         return view('mainpage/home');
     }
@@ -17,5 +16,4 @@ class Main extends Controller
     function inspect(){
         return view('mainpage/inspect');
     }
-    
 }

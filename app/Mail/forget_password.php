@@ -7,7 +7,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class ClientSignup extends Mailable
+class forget_password extends Mailable
 {
     use Queueable, SerializesModels;
     public $link;
@@ -29,6 +29,6 @@ class ClientSignup extends Mailable
      */
     public function build()
     {
-        return $this->subject('Please Activate your E-mail')->view('client/clientverify');
+        return $this->view('client/forget_pass');
     }
 }

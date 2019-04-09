@@ -7,19 +7,19 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class ClientSignup extends Mailable
+class FacultyVerify extends Mailable
 {
     use Queueable, SerializesModels;
-    public $link;
+    public $link,$pass;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($link)
+    public function __construct($link,$pass)
     {
+        $this->pass = $pass;
         $this->link = $link;
-        //
     }
 
     /**
@@ -29,6 +29,6 @@ class ClientSignup extends Mailable
      */
     public function build()
     {
-        return $this->subject('Please Activate your E-mail')->view('client/clientverify');
+        return $this->view('admin/faculty_verify');
     }
 }

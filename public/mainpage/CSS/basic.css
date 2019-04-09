@@ -5,23 +5,23 @@
     -o-transition: none !important;
 }
 
-.fl-lft{
+.fl-lft {
     float: left;
 }
 
-.fl-rght{
+.fl-rght {
     float: right;
 }
 
-.tx-al-rght{
+.tx-al-rght {
     text-align: right;
 }
 
-.tx-al-lft{
+.tx-al-lft {
     text-align: left;
 }
 
-.tx-al-cntr{
+.tx-al-cntr {
     text-align: center;
 }
 
@@ -33,69 +33,77 @@
     margin-right: 5px;
 }
 
-.mrg-r10{
+.mrg-r10 {
     margin-right: 10px;
 }
 
-.mrg-r20{
+.mrg-r20 {
     margin-right: 20px;
 }
 
-.mrg-l5{
+.mrg-l5 {
     margin-left: 5px;
 }
 
-.mrg-l10{
+.mrg-l10 {
     margin-left: 10px;
 }
 
-.mrg-l20{
+.mrg-l20 {
     margin-left: 20px;
 }
 
-.mrg5{
+.mrg5 {
     margin: 5px;
 }
 
-.mrg10{
+.mrg10 {
     margin: 10px;
 }
 
-.mrg20{
+.mrg20 {
     margin: 20px;
 }
 
-.flx-div{
+.flx-div {
     display: flex;
 }
 
-.disp-no{
+.disp-no {
     display: none;
 }
 
-.btn{
+.btn {
     cursor: pointer;
     background: transparent;
     padding: 8px 20px;
     border-radius: 100px;
     color: white;
     border: 1px solid white;
-    font-family: 'Montserrat-rg';
+    font-family: "Montserrat-rg";
     font-size: 18px;
-    transition: background-color .3s, color .3s;
-    -moz-transition: background-color .3s, color .3s;
+    transition: background-color 0.3s, color 0.3s;
+    -moz-transition: background-color 0.3s, color 0.3s;
 }
 
-.btn:hover{
+.btn:hover {
     background: white;
     color: rgb(50, 50, 50);
 }
 
-form{
+form {
     line-height: 40px;
 }
 
+<<<<<<< HEAD
 form input[type="text"], form input[type="password"], form input[type="email"], form input[type="number"], form input[type="date"], form select, textarea{
+=======
+form input[type="text"],
+form input[type="password"],
+form input[type="email"],
+form input[type="number"],
+textarea {
+>>>>>>> 85b99db29d38324152b119a53b7b391347221b73
     padding: 10px 10px;
     width: 300px;
     background: transparent;
@@ -104,10 +112,11 @@ form input[type="text"], form input[type="password"], form input[type="email"], 
     color: white;
     font-family: "Montserrat-rg";
     font-size: 20px;
-    transition: border .3s;
-    -moz-transition: border .3s;
+    transition: border 0.3s;
+    -moz-transition: border 0.3s;
 }
 
+<<<<<<< HEAD
 form input[type="number"]::-webkit-inner-spin-button { display: none; }
 
 form input[type="date"]::-webkit-inner-spin-button { display: none; }
@@ -120,34 +129,44 @@ form option{
 }
 
 form input[type="text"]:focus, form input[type="password"]:focus, form input[type="email"]:focus, form input[type="number"]:focus, form input[type="date"]:focus, form select:focus, textarea:focus{
+=======
+form input[type="text"]:focus,
+form input[type="password"]:focus,
+form input[type="email"]:focus,
+form input[type="number"]:focus,
+textarea:focus {
+>>>>>>> 85b99db29d38324152b119a53b7b391347221b73
     outline: 0;
     border-bottom: 3px solid rgb(23, 200, 183);
 }
 
-form{
+form {
     background: rgb(60, 60, 60);
     text-align: left;
     margin: auto;
     width: fit-content;
+    width: -moz-fit-content;
+    width: -webkit-fit-content;
     padding: 40px 80px;
     font-size: 15px;
     font-family: "Montserrat-rg";
 }
 
-form label{
-    transition: .3s;
+form label {
+    transition: 0.3s;
 }
 
-form input:not([type="radio"]):focus + label, form textarea:focus + label{
+form input:not([type="radio"]):focus + label,
+form textarea:focus + label {
     font-weight: bold;
     letter-spacing: 2px;
 }
 
-form .lbl-style:focus-within + label{
+form .lbl-style:focus-within + label {
     font-weight: bold;
     letter-spacing: 2px;
 }
 
-form input[type="radio"]:checked + label{
+form input[type="radio"]:checked + label {
     color: rgb(23, 200, 183);
 }

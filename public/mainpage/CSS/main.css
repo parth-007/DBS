@@ -331,3 +331,50 @@ form.inspect-form{
 }
 
 /* "inspect.html" INSPECT Ends */
+
+/* "login.html" POPUP Starts */
+
+.popup-hid{
+    height: 0;
+    width: 0;
+    overflow: hidden;
+    /* visibility: hidden; */
+}
+
+.popup-show{
+    position: fixed;
+    top:0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    overflow: hidden;
+    text-align: center;
+    padding: 10% 20%;
+    background: rgba(0,0,0,0.7);
+    z-index: 2;
+    transition: .3s;
+}
+
+.popup-div{
+    background: white;
+    padding: 10px 20px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.7);
+}
+
+.popup-div form{
+    background: white;
+    /* width: inherit; */
+}
+
+.popup-div input[type="text"], .popup-div input[type="submit"]{
+    border-color: rgb(30, 30, 30);
+    border-width: 1px;
+    color: black;
+}
+
+.popup-div input[type="submit"]:hover{
+    color: white;
+    background: rgb(30, 30, 30);
+}
+
+/* "login.html" POPUP Ends */
