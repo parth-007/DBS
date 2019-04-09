@@ -3,6 +3,7 @@
 
 <head>
     <title>DBS | Inspect</title>
+    <link rel="icon" type="Image/png" href="http://localhost:8000/mainpage/Images/favicon.png">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="{{asset('mainpage/CSS/fontawesomeWeb/css/all.css')}}" />
     <link rel="stylesheet" type="text/css" media="screen" href="{{asset('mainpage/CSS/main.css')}}" />
