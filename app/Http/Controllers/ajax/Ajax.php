@@ -10,7 +10,7 @@ class Ajax extends Controller
 {
 	function dup_mail_check(Request $req)
 	{
-		$num = DB::table('tbluser')->where('email',$req->mail)->where('is_verified',1)->count();
+		$num = DB::table('tbluser')->where('email',$req->mail)->where('is_verified',1)->where('is_active',1)->count();
 		if($num!=0)
 		{
 			echo "1";
@@ -34,7 +34,7 @@ class Ajax extends Controller
 	}
 	function log_info_check(Request $req)
 	{
-		$num = DB::table('tbluser')->where('email',$req->mail)->where('password',$req->password)->count();
+		$num = DB::table('tbluser')->where('email',$req->mail)->where('password',$req->password)->where('password',$req->password)->where('is_verified',1)->count();
     	if($num==0)
     	{
     		echo "1";

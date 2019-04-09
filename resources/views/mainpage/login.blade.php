@@ -61,6 +61,27 @@
             }
             }   
         });
+        $("#mail").blur(function(){
+            var mail = $("#mail").val();
+            $.ajax({
+                type: 'POST',
+                url: '/dup_mail',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data: { 'mail': mail },
+                success: function(msg) {
+                    if(msg == 0)
+                    {
+                        $("#log_label").removeClass("disp-no");
+                    }
+                    else
+                    {
+                        $("#log_label").addClass("disp-no");
+                    }
+                }
+            });
+        });
         $("#mail2").blur(function(){
             var mail = $("#mail2").val();
             $.ajax({
@@ -184,7 +205,7 @@
                 <h2>Login</h2>
                 <hr style="border: none; background: rgba(255, 255, 255, 0.3); height: .5px;">
                 <div class="input-grp">
-                    <label class="disp-no">*Mail ID not valid</label>
+                    <label id="log_label" class="disp-no" style="color: red;">*Please Signup or Active your account</label>
                     <input type="email" id="mail" name="mail" required>
                     <label>DA Mail-ID : </label>
                 </div>
