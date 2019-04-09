@@ -1,4 +1,6 @@
 @include('admin/common')
+
+    
 <div class="page-wrapper">
             <!-- Bread crumb -->
             <div class="row page-titles">
@@ -71,6 +73,7 @@
                                                 <th>Email</th>
                                                 <th>Name</th>
                                                	<th>Phone</th>
+                                                <th>Verified</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -80,11 +83,13 @@
                                                 <td>{{$f->email}}</td>
                                                 <td><span>{{$f->username}}</span></td>
                                                 <td><span>{{$f->phonenumber}}</span></td>
-                                                
+                                                <td>@if($f->is_verified) Yes @else No @endif</td>
                                             </tr>
                                             
-                                        </tbody>
+                                        
                                         @endforeach
+                                        </tbody>
+                                        {{$f_data->links()}}
                                     </table>
                                 </div>
                             </div>
