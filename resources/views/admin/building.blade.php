@@ -2,7 +2,8 @@
 <!-- <script src="js/lib/sweetalert/sweetalert.min.js"></script>
 <script src="js/lib/sweetalert/sweetalert.init.js"></script> -->
 
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/additional-methods.min.js"></script>
 <link href="{{asset('client/css/lib/sweetalert/sweetalert.css')}}" rel="stylesheet">
 <script>
         function fetch_account(aid){
@@ -18,7 +19,11 @@
                 }
             });
         }
-        
+        $(document).ready(function(){
+            $("#frm_Add").validate({
+                
+            });
+        });
 </script>
 
 <div class="page-wrapper">
@@ -48,12 +53,12 @@
                                 <button type="button"  class="close" data-dismiss="modal">&times;</button>
                                 </div>
                                 
-                                <form action='{{url("admin/buildings/insertbuilding")}}' method="post">
+                                <form action='{{url("admin/buildings/insertbuilding")}}' id="frm_Add" method="post">
                                 {{csrf_field()}}
                                     <div class="modal-body">
                                             <div class="form-group">
                                                 <label for="building" class="col-form-label">Building name:</label>
-                                                <input type="text" class="form-control" name="buildingname" id="buildingname">
+                                                <input type="text" class="form-control" name="buildingname" id="buildingname" required>
                                             </div>
                                     </div>
                                     <input type="hidden" name="aid" id="aid">

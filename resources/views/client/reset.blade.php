@@ -15,55 +15,34 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/additional-methods.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
     <title>Monster Admin Template - The Most Complete & Trusted Bootstrap 4 Admin Template</title>
+    <style>
+        .error{
+            color:red;
+        }
+    </style>
     <!-- Bootstrap Core CSS -->
    <!--  <link href="{{asset('client/assets/plugins/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
-
+n
     <script src="{{asset('client/assets/plugins/jquery/jquery.min.js')}}"></script> -->
     <script type="text/javascript">
-    // $(document).ready(function(){
-    	// $.validator.addMethod("lettersonly", function(value, element) {
-     //            return this.optional(element) || /^[a-z\s]+$/i.test(value);
-     //        }, "Only alphabetical characters");
-    	// $("#reset_frm").validate({
-    	// 	rules:{
-    	// 		password:{
-     //                minlength:8,
-     //            },
-     //            password1:{
-     //                equalTo:"#password2",
-     //            }
-     //        },	
-     //        errorPlacement: function(error, element) {
-     //        var placement = $(element).data('error');
-     //        if (placement) {
-     //            $(placement).append(error)
-     //        } else {
-     //            error.insertBefore(element);
-     //        }
-     //        } 
-     //    });
-    //     $("#reset_frm").validate({
-    //         rules:{
-    //             password:{
-    //                 minlength:8,
-    //             },
-    //             password1:{
-    //                 equalTo:"#password2",
-    //             }
-    //         },
-    //         errorPlacement: function(error, element) {
-    //         var placement = $(element).data('error');
-    //         if (placement) {
-    //             $(placement).append(error)
-    //         } else {
-    //             error.insertBefore(element);
-    //         }
-    //         }   
-    //     });
-    // });
+    $(document).ready(function(){
+    	$.validator.addMethod("lettersonly", function(value, element) {
+                return this.optional(element) || /^[a-z\s]+$/i.test(value);
+            }, "Only alphabetical characters");
+    	$("#frm_reset").validate({
+    		rules:{
+    			password:{
+                    minlength:8,
+                },
+                password1:{
+                    equalTo:"#password",
+                }
+            },
+        });
+    });
     </script>
     <style type="text/css">
 	.login-form {
@@ -91,14 +70,14 @@
 </head>
 <body>
 <div class="login-form" id="reset_frm">
-    <form id="" action="\client\reset" method="post">
+    <form id="frm_reset" action="\client\reset" method="post">
     	{{csrf_field()}}
         <h2 class="text-center">Reset Password</h2>       
         <div class="form-group">
-            <input type="password" id="password" name="password"  class="form-control" placeholder="Password" required="required">
+            <input type="password" id="password" name="password"  class="form-control" placeholder="Password" required="">
         </div>
         <div class="form-group">
-            <input type="password" id="password1" name="password1" class="form-control" placeholder="Re-Enter Password" required="required">
+            <input type="password" id="password1" name="password1" class="form-control" placeholder="Re-Enter Password" required="">
         </div>
         <div class="form-group">
             <input type="text" style="visibility: hidden;" id="mail" name="mail" class="form-control" required="required" value={{@$user}}>

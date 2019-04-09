@@ -26,22 +26,22 @@
                                 <button type="button"  class="close" data-dismiss="modal">&times;</button>
                                 </div>
                                 
-                                <form action='{{url("admin/add_faculty")}}' method="post">
+                                <form action='{{url("admin/add_faculty")}}' method="post" id="frm_add_faculty">
                                 {{csrf_field()}}
                                     <div class="modal-body">
                                             <div class="form-group">
                                                 <label for="building" class="col-form-label">Enter DAIICT Id:</label>
-                                                <input type="text" class="form-control" name="email" id="email">
+                                                <input type="email" class="form-control" name="email" id="email" required>
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="building" class="col-form-label">Enter Name:</label>
-                                                <input type="text" class="form-control" name="name" id="name">
+                                                <input type="text" class="form-control" name="name" id="name" required>
                                             </div>
                                             
                                             <div class="form-group">
                                                 <label for="building" class="col-form-label">Enter Phone Number:</label>
-                                                <input type="text" class="form-control" name="phone" id="phone">
+                                                <input type="number" class="form-control" name="phone" id="phone" required>
                                             </div>
                                             
                                     </div>
@@ -95,4 +95,20 @@
         </div>
     </div>
 </div>
+<script>
+    $(docuemtn).ready(function(){
+        $.validator.addMethod("phoneno", function(value, element) {
+                    return this.optional(element) || /^[6-9\s]+$/i.test(value);
+                }, "Enter valid mobile no"); 
+        $("#frm_add_faculty").validate({
+            rules:{
+                phone:{
+                    minlength:10,
+                    maxlength:10,
+                    phoneno:true,
+                }
+            }
+        });
+    });
+</script>
 @include('admin/footer')
