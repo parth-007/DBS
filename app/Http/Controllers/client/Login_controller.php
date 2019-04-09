@@ -15,7 +15,7 @@ class Login_controller extends Controller
      function __construct()
     {
         $this->middleware('Backend');
-        $this->middleware('CheckisClient');
+        // $this->middleware('CheckisClient');
     }
 	function signup(Request $req){
 		$stud_id = DB::table('tbluser_type')->where('usertype','student')->first();
