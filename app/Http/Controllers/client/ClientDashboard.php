@@ -13,6 +13,7 @@ class ClientDashboard extends Controller
 	public function __construct(){
 		$this->middleware('CheckisClient');
     $this->middleware('Backend');
+    
 	}
     function index(){
 

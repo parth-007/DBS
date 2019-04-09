@@ -7,6 +7,36 @@
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>Document</title>
         <script>
+        $(document).ready(function(){
+
+            $(document).on("keyup","#txtSearch",function(){
+                var str=$(this).val();
+                $.ajax({
+                    url: '{{url('admin/resources/searchOnResources')}}',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {'str': str,'_token':'{{csrf_token()}}'},
+                    })
+                    .done(function(response) {
+                    // alert(response);
+                    
+                    })
+                    .fail(function() {
+                    console.log("error");
+                    })
+                    .always(function(response) {
+                    if(response["responseText"]=="" || response["responseText"]==null)
+                    {
+                        $(".resourceData").html("No data matches your search...");
+                    }
+                    else
+                    {
+                        $(".resourceData").html(response["responseText"]);
+                    }
+                    console.log("complete");
+                });
+            });
+        });
         function updateHandler(update_id){
             console.log('clicked '+update_id);
 
@@ -53,16 +83,34 @@
                     //fill Capacity        
                     $("#updt_capacity").val(ob['tblresource'][0]['capacity']);
 
+                    //set isAllocate Radio Button
+                    if(ob['tblresource'][0]['isAllocate'] == 1){
+                        console.log(ob['tblresource'][0]['isAllocate']);
+                        $('#Yes_isAllocate').prop('checked', true);
+                    }
+                    else{
+                        console.log(ob['tblresource'][0]['isAllocate']);
+                        $('#No_isAllocate').prop('checked', true);
+                    }
+                        
+                    
+                    
+                    
+                    
                     //set hiddenField for resourceId
                     $('#updt_id').val(ob['tblresource'][0]['resource_id']);
                     
                     //set hiddenField for FacilityId
                     $('#facility_id').val(ob['tblfacility'][0]['facilityid']);
-                     
+
+                    
                 }
             });
+        
 
         }
+
+
         </script>
         
     </head>
@@ -85,7 +133,12 @@
         <div class="card-body">
             
             <!-- <button type="button" class="btn btn-info">Add building</button> -->
-            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal" data-whatever="@mdo">Add resource</button>
+                    <div class="col-mid-12 col-lg-12">
+                        <button type="button" class="btn btn-info col-md-3 col-lg-3" data-toggle="modal" data-target="#myModal" data-whatever="@mdo" style="display: inline-block">Add resource</button>
+                        <div class="col-md-5 col-lg-5" style="display:inline-block;min-width:auto"></div>
+                        <input type="text" id="txtSearch" class="form-control col-md-3 col-lg-3"  placeholder="Type to search..." style="display: inline;margin-left:auto;">
+                    </div>
+                    
                         <!-- Insert model -->
                         <div class="container">
                             <div class="modal" id="myModal">
@@ -144,6 +197,12 @@
                                                 <div>
                                                     <label for="capacity">Capacity :</label>
                                                     <input type="number" class="form-control" name="capacity">
+                                                </div>
+
+                                                <div>
+                                                    <label for="isAllocate">isAllocate :</label>
+                                                    <label for="">&nbsp&nbsp<input type="radio" class="" name="isAllocate" id="Yes" value="1">&nbsp Yes </label>
+                                                    <label for="">&nbsp&nbsp&nbsp<input type="radio" class="" name="isAllocate" id="No" value="0">&nbsp No</label>
                                                 </div>
 
                                             </div>
@@ -219,6 +278,13 @@
                                                     <label for="capacity">Capacity :</label>
                                                     <input type="number" class="form-control" name="updt_capacity" id="updt_capacity">
                                                 </div>
+                                                <div>
+                                                    <label for="isAllocate">isAllocate :</label>
+                                                    <label for="">&nbsp&nbsp<input type="radio" class="" name="updt_isAllocate" id="Yes_isAllocate" value="1">&nbsp Yes </label>
+                                                    <label for="">&nbsp&nbsp&nbsp<input type="radio" class="" name="updt_isAllocate" id="No_isAllocate" value="0">&nbsp No</label>
+                                                </div>
+
+
                                                     <input type="hidden" name="updt_id" id="updt_id" value="">
                                                     <input type="hidden" name="facility_id" id="facility_id" value="">
                                             </div>
@@ -242,16 +308,24 @@
                         <tr>
                             <th>Resource-id</th>
                             <th>Resource-name</th>
-                            <th></th>
-                            <th></th>
+                            <th>Capacity</th>
+                            <th>isAllcate</th>
+                            <th>Update</th>
+                            <th>Delete</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody class="resourceData" id="resourceData">
                          @foreach($resource as $res)
                             <tr>
                                 <td>{{ $res->resource_id}}</td>
                                 <td>{{ $res->resourcename}}</td>
-                                
+                                <td>{{ $res->capacity}}</td>
+                                <td>@if($res->isAllocate == 1)
+                                        Yes
+                                    @else
+                                        No
+                                    @endif
+                                </td>
                                 <td><a href="" onclick="updateHandler({{$res->resource_id}})" data-toggle="modal" data-target="#updateModal" class="badge badge-info">Update</a></td>
                                 <!-- <button type="button" class="btn btn-info" data-toggle="modal"  data-whatever="@mdo">Add resource</button> -->
                                 <td><a href='{{ url("admin/resourses/delete/{$res->resource_id}")}}' class="badge badge-info">Delete</a></td>
