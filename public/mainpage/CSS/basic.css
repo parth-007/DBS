@@ -125,6 +125,7 @@ form input[type="text"]:focus, form input[type="password"]:focus, form input[typ
 }
 
 form {
+    display: table;
     background: rgb(60, 60, 60);
     text-align: left;
     margin: auto;
