@@ -1,4 +1,12 @@
 @include('client/common')
+<style type="text/css">
+    th{
+        text-align: center;
+    }
+    td{
+        text-align: center;
+    }
+</style>
 <div class="page-wrapper">
     <div class="container-fluid" >
         <div class="card">
@@ -6,21 +14,47 @@
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <th scope="row">Booking id</th>
-                    <th scope="row">Resource id</th>
+                    <th scope="row">Resource Name</th>
                     <th scope="row">Purpose</th>
                     <th scope="row">Contact Number</th>
-                    <th scope="row">Expected Audience</th>
+                    <th scope="row">Building Name</th>
+                    <th scope="row">Booking Status</th>
+                    <th scope="row">Cancel Booking</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach($users as $u)
                 <tr>
-                    <th>{{$u->bookingid}}</th>
-                    <td>{{$u->email}}</td>
+                    <th>{{$u->resourcename}}</th>
                     <td>{{$u->purpose}}</td>
-                    <td>{{$u->expected_audience}}</td>
-                    <td>{{$u->resourceid}}</td>    
+                    <td>{{$u->phonenumber}}</td>
+                    <td>{{$u->buildingname}}</td>
+                    <td>{{$u->status}}</td>
+                    <td style="text-align: center;">
+                        <button class="btn btn-danger" data-toggle="modal" data-target="#myModal_{{$u->bookingid}}"><span class="fa fa-times"></span></button>
+                    </td>
+                    <td>
+                <div id="myModal_{{$u->bookingid}}" class="modal fade" role="dialog">
+                        <div class="modal-dialog">
+
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h4 class="modal-title">Delete Booking</h4>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <p>You are about to delete.</p>
+                            <p>Do you want to proceed?</p>
+                        </div>
+                        <div class="modal-footer">
+                                <a href="\client\del_booking\{{$u->bookingid}}" id="btnYes" class="btn btn-danger">Yes</a>
+                                <a href="#" data-dismiss="modal" aria-hidden="true" class="btn btn-success">No</a>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+                    </td>    
                 </tr>
                 @endforeach
             </tbody>

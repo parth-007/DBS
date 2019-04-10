@@ -16,10 +16,21 @@ class Client_Display extends Controller
     function index(){
     	$users = DB::table('tblbooking')
     			->join('tbluser','email','=','useremail')
-    			->select('email','phonenumber','resourceid','purpose','expected_audience','bookingid')
+                ->join('tblresource','resource_id','=','resourceid')
+                ->join('tblbuilding','tblbuilding.buildingid','=','tblresource.buildingid')
+    			->select('username','email','phonenumber','resourceid','purpose','expected_audience','bookingid','resourcename','buildingname','tblbooking.status')
     			->where('email',session('email'))
+                ->whereNotIn('tblbooking.status',['Cancelled'])
     			->get();
     	 return view('client/display', ['users' => $users]);
     	// return view('client/display');
+    }
+    function delete_booking(Request $req)
+    {
+        DB::table('tblbooking')
+        ->where('bookingid',$req->booking_id)
+        ->where('useremail',session('email'))
+        ->update(['status'=>'Cancelled']);
+        return redirect('client_display');
     }
 }

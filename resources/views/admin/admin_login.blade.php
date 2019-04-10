@@ -81,11 +81,11 @@
                     {{csrf_field()}}
                     <div class="form-group">
                         <label>Email address</label>
-                        <input type="email" id="mail" class="form-control" placeholder="Email">
+                        <input type="email" id="mail" class="form-control" placeholder="Email" required="required">
                     </div>
                     <div class="form-group">
                         <label>Password</label>
-                        <input type="password" id="password" class="form-control" placeholder="Password">
+                        <input type="password" id="password" class="form-control" placeholder="Password" required="required">
                         <label id="hide_label" class="hid_label" style="color: red;">*Incorrect login information.</label>
                     </div>
                     <label class="pull-right">

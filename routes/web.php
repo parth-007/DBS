@@ -50,5 +50,6 @@ Route::get('admin/AdminDashBoard/verify_faculty/{email}/{code}/{pass}','admin\Ad
 Route::post('admin/forget_password','admin\admin_login_controller@forget_password');
 Route::get('admin/admin_login_controller/reset_password/{userid}/{activate_code}', 'admin\admin_login_controller@reset_pass');
 Route::post('admin/reset','admin\admin_login_controller@reset');
+Route::get('client/del_booking/{booking_id}','client\Client_Display@delete_booking');
 ?>
 
