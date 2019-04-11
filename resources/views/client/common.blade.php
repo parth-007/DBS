@@ -109,11 +109,14 @@
                                 <ul class="dropdown-user">
                                     <li>
                                         <div class="dw-user-box" style="text-align: center;">
-                                            <div class="u-img"><img src="{{asset('client/download.jpg')}}" alt="user"></div>
+                                            
+                                            <div class="u-img" style="width: 100%;"><img src="{{asset('client/download.jpg')}}" style="width: 80px;" alt="user"></div>
                                             <div class="u-text">
                                                 <h4>{{@session('username')}}</h4>
                                                 <p>{{@session('email')}}</p></div>
+
                                         </div>
+                                    
                                     </li>
                                     <li role="separator" class="divider"></li>
                                     <li><a href="{{url("profile")}}"><i class="ti-user"></i> My Profile</a></li>
@@ -160,16 +163,16 @@
                         </li>
                         <li>
                             
-                            <a href="\client_display">
+                            <a href="{{url('client_display')}}">
                             <i class="mdi mdi-bullseye">
                             </i>
-                            <span class="hide-menu">Display (Booked)</span>
+                            <span class="hide-menu">Display Bookings</span>
                             </a>
                            
                         </li>
                         <li>
                             
-                            <a href="\request">
+                            <a href="{{url('request')}}">
                             <i class="mdi mdi-email"></i>
                             <span class="hide-menu">Respond to Request</span>
                             </a>

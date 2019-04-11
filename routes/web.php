@@ -8,8 +8,10 @@ Route::get('client/booking','client\ClientDashboard@book');
 Route::any('client/show_slots','client\ClientDashboard@show_slots');
 Route::get('profile','client\ClientDashboard@userProfile');
 Route::post('updateProfile','client\ClientDashboard@updateProfile');
+
 Route::get('request','client\Respond_Request@index');
 Route::get('client_display','client\Client_Display@index');
+
 Route::post('signup','client\Login_controller@signup');
 Route::post('client/login','client\Login_controller@log_in');
 Route::get('logout','client\Login_controller@log_out');
@@ -46,6 +48,6 @@ Route::get('admin/faculty','admin\AdminDashBoard@faculty');
 Route::get('client/Login_controller/activate_account/{userid}/{activate_code}', 'client\Login_controller@activate_account');
 Route::post('admin/add_faculty','admin\AdminDashBoard@add_faculty');
 Route::get('admin/AdminDashBoard/verify_faculty/{email}/{code}/{pass}','admin\AdminDashBoard@verify_faculty');
-
+Route::post('client/add_slot','client\ClientDashboard@slots_manage');
 ?>
 
