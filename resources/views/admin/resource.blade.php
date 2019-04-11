@@ -6,6 +6,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>Document</title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/additional-methods.min.js"></script>
         <script>
         $(document).ready(function(){
 
@@ -35,6 +37,14 @@
                     }
                     console.log("complete");
                 });
+            });
+             
+            $("#frm_add_resource").validate({
+
+            });
+
+            $("#frm_update_resource").validate({
+                
             });
         });
         function updateHandler(update_id){
@@ -106,6 +116,8 @@
                     
                 }
             });
+           
+
         
 
         }
@@ -123,7 +135,7 @@
                 </div>
                 <div class="col-md-7 align-self-center">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+                        <li class="breadcrumb-item"><a href="{{url('admin/dashboard')}}">Home</a></li>
                         <li class="breadcrumb-item active">Resource</li>
                     </ol>
                 </div>
@@ -152,7 +164,7 @@
                                 </div>
                                 
                                 <!-- Modal body -->
-                                <form action='{{url("admin/resources/insert")}}' method="post">
+                                <form action='{{url("admin/resources/insert")}}' method="post" id="frm_add_resource">
                                 {{csrf_field()}}
                                     <div class="modal-body">
                                             <div class="form-group">
@@ -192,16 +204,16 @@
                                                 <hr>
                                                 <div>
                                                     <label for="resourcename">Resorce Name :</label>
-                                                    <input type="text" class="form-control" name="resourcename">
+                                                    <input type="text" class="form-control" name="resourcename" required>
                                                 </div>
                                                 <div>
                                                     <label for="capacity">Capacity :</label>
-                                                    <input type="number" class="form-control" name="capacity">
+                                                    <input type="number" class="form-control" name="capacity" required>
                                                 </div>
 
                                                 <div>
                                                     <label for="isAllocate">isAllocate :</label>
-                                                    <label for="">&nbsp&nbsp<input type="radio" class="" name="isAllocate" id="Yes" value="1">&nbsp Yes </label>
+                                                    <label for="">&nbsp&nbsp<input type="radio" class="" name="isAllocate" id="Yes" value="1" checked>&nbsp Yes </label>
                                                     <label for="">&nbsp&nbsp&nbsp<input type="radio" class="" name="isAllocate" id="No" value="0">&nbsp No</label>
                                                 </div>
 
@@ -232,7 +244,7 @@
                                 </div>
                                 
                                 <!-- Modal body -->
-                                <form action='{{url("admin/resources/update/")}}' method="post">
+                                <form action='{{url("admin/resources/update/")}}' method="post" id="frm_update_resource">
                                 {{csrf_field()}}
                                     <div class="modal-body">
                                             <div class="form-group">
@@ -272,11 +284,11 @@
                                                 <hr>
                                                 <div>
                                                     <label for="resourcename">Resorce Name :</label>
-                                                    <input type="text" class="form-control" name="updt_resourcename" id="updt_resourcename">
+                                                    <input type="text" class="form-control" name="updt_resourcename" id="updt_resourcename" required>
                                                 </div>
                                                 <div>
                                                     <label for="capacity">Capacity :</label>
-                                                    <input type="number" class="form-control" name="updt_capacity" id="updt_capacity">
+                                                    <input type="number" class="form-control" name="updt_capacity" id="updt_capacity" required>
                                                 </div>
                                                 <div>
                                                     <label for="isAllocate">isAllocate :</label>

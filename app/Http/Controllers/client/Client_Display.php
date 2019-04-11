@@ -5,6 +5,7 @@ namespace App\Http\Controllers\client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Validator;
 
 class Client_Display extends Controller
 {
