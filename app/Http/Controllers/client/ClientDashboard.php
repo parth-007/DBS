@@ -94,10 +94,8 @@ class ClientDashboard extends Controller
     }
     function updateProfile(Request $req){
       $req->validate([
-            "txt_username"=>"bail|required|alpha_dash",
-            "txt_phoneno"=>"bail|required|numeric|min:10|max:10|regex:'^[6-9][0-9]+$'",
-            "txt_password"=>"bail|required|min:8",
-            "txt_cpassword"=>"bail|required|same:txt_password",
+            "txt_username"=>"bail|required",
+            "txt_phoneno"=>"bail|required|size:10|regex:'^[6-9][0-9]+$'",
         ]);
         $useremail=session('email');
         if($req->txt_password=='' || $req->txt_password==null){

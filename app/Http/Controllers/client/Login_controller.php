@@ -23,8 +23,8 @@ class Login_controller extends Controller
             "mail2"=>"bail|required|email",
             "name2"=>"bail|required",
             "usertypeid"=>"bail|required",
-            "mobile2"=>"bail|required|numeric|min:10|max:10|regex:'^[6-9][0-9]+$'",
-            "password2"=>"bail|required|min:8"
+            "mobile2"=>"bail|required|size:10|regex:'^[6-9][0-9]+$'",
+            "password2"=>"bail|required"
         ]);
 		$stud_id = DB::table('tbluser_type')->where('usertype','student')->first();
         $user =DB::table('tbluser')->insert(
@@ -74,7 +74,7 @@ class Login_controller extends Controller
     {
         $req->validate([
             "mail"=>"bail|required|email",
-            "password"=>"bail|required|min:8"
+            "password"=>"bail|required"
         ]);
         DB::table('tbluser')
             ->where('email', $req->mail)
@@ -100,6 +100,7 @@ class Login_controller extends Controller
         $req->validate([
             "mail"=>"bail|required|email",
             "password"=>"bail|required"
+            
         ]);
     	$num = DB::table('tbluser')->where('email',$req->mail)->where('password',$req->password)->where('is_verified',1)->where('is_active',1)->count();
     	if($num==0)

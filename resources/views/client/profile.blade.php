@@ -126,7 +126,7 @@
                 return this.optional(element) || /^[6-9][0-9]+$/i.test(value);
             }, "Enter valid mobile no");
                 $.validator.addMethod("lettersonly", function(value, element) {
-                    return this.optional(element) || /^[a-z\s]+$/i.test(value);
+                    return this.optional(element) || /^[a-zA-Z_ \s]+$/i.test(value);
                 }, "Only alphabetical characters"); 
                 $("#frm_profile").validate({
                     rules: {

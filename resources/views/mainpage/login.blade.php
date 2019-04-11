@@ -192,6 +192,17 @@
     <div class="flx-div"
         style="background-image: url('{{asset('mainpage/Images/lgbg.jpg')}}'); background-size: 100%; background-repeat: no-repeat; background-position-y: center;">
         <div class="frm-lgn">
+                @if($errors->any())
+                <center>
+                    <div id="succ" style="position: fixed;top: 5px; left: 20%; right: 20%; z-index: 2;padding:10px 5px;background: #15C3B6"><div class="alert alert-success">
+                            <strong>Done!</strong> 
+                            @foreach($errors->all() as $error)
+                                {{$error}}
+                            @endforeach
+                        </div>
+                    </div>
+                </center>
+                @endif
             <form name="login" id="login" method="post">
                  {{csrf_field()}}
                 <h2>Login</h2>
