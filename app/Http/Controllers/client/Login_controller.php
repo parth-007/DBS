@@ -18,6 +18,13 @@ class Login_controller extends Controller
         $this->middleware('CheckisClient');
     }
 	function signup(Request $req){
+        $req->validate([
+            "mail2"=>"bail|required|mail",
+            "name2"=>"bail|required",
+            "usertypeid"=>"bail|required",
+            "mobile2"=>"bail|required|numeric|min:10|max:10|regex:'^[6-9][0-9]+$'",
+            "password2"=>"bail|required|min:8"
+        ]);
 		$stud_id = DB::table('tbluser_type')->where('usertype','student')->first();
         $user =DB::table('tbluser')->insert(
         	['email' => $req->mail2, 
@@ -37,6 +44,9 @@ class Login_controller extends Controller
         return redirect('login');
     }
     function forget_password(Request $req){
+        $req->validate([
+            "popup_email"=>"bail|required|mail"
+        ]);
         $length = 60;
         $activation_code=substr(str_shuffle(str_repeat($x='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil($length/strlen($x)) )),1,$length);
 
@@ -61,11 +71,15 @@ class Login_controller extends Controller
     }
     function reset(Request $req)
     {
-            DB::table('tbluser')
-                ->where('email', $req->mail)
-                ->update(['password' => $req->password]);
-            
-            return redirect('login');    
+        $req->validate([
+            "mail"=>"bail|required|mail",
+            "password"=>"bail|required|min:8"
+        ]);
+        DB::table('tbluser')
+            ->where('email', $req->mail)
+            ->update(['password' => $req->password]);
+        
+        return redirect('login');    
     }
     function activate_account($user,$link)
     {
@@ -82,6 +96,10 @@ class Login_controller extends Controller
         }
     }
     function log_in(Request $req){
+        $req->validate([
+            "mail"=>"bail|required|mail",
+            "password"=>"bail|required"
+        ]);
     	$num = DB::table('tbluser')->where('email',$req->mail)->where('password',$req->password)->where('is_verified',1)->where('is_active',1)->count();
     	if($num==0)
     	{

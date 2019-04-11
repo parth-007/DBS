@@ -92,6 +92,12 @@ class ClientDashboard extends Controller
         return view('client/profile',$data);
     }
     function updateProfile(Request $req){
+      $req->validate([
+            "txt_username"=>"bail|required|alpha_dash",
+            "txt_phoneno"=>"bail|required|numeric|min:10|max:10|regex:'^[6-9][0-9]+$'",
+            "txt_password"=>"bail|required|min:8",
+            "txt_cpassword"=>"bail|required|same:txt_password",
+        ]);
         $useremail=session('email');
         if($req->txt_password=='' || $req->txt_password==null){
             $data=DB::table('tbluser')

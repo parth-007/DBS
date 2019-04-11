@@ -57,6 +57,9 @@
     </body>
     <script>
             $(document).ready(function(){
+            $.validator.addMethod("phoneno", function(value, element) {
+                return this.optional(element) || /^[6-9][0-9]+$/i.test(value);
+            }, "Enter valid mobile no");
             $.validator.addMethod("lettersonly", function(value, element) {
                 return this.optional(element) || /^[a-z\s]+$/i.test(value);
             }, "Only alphabetical characters"); 
@@ -73,7 +76,8 @@
                     },
                     txt_phoneno:{
                         minlength: 10,
-                        maxlength:10
+                        maxlength:10,
+                        phoneno:true
                     }
                 }
             });

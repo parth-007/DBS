@@ -23,7 +23,9 @@
             $("#frm_Add").validate({
                 
             });
+            
         });
+
 </script>
 
 <div class="page-wrapper">
@@ -98,4 +100,9 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    $(document).ready(function(){
+        
+    });
+</script>
 @include("admin/footer")

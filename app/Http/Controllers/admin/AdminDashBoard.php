@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Mail\FacultyVerify;
 use DB;
 use Mail;
+use Validator;
 
 class AdminDashBoard extends Controller
 {
@@ -25,6 +26,9 @@ class AdminDashBoard extends Controller
         return view('admin/building',$data);
     }
     public function insert(Request $req){
+        $req->validate([
+            "buildingname"=>"bail|required"
+        ]);
         if($req->aid){
             $a = $req->buildingname;
             DB::table("tblbuilding")->where('buildingid',$req->aid)->update(['buildingname'=>$a]);
@@ -98,6 +102,10 @@ class AdminDashBoard extends Controller
     function insertResource(Request $req){
         // echo $req->isAllocate;
         // die;
+        $req->validate([
+            "resourcename"=>"bail|required",
+            "capacity"=>"bail|required|numeric"
+        ]);
         if($req->ac == "on"){
             $ac = 1;
         }
@@ -154,7 +162,10 @@ class AdminDashBoard extends Controller
         return redirect('admin/resources');
     }
     function updateResource(Request $req){
-        
+        $req->validate([
+            "updt_resourcename"=>"bail|required",
+            "updt_capacity"=>"bail|required|numeric"
+        ]);
         if($req->updt_ac == "on"){
             $ac = 1;
         }
@@ -383,6 +394,12 @@ class AdminDashBoard extends Controller
     }
 
     function updateProfile(Request $req){
+        $req->validate([
+            "txt_username"=>"bail|required|alpha_dash",
+            "txt_phoneno"=>"bail|required|numeric|min:10|max:10|regex:'^[6-9][0-9]+$'",
+            "txt_password"=>"bail|required|min:8",
+            "txt_cpassword"=>"bail|required|same:txt_password",
+        ]);
         $useremail="admin_booking@daiict.ac.in";
         if($req->txt_password=='' || $req->txt_password==null){
             $data=DB::table('tbladmin')
@@ -407,6 +424,11 @@ class AdminDashBoard extends Controller
     }
     function add_faculty(Request $req)
     {
+        $req->validate([
+            "email"=>"bail|required|email",
+            "name"=>"bail|required",
+            "phone"=>"bail|required|numeric|min:10|max:10|regex:'^[6-9][0-9]+$'",
+        ]);
         $email = $req->email;
         $name = $req->name;
         $phone = $req->phone;
