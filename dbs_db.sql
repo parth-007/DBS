@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.4
+-- version 4.7.9
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Apr 06, 2019 at 10:23 AM
--- Server version: 5.7.24
--- PHP Version: 7.1.26
+-- Generation Time: Apr 09, 2019 at 05:23 PM
+-- Server version: 5.7.21
+-- PHP Version: 7.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -59,13 +59,21 @@ CREATE TABLE IF NOT EXISTS `tblbooking` (
   `useremail` varchar(255) NOT NULL,
   `resourceid` int(11) NOT NULL,
   `requesttime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `purpose` int(11) NOT NULL,
+  `purpose` varchar(300) NOT NULL,
   `expected_audience` int(11) NOT NULL,
   `status` enum('Booked','Requested','Cancelled','') NOT NULL,
   PRIMARY KEY (`bookingid`),
   KEY `con11` (`useremail`),
   KEY `con15` (`resourceid`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tblbooking`
+--
+
+INSERT INTO `tblbooking` (`bookingid`, `starttime`, `endtime`, `useremail`, `resourceid`, `requesttime`, `purpose`, `expected_audience`, `status`) VALUES
+(1, '2019-04-06 15:30:00', '2019-04-06 17:30:00', 'alviskaka@daiict.ac.in', 14, '2019-04-06 14:28:15', 'Drama Discussion', 10, 'Booked'),
+(2, '2019-04-06 17:31:00', '2019-04-06 18:25:00', '201812108@daiict.ac.in', 14, '2019-04-06 14:28:15', 'Academic Discussion', 20, 'Booked');
 
 -- --------------------------------------------------------
 
@@ -197,7 +205,7 @@ CREATE TABLE IF NOT EXISTS `tblresource` (
   PRIMARY KEY (`resource_id`),
   KEY `k4` (`facilityid`),
   KEY `k30` (`buildingid`)
-) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tblresource`
@@ -271,7 +279,16 @@ CREATE TABLE IF NOT EXISTS `tbltimetable_child` (
   KEY `con8` (`masterid`) USING BTREE,
   KEY `k79` (`resourceid`),
   KEY `k45` (`faculty_email`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tbltimetable_child`
+--
+
+INSERT INTO `tbltimetable_child` (`timetable_childid`, `masterid`, `dayofweek`, `timestart`, `timeend`, `resourceid`, `courseid`, `faculty_email`) VALUES
+(1, 5, 'saturday', '14:36:00', '16:00:00', 12, 'SC332', 'club1@da.com'),
+(2, 5, 'saturday', '19:55:00', '21:00:00', 19, 'IT515', 'alviskaka@daiict.ac.in'),
+(3, 5, 'saturday', '08:00:00', '10:00:00', 14, 'SE206', 'asim_bhai@daiict.ac.in');
 
 -- --------------------------------------------------------
 
@@ -324,8 +341,19 @@ CREATE TABLE IF NOT EXISTS `tbluser` (
 --
 
 INSERT INTO `tbluser` (`email`, `username`, `usertypeid`, `phonenumber`, `password`, `is_verified`, `is_active`) VALUES
-('201812108@daiict.ac.in', 'vishal', 2, '8758979310', '123', 0, 1),
-('club1@da.com', 'club1', 5, '5204106307', '745896', 1, 1);
+('201812014@daiict.ac.in', 'Parth', 3, '9090909090', 'PbRJxC2d', 1, 1),
+('201812026@daiict.ac.in', 'Bansi', 3, '8989898989', 'Jxro7R9U', 0, 0),
+('201812046@daiict.ac.in', 'Alvis', 2, '1234567890', '123', 1, 0),
+('201812097@daiict.ac.in', 'Ishan Mehta', 2, '1234567890', 'ishan', 0, 1),
+('201812108@daiict.ac.in', 'Vivek MVC', 2, '8758979310', 'nicepicture', 1, 1),
+('alviskaka@daiict.ac.in', 'Alvis Patel', 2, '8545745230', 'alvispatel123', 1, 1),
+('asim_bhai@daiict.ac.in', 'Asim Banerjee', 3, '7778889990', '74108520', 1, 1),
+('club1@da.com', 'club1', 5, '5204106307', '745896', 1, 1),
+('ishanmehta.im28@gmail.com', 'Ishan Mehta', 3, '8160819878', 'MxUgwyQd', 1, 1),
+('parth7897@gmail.com', 'Parth Patel', 2, '6546546543', 'ssaassdd', 1, 1),
+('surajshah2503@gmail.com', 'Suraj Shah', 2, '9876543210', '1234567890', 0, 1),
+('vaidyavishal39@gmail.com', 'Vaidya Vishal', 2, '9879879876', 'vishal123', 0, 1),
+('viru@gmail.com', 'Viru', 2, '7777775553', 'asdasdasd', 0, 1);
 
 -- --------------------------------------------------------
 
@@ -365,7 +393,19 @@ CREATE TABLE IF NOT EXISTS `tblverify_linkes` (
   `link` varchar(200) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `k9` (`userid`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tblverify_linkes`
+--
+
+INSERT INTO `tblverify_linkes` (`id`, `userid`, `link`) VALUES
+(10, '201812097@daiict.ac.in', 'vBGxMVKOI4y09tuXCdLEYUfZp26q7NDSQwbAHiFj1olnJh5TsaRkem3c8rgW'),
+(11, '201812046@daiict.ac.in', 'JUpfBDVPdNvTgbilS1Q05rn2ACROKYehxEkGq8s963aoZX7IwzHMcWLjumF4'),
+(13, '201812026@daiict.ac.in', 'MvJGUOaYkdA1KtwRr5B0h8XPxVuoCf'),
+(15, 'surajshah2503@gmail.com', 'nAluKct5RwpTGydQHCNhJ1ak2Zqb93EVLUMPDYSBgf47mix8Ie0s6rzojXWO'),
+(16, 'vaidyavishal39@gmail.com', 'G6rI9HDesvPqtYZx7UBk5EKzo1LdRC0pFOAbNami3jTc8y2nQWwuJgS4fVlX'),
+(17, 'viru@gmail.com', 'wGyT6mIveafxtNRjVOF8s5zMQ4uP1kUX9dhJE0b3AKHlWcZ7LpqCSYiBgorn');
 
 --
 -- Constraints for dumped tables
