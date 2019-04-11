@@ -5,7 +5,7 @@ namespace App\Http\Controllers\ajax;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use DB;
-
+use Validator;
 class Ajax extends Controller
 {
 	function dup_mail_check(Request $req)

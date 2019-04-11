@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use DB;
 use DateTime;
 use Carbon\Carbon;
+use Validator;
 
 class ClientDashboard extends Controller
 {
