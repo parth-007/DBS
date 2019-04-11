@@ -14,6 +14,7 @@ Route::post('signup','client\Login_controller@signup');
 Route::post('client/login','client\Login_controller@log_in');
 Route::get('logout','client\Login_controller@log_out');
 Route::post('dup_mail','ajax\Ajax@dup_mail_check');
+Route::get('dup_mail/{email}','ajax\Ajax@dup_mail_check');
 Route::post('log_check','ajax\Ajax@log_info_check');
 Route::get('send','mailController@send');
 Route::get('admin/login','admin\admin_login_controller@index');
@@ -48,6 +49,9 @@ Route::get('admin/faculty','admin\AdminDashBoard@faculty');
 Route::get('client/Login_controller/activate_account/{userid}/{activate_code}', 'client\Login_controller@activate_account');
 Route::post('admin/add_faculty','admin\AdminDashBoard@add_faculty');
 Route::get('admin/AdminDashBoard/verify_faculty/{email}/{code}/{pass}','admin\AdminDashBoard@verify_faculty');
-
+Route::post('admin/forget_password','admin\admin_login_controller@forget_password');
+Route::get('admin/admin_login_controller/reset_password/{userid}/{activate_code}', 'admin\admin_login_controller@reset_pass');
+Route::post('admin/reset','admin\admin_login_controller@reset');
+Route::get('client/del_booking/{booking_id}','client\Client_Display@delete_booking');
 ?>
 
