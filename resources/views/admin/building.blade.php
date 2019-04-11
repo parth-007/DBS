@@ -12,10 +12,10 @@
                 type:"get",
                 success:function(data)
                 {
-                    $("#btnsubmit").html('Update');
+                    $("#btnsubmit_update").html('Update');
                     var ob=JSON.parse(data);
                     $("#aid").val(ob.buildingid);
-                    $("#buildingname").val(ob.buildingname);
+                    $("#buildingname_update").val(ob.buildingname);
                 }
             });
         }
@@ -35,7 +35,7 @@
                     <h3 class="text-primary">Buildings</h3> </div>
                 <div class="col-md-7 align-self-center">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+                        <li class="breadcrumb-item"><a href="{{url('admin/dashboard')}}">Home</a></li>
                         <li class="breadcrumb-item active">Buildings</li>
                     </ol>
                 </div>
@@ -60,7 +60,7 @@
                                     <div class="modal-body">
                                             <div class="form-group">
                                                 <label for="building" class="col-form-label">Building name:</label>
-                                                <input type="text" class="form-control" name="buildingname" id="buildingname" required>
+                                                <input type="text" class="form-control" name="buildingname" placeholder="Add building" id="buildingname" required/>
                                             </div>
                                     </div>
                                     <input type="hidden" name="aid" id="aid">
@@ -89,9 +89,41 @@
                             <tr>
                                 <td id="bid">{{ $building->buildingid}}</td>
                                 <td>{{ $building->buildingname}}</td>
-                                <td><a data-toggle="modal" data-target="#myModal" data-backdrop="static"
-                                data-keyboard="false" href="" onclick="fetch_account({{@$building->buildingid}})" class="badge delete badge-info">Update</a></td>
+                                <td><a data-toggle="modal" data-target="#myModal_update" data-backdrop="static"
+                                data-keyboard="false" href="" onclick="fetch_account({{@$building->buildingid}})" data-toggle="modal" data-target="#myModal_update" data-whatever="@mdo" class="badge delete badge-info">Update</a></td>
+
+                                <!-- <button type="button" class="btn btn-info" id="btn_model" data-toggle="modal" data-target="#myModal_update" data-whatever="@mdo">Add building</button> -->
+                            <div class="container">
+                            <div class="modal" id="myModal_update">
+                                <div class="modal-dialog">
+                                <div class="modal-content">
+                
+                                <div class="modal-header">
+                                <h4 class="modal-title">Update building</h4>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                </div>
+                                
+                                <form action='{{url("admin/AdminDashBoard/fetch_account")}}' method="post">
+                                {{csrf_field()}}
+                                    <div class="modal-body">
+                                            <div class="form-group">
+                                                <label for="building" class="col-form-label">Building name:</label>
+                                                <input type="text" class="form-control" name="buildingname" id="buildingname_update">
+                                            </div>
+                                    </div>
+                                    <input type="hidden" name="aid" id="aid">
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                        <button type="submit" id="btnsubmit_update" class="btn btn-info">Update building</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>    
+
+
+
                                 <td><a href='{{ url("admin/buildings/delete/{$building->buildingid}")}}' class="badge delete badge-info">Delete</a></td>
+                                
                             </tr>
                         @endforeach
                     </tbody>
