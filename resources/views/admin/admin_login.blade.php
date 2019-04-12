@@ -95,7 +95,7 @@
                     <br>
                     <button type="button" id="admin_button" class="btn btn-default" >Login</button>
                 </form>
-                </div class="container" style="color: black;">
+                <div class="container" style="color: black;">
                   <div class="modal fade" id="myModal" role="dialog">
                     <div class="modal-dialog modal-sm">
                       <div class="modal-content">

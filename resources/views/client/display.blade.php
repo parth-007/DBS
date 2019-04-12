@@ -11,13 +11,19 @@
     <div class="container-fluid" >
         <div class="card">
             <div class="card-body">
+                <h4 class="card-title">My Bookings</h4>
         <table class="table table-hover">
+            <?php
+            $c=0;
+             ?>
             <thead>
                 <tr>
-                    <th scope="row">Resource Name</th>
+                    <th scope="row">#</th>
+                    <th scope="row">Resource</th>
                     <th scope="row">Purpose</th>
-                    <th scope="row">Contact Number</th>
-                    <th scope="row">Building Name</th>
+                    <th scope="row">Contact</th>
+                    <th scope="row">Start</th>
+                    <th scope="row">End</th>
                     <th scope="row">Booking Status</th>
                     <th scope="row">Cancel Booking</th>
                 </tr>
@@ -25,10 +31,12 @@
             <tbody>
                 @foreach($users as $u)
                 <tr>
-                    <th>{{$u->resourcename}}</th>
+                    <td>{{++$c}}</td>
+                    <td>{{$u->resourcename}}</td>
                     <td>{{$u->purpose}}</td>
                     <td>{{$u->phonenumber}}</td>
-                    <td>{{$u->buildingname}}</td>
+                    <td>{{$u->starttime}}</td>
+                    <td>{{$u->endtime}}</td>
                     <td>{{$u->status}}</td>
                     <td style="text-align: center;">
                         <button class="btn btn-danger" data-toggle="modal" data-target="#myModal_{{$u->bookingid}}"><span class="fa fa-times"></span></button>

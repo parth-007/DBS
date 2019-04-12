@@ -19,7 +19,7 @@ class Client_Display extends Controller
     			->join('tbluser','email','=','useremail')
                 ->join('tblresource','resource_id','=','resourceid')
                 ->join('tblbuilding','tblbuilding.buildingid','=','tblresource.buildingid')
-    			->select('username','email','phonenumber','resourceid','purpose','expected_audience','bookingid','resourcename','buildingname','tblbooking.status')
+    			->select('username','email','phonenumber','resourceid','purpose','expected_audience','bookingid','resourcename','buildingname','tblbooking.status','starttime',"endtime")
     			->where('email',session('email'))
                 ->whereNotIn('tblbooking.status',['Cancelled'])
     			->get();

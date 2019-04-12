@@ -56,5 +56,7 @@ Route::get('admin/admin_login_controller/reset_password/{userid}/{activate_code}
 Route::post('admin/reset','admin\admin_login_controller@reset');
 Route::get('client/del_booking/{booking_id}','client\Client_Display@delete_booking');
 Route::post('client/add_slot','client\ClientDashboard@slots_manage');
+Route::get('Respond_Request/{rbookingid}/{ubookingid}','client\Respond_Request@respond');
 ?>
+
 
