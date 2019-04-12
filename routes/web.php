@@ -52,5 +52,6 @@ Route::post('admin/add_faculty','admin\AdminDashBoard@add_faculty');
 Route::get('admin/AdminDashBoard/verify_faculty/{email}/{code}/{pass}','admin\AdminDashBoard@verify_faculty');
 Route::any('client/add_slot','client\ClientDashboard@slots_manage');
 Route::any('inquiry','main\Main@my_mail');
+Route::post('inspect_slots','main\Main@all_booked_slots');
 ?>
 
