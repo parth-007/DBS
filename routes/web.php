@@ -8,8 +8,10 @@ Route::get('client/booking','client\ClientDashboard@book');
 Route::any('client/show_slots','client\ClientDashboard@show_slots');
 Route::get('profile','client\ClientDashboard@userProfile');
 Route::post('updateProfile','client\ClientDashboard@updateProfile');
+
 Route::get('request','client\Respond_Request@index');
 Route::get('client_display','client\Client_Display@index');
+
 Route::post('signup','client\Login_controller@signup');
 Route::post('client/login','client\Login_controller@log_in');
 Route::get('logout','client\Login_controller@log_out');
@@ -53,5 +55,6 @@ Route::post('admin/forget_password','admin\admin_login_controller@forget_passwor
 Route::get('admin/admin_login_controller/reset_password/{userid}/{activate_code}', 'admin\admin_login_controller@reset_pass');
 Route::post('admin/reset','admin\admin_login_controller@reset');
 Route::get('client/del_booking/{booking_id}','client\Client_Display@delete_booking');
+Route::post('client/add_slot','client\ClientDashboard@slots_manage');
 ?>
 

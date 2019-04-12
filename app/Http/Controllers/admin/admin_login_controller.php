@@ -21,6 +21,7 @@ class admin_login_controller extends Controller
      function logout()
     {
     	session()->forget('admin_email');
+        session()->forget('error1');
     	return redirect('admin/login');
     }
     function forget_password(Request $req)

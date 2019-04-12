@@ -30,7 +30,6 @@
             color:red;
         }
     </style>
-
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:** -->
     <!--[if lt IE 9]>
@@ -46,9 +45,33 @@
             <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" /> </svg>
     </div>
     <!-- Main wrapper  -->
+
     <div id="main-wrapper">
         <!-- header header  -->
         <div class="header">
+            <script type="text/javascript">
+      $(document).ready(function(){
+          $('#succ1').hide();
+      });
+    </script>
+
+    @if(session('error1'))
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('#succ1').show();   
+           $('#succ1').fadeOut(6000); 
+        });
+    </script>
+@endif
+
+@if(session('error1'))
+<center>
+<div id="succ1" style="position: fixed;top: 5px; left: 20%; right: 20%; z-index: 2;padding:10px 5px;background: #15C3B6;color: black"><div>
+                <strong>Done!</strong> {{session('error1')}}
+              </div>
+            </div></center>
+            
+@endif
             <nav class="navbar top-navbar navbar-expand-md navbar-light">
                 <!-- Logo -->
                 <div class="navbar-header">
