@@ -76,7 +76,11 @@
                 <!-- Logo -->
                 <div class="navbar-header">
                     <a class="navbar-brand" href="{{url('admin/dashboard')}}">
-                        <h3>DBS-Admin</h3>
+                        <!-- Logo icon -->
+                        <b><img src="images/logo.png" alt="homepage" class="dark-logo" /></b>
+                        <!--End Logo icon -->
+                        <!-- Logo text -->
+                        <span><img src="images/logo-text.png" alt="homepage" class="dark-logo" /></span>
                     </a>
                 </div>
                 <!-- End Logo -->
