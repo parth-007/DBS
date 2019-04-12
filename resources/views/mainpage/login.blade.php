@@ -156,7 +156,30 @@
         });
     });
 </script>
+<script type="text/javascript">
+      $(document).ready(function(){
+          $('#succ').hide();
+      });
+    </script>
+
+    @if(session('error'))
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('#succ').show();   
+           $('#succ').fadeOut(8000); 
+        });
+    </script>
+@endif
+
+@if(session('error'))
+<center>
+<div id="succ" style="position: fixed;top: 5px; left: 20%; right: 20%; z-index: 2;padding:10px 5px;background: #15C3B6"><div class="alert alert-success">
+                <strong>Done!</strong> {{session('error')}}
+              </div>
+            </div></center>
+@endif
 <body>
+   
     <header>
         <div class="fl-lft hdr-div">
             <div>
@@ -170,7 +193,7 @@
                 </a>
             </div>
             <div>
-                <h3 class="mrg-l20">Welcome User</h3>
+                <h3 class="mrg-l20 disp-no">Welcome User</h3>
             </div>
         </div>
         <div class="fl-rght hdr-div">

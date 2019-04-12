@@ -68,6 +68,7 @@ class Ajax extends Controller
 		$num = DB::table('tbladmin')->where('email',$req->mail)->where('password',$req->password)->count();
     	if($num==0)
     	{
+    		session()->forget('error1');
     		echo "1";
     		
     	}

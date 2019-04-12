@@ -1,7 +1,7 @@
             <!-- footer -->
             <!-- ============================================================== -->
             <footer class="footer">
-                © 2017 Monster Admin by wrappixel.com
+                © 2019 DBS - DA Booking System
             </footer>
             <!-- ============================================================== -->
             <!-- End footer -->

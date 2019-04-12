@@ -453,9 +453,9 @@ class AdminDashBoard extends Controller
     function faculty(){
         $typeid = DB::table('tbluser_type')->where('tbluser_type.usertype','faculty')->first()->usertypeid;
         
-        $data['f_data'] = DB::table('tbluser')->where('tbluser.usertypeid',$typeid)->where('is_verified',1)->get();
+        $data['f_data'] = DB::table('tbluser')->where('tbluser.usertypeid',$typeid)->paginate(7);
 
-        
+        // session()->forget('error1');
         return view('admin/faculty_view',$data);
     }
     function add_faculty(Request $req)
@@ -484,7 +484,7 @@ class AdminDashBoard extends Controller
         DB::table('tblverify_linkes')->insert(['userid'=>$email,'link'=>$activation_code]);
 
          Mail::to($email)->send(new FacultyVerify($link,$passcode));
-        
+        session(['error1'=>'Faculty will get verified once they click on the link sent.']);
         return redirect('admin/faculty');
 
     }
@@ -494,6 +494,7 @@ class AdminDashBoard extends Controller
         {
             DB::table('tbluser')->where('email',$email)->update(['is_verified'=>1,'is_active'=>1]);
             DB::table('tblverify_linkes')->where(['userid'=>$email,'link'=>$code])->delete();
+            session(['error1'=>'Please Login.']);
             return redirect('login');
         }
         else{
