@@ -363,7 +363,11 @@ date_default_timezone_set('Asia/Kolkata');
     }
     function slots_manage(Request $req)
     {
-        $useremail = session('email');
+          if(!$req->session()->has('email'))
+          {
+              return redirect('login');
+          }
+         $useremail = session('email');
         $resourceid = $req->mainid;
         $starttime = $req->stt;
         $endtime = $req->ett;

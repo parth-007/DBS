@@ -257,6 +257,80 @@ input#lgn-form:checked ~ div.flx-div>div.frm-lgn:last-child, #sgn-form:checked ~
 }
 
 /* "login.html" FORM Ends */
+/* "inspect.html" INSPECT Stars */
+
+.main-content-bg{
+    background: rgb(204, 244, 245);
+    padding: 50px 0;
+    width: 100%;
+}
+
+.main-content{
+    background: white;
+    color: rgb(30, 30, 30);
+    margin: auto;
+    width: 95%;
+    box-shadow: 0 0 8px rgba(60, 60, 60, .3)
+}
+
+.load-booking-form{
+    background: rgb(60, 60, 60);
+}
+
+form.inspect-form{
+    display: flex;
+    flex-wrap: wrap;
+    width: auto;
+    justify-content: space-around;
+}
+
+.inspect-div{
+    display: block;
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: left;
+    text-align: left;
+    background: rgb(245, 245, 245)
+}
+
+.inspect-div > div.card{
+    display: inline-block;
+    width: 32.9%;
+    min-width: 350px;
+    min-height: 250px;
+    margin: 5px 1px;
+    background: white;
+    box-shadow: 0 0 8px rgba(60, 60, 60, .2);
+    transition: box-shadow .3s, background-color .3s, color .3s;
+}
+
+.inspect-div > div.card:hover{
+    box-shadow: 0 0 8px rgba(60, 60, 60, .7);
+    background: rgb(14, 206, 180);
+    color: rgb(30, 30, 30);
+}
+
+.inspect-div > div.card > *{
+    margin: 10px;
+}
+
+.inspect-div td{
+    text-align: justify;
+}
+
+@media only screen and (max-width: 1180px){
+    .inspect-div > div{
+        width: 49.4%;
+    }
+}
+
+@media only screen and (max-width: 761px){
+    .inspect-div > div{
+        width: 99.5%;
+    }
+}
+
+/* "inspect.html" INSPECT Ends */
 
 /* "login.html" POPUP Starts */
 

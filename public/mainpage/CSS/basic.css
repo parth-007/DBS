@@ -25,7 +25,11 @@
     text-align: center;
 }
 
-.mrg-r5 {
+.v-al-top-all *{
+    vertical-align: top;
+}
+
+.mrg-r5{
     margin-right: 5px;
 }
 
@@ -91,11 +95,7 @@ form {
     line-height: 40px;
 }
 
-form input[type="text"],
-form input[type="password"],
-form input[type="email"],
-form input[type="number"],
-textarea {
+form input[type="text"], form input[type="password"], form input[type="email"], form input[type="number"], form input[type="date"], form select, textarea{
     padding: 10px 10px;
     width: 300px;
     background: transparent;
@@ -108,16 +108,24 @@ textarea {
     -moz-transition: border 0.3s;
 }
 
-form input[type="text"]:focus,
-form input[type="password"]:focus,
-form input[type="email"]:focus,
-form input[type="number"]:focus,
-textarea:focus {
+form input[type="number"]::-webkit-inner-spin-button { display: none; }
+
+form input[type="date"]::-webkit-inner-spin-button { display: none; }
+::-webkit-calendar-picker-indicator { background: transparent; }
+::-webkit-clear-button{ display: none; }
+
+
+form option{
+    color: black;
+}
+
+form input[type="text"]:focus, form input[type="password"]:focus, form input[type="email"]:focus, form input[type="number"]:focus, form input[type="date"]:focus, form select:focus, textarea:focus{
     outline: 0;
     border-bottom: 3px solid rgb(23, 200, 183);
 }
 
 form {
+    display: table;
     background: rgb(60, 60, 60);
     text-align: left;
     margin: auto;
