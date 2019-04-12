@@ -147,7 +147,7 @@
 <script type="text/javascript">
     $(document).ready(function(){
         @if($errors->any())
-            $("#error_msg").fadeOut(3000);
+            $("#error_msg").fadeOut(4000);
         @endif
     });
 </script>

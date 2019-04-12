@@ -93,6 +93,17 @@
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-body">
+                                    @if($errors->any())
+                                        <center>
+                                            <div id="error_msg" style="position: fixed;top: 52px; left: 20%; right: 20%; z-index: 9999;background: #cc0000;color:white"><div class="alert alert-error">
+                                                    <strong>Error!</strong> 
+                                                    @foreach($errors->all() as $error)
+                                                        {{$error}}
+                                                    @endforeach
+                                                </div>
+                                            </div>
+                                        </center>
+                                    @endif 
                                 <h4 class="card-title">Booking</h4>
                             <form class="m-t-40" method="post" enctype="multipart/form-data" id="myform1"> 
                               {{csrf_field()}}
@@ -245,5 +256,12 @@
                         autoclose: true,
                     })
                 })
+            </script>
+            <script type="text/javascript">
+                $(document).ready(function(){
+                    @if($errors->any())
+                        $("#error_msg").fadeOut(3000);
+                    @endif
+                });
             </script>
 @include('client/footer')
