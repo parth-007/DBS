@@ -14,16 +14,27 @@
             <!-- Bread crumb -->
             <div class="row page-titles">
                 <div class="col-md-5 align-self-center">
-                    <h3 class="text-primary">Resource</h3> 
+                    <h3 class="text-primary">Profile</h3> 
                 </div>
                 <div class="col-md-7 align-self-center">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                        <li class="breadcrumb-item active">Resource</li>
+                        <li class="breadcrumb-item active">Profile</li>
                     </ol>
                 </div>
             </div>
         <div class="container-fluid">
+                @if($errors->any())
+                <center>
+                    <div id="error_msg" style="position: fixed;top: 52px; left: 20%; right: 20%; z-index: 9999;background: #cc0000;color:white"><div class="alert alert-error">
+                            <strong>Error!</strong> 
+                            @foreach($errors->all() as $error)
+                                {{$error}}
+                            @endforeach
+                        </div>
+                    </div>
+                </center>
+                @endif 
             <div class="table-responsive m-t-40">
                     <form id="frm_profile" method="post">
                             <div>
@@ -57,9 +68,12 @@
     </body>
     <script>
             $(document).ready(function(){
+            $.validator.addMethod("phoneno", function(value, element) {
+                return this.optional(element) || /^[6-9][0-9]+$/i.test(value);
+            }, "Enter valid mobile no");
             $.validator.addMethod("lettersonly", function(value, element) {
-                return this.optional(element) || /^[a-z\s]+$/i.test(value);
-            }, "Only alphabetical characters"); 
+                    return this.optional(element) || /^[a-zA-Z_ \s]+$/i.test(value);
+                }, "Only alphabetical characters"); 
             $("#frm_profile").validate({
                 rules: {
                     txt_username:{
@@ -72,8 +86,9 @@
                         equalTo: "#txt_password"
                     },
                     txt_phoneno:{
-                        minlength: 10,
-                        maxlength:10
+                        minlength:10,
+                        maxlength:10,
+                        phoneno:true
                     }
                 }
             });
@@ -104,6 +119,13 @@
             });
         });
         </script>
+        <script type="text/javascript">
+            $(document).ready(function(){
+                @if($errors->any())
+                    $("#error_msg").fadeOut(3000);
+                @endif
+            });
+          </script>
     </html>
 
 @include("admin/footer")

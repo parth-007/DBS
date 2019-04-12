@@ -4,6 +4,7 @@ namespace App\Http\Controllers\client;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Validator;
 
 class Respond_Request extends Controller
 {

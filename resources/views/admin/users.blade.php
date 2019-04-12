@@ -70,7 +70,7 @@
                     <h3 class="text-primary">Users</h3> </div>
                 <div class="col-md-7 align-self-center">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+                    <li class="breadcrumb-item"><a href="{{url('admin/dashboard')}}">Home</a></li>
                         <li class="breadcrumb-item active">Users</li>
                     </ol>
                 </div>
@@ -82,6 +82,17 @@
                     <input type="text" id="txtsearch" class="form-control"  placeholder="Type to search...">
                 </div>
               </div>
+              @if($errors->any())
+                <center>
+                    <div id="error_msg" style="position: fixed;top: 52px; left: 20%; right: 20%; z-index: 9999;background: #cc0000;color:white"><div class="alert alert-error">
+                            <strong>Error!</strong> 
+                            @foreach($errors->all() as $error)
+                                {{$error}}
+                            @endforeach
+                        </div>
+                    </div>
+                </center>
+              @endif 
               <div class="table-responsive m-t-40">
                 <table id="example23" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
                       <thead>
@@ -127,4 +138,11 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+  $(document).ready(function(){
+      @if($errors->any())
+          $("#error_msg").fadeOut(3000);
+      @endif
+  });
+</script>
 @include("admin/footer")

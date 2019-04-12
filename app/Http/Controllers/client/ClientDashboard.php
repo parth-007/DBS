@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use DB;
 use DateTime;
 use Carbon\Carbon;
+use Validator;
 
 class ClientDashboard extends Controller
 {
@@ -92,6 +93,10 @@ class ClientDashboard extends Controller
         return view('client/profile',$data);
     }
     function updateProfile(Request $req){
+      $req->validate([
+            "txt_username"=>"bail|required",
+            "txt_phoneno"=>"bail|required|size:10|regex:'^[6-9][0-9]+$'",
+        ]);
         $useremail=session('email');
         if($req->txt_password=='' || $req->txt_password==null){
             $data=DB::table('tbluser')

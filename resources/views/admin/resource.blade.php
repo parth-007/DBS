@@ -6,6 +6,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>Document</title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/additional-methods.min.js"></script>
         <script>
         $(document).ready(function(){
 
@@ -35,6 +37,14 @@
                     }
                     console.log("complete");
                 });
+            });
+             
+            $("#frm_add_resource").validate({
+
+            });
+
+            $("#frm_update_resource").validate({
+                
             });
         });
         function updateHandler(update_id){
@@ -106,6 +116,8 @@
                     
                 }
             });
+           
+
         
 
         }
@@ -123,7 +135,7 @@
                 </div>
                 <div class="col-md-7 align-self-center">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+                        <li class="breadcrumb-item"><a href="{{url('admin/dashboard')}}">Home</a></li>
                         <li class="breadcrumb-item active">Resource</li>
                     </ol>
                 </div>
@@ -131,7 +143,17 @@
 <div class="container-fluid">
     <div class="card">
         <div class="card-body">
-            
+            @if($errors->any())
+                <center>
+                    <div id="error_msg" style="position: fixed;top: 52px; left: 20%; right: 20%; z-index: 9999;background: #cc0000;color:white"><div class="alert alert-error">
+                            <strong>Error!</strong> 
+                            @foreach($errors->all() as $error)
+                                {{$error}}
+                            @endforeach
+                        </div>
+                    </div>
+                </center>
+            @endif 
             <!-- <button type="button" class="btn btn-info">Add building</button> -->
                     <div class="col-mid-12 col-lg-12">
                         <button type="button" class="btn btn-info col-md-3 col-lg-3" data-toggle="modal" data-target="#myModal" data-whatever="@mdo" style="display: inline-block">Add resource</button>
@@ -152,7 +174,7 @@
                                 </div>
                                 
                                 <!-- Modal body -->
-                                <form action='{{url("admin/resources/insert")}}' method="post">
+                                <form action='{{url("admin/resources/insert")}}' method="post" id="frm_add_resource">
                                 {{csrf_field()}}
                                     <div class="modal-body">
                                             <div class="form-group">
@@ -192,16 +214,16 @@
                                                 <hr>
                                                 <div>
                                                     <label for="resourcename">Resorce Name :</label>
-                                                    <input type="text" class="form-control" name="resourcename">
+                                                    <input type="text" class="form-control" name="resourcename" required>
                                                 </div>
                                                 <div>
                                                     <label for="capacity">Capacity :</label>
-                                                    <input type="number" class="form-control" name="capacity">
+                                                    <input type="number" class="form-control" name="capacity" required>
                                                 </div>
 
                                                 <div>
                                                     <label for="isAllocate">isAllocate :</label>
-                                                    <label for="">&nbsp&nbsp<input type="radio" class="" name="isAllocate" id="Yes" value="1">&nbsp Yes </label>
+                                                    <label for="">&nbsp&nbsp<input type="radio" class="" name="isAllocate" id="Yes" value="1" checked>&nbsp Yes </label>
                                                     <label for="">&nbsp&nbsp&nbsp<input type="radio" class="" name="isAllocate" id="No" value="0">&nbsp No</label>
                                                 </div>
 
@@ -232,7 +254,7 @@
                                 </div>
                                 
                                 <!-- Modal body -->
-                                <form action='{{url("admin/resources/update/")}}' method="post">
+                                <form action='{{url("admin/resources/update/")}}' method="post" id="frm_update_resource">
                                 {{csrf_field()}}
                                     <div class="modal-body">
                                             <div class="form-group">
@@ -272,11 +294,11 @@
                                                 <hr>
                                                 <div>
                                                     <label for="resourcename">Resorce Name :</label>
-                                                    <input type="text" class="form-control" name="updt_resourcename" id="updt_resourcename">
+                                                    <input type="text" class="form-control" name="updt_resourcename" id="updt_resourcename" required>
                                                 </div>
                                                 <div>
                                                     <label for="capacity">Capacity :</label>
-                                                    <input type="number" class="form-control" name="updt_capacity" id="updt_capacity">
+                                                    <input type="number" class="form-control" name="updt_capacity" id="updt_capacity" required>
                                                 </div>
                                                 <div>
                                                     <label for="isAllocate">isAllocate :</label>
@@ -348,4 +370,11 @@
 
     </body>
     </html>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            @if($errors->any())
+                $("#error_msg").fadeOut(4000);
+            @endif
+        });
+    </script>
 @include("admin/footer")

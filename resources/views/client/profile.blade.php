@@ -23,6 +23,17 @@
                     
                     <div class="col-md-12">
                         <div class="card card-body">
+                            @if($errors->any())
+                                <center>
+                                    <div id="error_msg" style="position: fixed;top: 52px; left: 20%; right: 20%; z-index: 9999;background: #cc0000;color:white"><div class="alert alert-error">
+                                            <strong>Error!</strong> 
+                                            @foreach($errors->all() as $error)
+                                                {{$error}}
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                </center>
+                            @endif 
                             <h3 class="box-title m-b-0">Profile</h3>
                             <p class="text-muted m-b-30 font-13">Update Profile</p>
                             <div class="row">  
@@ -122,8 +133,11 @@
             
             <script>
                 $(document).ready(function(){
+                $.validator.addMethod("phoneno", function(value, element) {
+                return this.optional(element) || /^[6-9][0-9]+$/i.test(value);
+            }, "Enter valid mobile no");
                 $.validator.addMethod("lettersonly", function(value, element) {
-                    return this.optional(element) || /^[a-z\s]+$/i.test(value);
+                    return this.optional(element) || /^[a-zA-Z_ \s]+$/i.test(value);
                 }, "Only alphabetical characters"); 
                 $("#frm_profile").validate({
                     rules: {
@@ -138,7 +152,8 @@
                         },
                         txt_phoneno:{
                             minlength: 10,
-                            maxlength:10
+                            maxlength:10,
+                            phoneno:true
                         }
                     }
                 });
@@ -168,5 +183,12 @@
                     }
                 });
             });
+            </script>
+            <script type="text/javascript">
+                $(document).ready(function(){
+                    @if($errors->any())
+                        $("#error_msg").fadeOut(3000);
+                    @endif
+                });
             </script>
 @include('client/footer')
