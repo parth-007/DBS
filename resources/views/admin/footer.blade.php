@@ -1,6 +1,6 @@
  <!-- footer -->
-            <footer class="footer"> © 2019 All rights reserved. DBS - DA Booking System <a href="#"></a></footer>
-            <footer class="footer"> </footer>
+            <footer class="footer"><a href="#"></a></footer>
+            <footer class="footer">  © 2019 All rights reserved. DBS - DA Booking System </footer>
             <!-- End footer -->
         </div>
         <!-- End Page wrapper  -->

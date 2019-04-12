@@ -22,7 +22,10 @@ class Client_Display extends Controller
     	// 		->get();
 
         $data['final_data'] = DB::table('tblbooking as b')->Join('tbluser as u','u.email','=','b.useremail')->Join('tblresource as r','r.resource_id','=','b.resourceid')->select('r.resourcename','b.starttime','b.endtime','b.purpose','b.expected_audience','b.status')->where(['b.useremail'=>session('email')])->get();
-    	 return view('client/display', $data);
+
+        echo '<pre>';
+        print_r($data);die;
+    	 //return view('client/display', $data);
     	// return view('client/display');
     }
 }
