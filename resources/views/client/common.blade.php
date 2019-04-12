@@ -29,7 +29,8 @@
     <link href="{{asset('client/css/colors/blue.css')}}" id="theme" rel="stylesheet">
 
     <script src="{{asset('client/assets/plugins/jquery/jquery.min.js')}}"></script>
-   
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/additional-methods.min.js"></script>   
     
     <style>
         .error{

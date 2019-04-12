@@ -5,11 +5,14 @@ namespace App\Http\Controllers\ajax;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use DB;
-
+use Validator;
 class Ajax extends Controller
 {
 	function dup_mail_check(Request $req)
 	{
+		$req->validate([
+            "mail"=>"bail|required|email"
+        ]);
 		$num = DB::table('tbluser')->where('email',$req->mail)->where('is_verified',1)->count();
 		if($num!=0)
 		{
@@ -22,6 +25,9 @@ class Ajax extends Controller
 	}
 	function reset_mail_check(Request $req)
 	{
+		$req->validate([
+            "mail"=>"bail|required|email"
+        ]);
 		$num = DB::table('tbluser')->where('email',$req->mail)->where('is_verified',1)->where('is_active',1)->count();
 		if($num!=0)
 		{
@@ -34,6 +40,10 @@ class Ajax extends Controller
 	}
 	function log_info_check(Request $req)
 	{
+		$req->validate([
+            "mail"=>"bail|required|email",
+            "password"=>"bail|required"
+        ]);
 		$num = DB::table('tbluser')->where('email',$req->mail)->where('password',$req->password)->count();
     	if($num==0)
     	{
@@ -51,6 +61,10 @@ class Ajax extends Controller
 	}
 	function admin_log_info_check(Request $req)
 	{
+		$req->validate([
+            "mail"=>"bail|required|email",
+            "password"=>"bail|required"
+        ]);
 		$num = DB::table('tbladmin')->where('email',$req->mail)->where('password',$req->password)->count();
     	if($num==0)
     	{

@@ -35,7 +35,15 @@
     $.validator.addMethod("lettersonly", function(value, element) {
                 return this.optional(element) || /^[a-z\s]+$/i.test(value);
             }, "Only alphabetical characters");
-        
+
+            $.validator.addMethod("phoneno", function(value, element) {
+                    return this.optional(element) || /^[6-9][0-9]+$/i.test(value);
+                }, "Enter valid mobile no");
+
+            $.validator.addMethod("damail", function(value, element) {
+                return this.optional(element) || /^[a-z0-9_]+@daiict\.ac\.in$/i.test(value);
+            }, "Please Enter Valid DA-IICT Email");
+
         $("#signup").validate({
             rules:{
                 name2:{
@@ -50,7 +58,12 @@
                 mobile2:{
                     minlength:10,
                     maxlength:10,
+                    phoneno:true
+                },
+                mail2:{
+                    damail:true,
                 }
+
             },
             errorPlacement: function(error, element) {
             var placement = $(element).data('error');
@@ -202,6 +215,17 @@
     <div class="flx-div"
         style="background-image: url('{{asset('mainpage/Images/lgbg.jpg')}}'); background-size: 100%; background-repeat: no-repeat; background-position-y: center;">
         <div class="frm-lgn">
+                @if($errors->any())
+                <center>
+                    <div id="succ" style="position: fixed;top: 5px; left: 20%; right: 20%; z-index: 2;padding:10px 5px;background: #15C3B6"><div class="alert alert-success">
+                            <strong>Done!</strong> 
+                            @foreach($errors->all() as $error)
+                                {{$error}}
+                            @endforeach
+                        </div>
+                    </div>
+                </center>
+                @endif
             <form name="login" id="login" method="post">
                  {{csrf_field()}}
                 <h2>Login</h2>
@@ -233,7 +257,7 @@
                 <hr style="border: none; background: rgba(255, 255, 255, 0.3); height: .5px;">
                 <div class="input-grp">
                     <label class="disp-no" id="dup_label" style="color: red;">*This email is already in our network</label>
-                    <input type="email" name="mail2" id="mail2" required>
+                    <input type="text" name="mail2" id="mail2" required>
                     <label>DA Mail-ID : </label>
                 </div>
                 <div class="input-grp">

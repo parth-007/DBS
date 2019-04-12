@@ -21,6 +21,8 @@ Route::get('send','mailController@send');
 Route::get('admin/login','admin\admin_login_controller@index');
 Route::post('admin/log_check','ajax\Ajax@admin_log_info_check');
 Route::get('admin/buildings','admin\AdminDashBoard@building');
+Route::get('admin/bookings_print_todays','admin\AdminDashBoard@bookings_print_todays');// INM 09-04-2019
+Route::get('admin/bookings','admin\AdminDashBoard@bookings');// INM 09-04-2019
 Route::post('admin/buildings/insertbuilding','admin\AdminDashBoard@insert');
 Route::get('admin/AdminDashBoard/fetch_account/{id}','admin\AdminDashBoard@fetch_account');
 Route::post('admin/AdminDashBoard/status_change/','admin\AdminDashBoard@status_change');//INM 06-04-2019

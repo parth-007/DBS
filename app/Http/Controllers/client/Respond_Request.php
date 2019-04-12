@@ -5,6 +5,8 @@ namespace App\Http\Controllers\client;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use DB;
+use Validator;
+
 class Respond_Request extends Controller
 {
 	function __construct()
