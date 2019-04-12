@@ -17,8 +17,8 @@ class ClientDashboard extends Controller
     
 	}
     function index(){
-
-      
+date_default_timezone_set('Asia/Kolkata');
+    
     	return view('client/dashboard');
     }
 

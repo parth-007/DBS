@@ -10,7 +10,7 @@
     <meta name="author" content="">
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
-    <title>DBS Admin Dashboard</title>
+    <title>DBS | DA Booking System Any Place Any Time</title>
     <!-- Bootstrap Core CSS -->
     <link href="{{asset('admin/css/lib/bootstrap/bootstrap.min.css')}}" rel="stylesheet">
     <!-- Custom CSS -->
