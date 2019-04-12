@@ -45,7 +45,6 @@
                                             </div>
                                             
                                     </div>
-                                    
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                                         <button type="submit" id="btnsubmit" class="btn btn-info">Add</button>
@@ -55,7 +54,17 @@
                         </div>
                     </div>
                 </div>
-
+                @if($errors->any())
+                <center>
+                    <div id="error_msg" style="position: fixed;top: 52px; left: 20%; right: 20%; z-index: 9999;background: #cc0000;color:white"><div class="alert alert-error">
+                            <strong>Error!</strong> 
+                            @foreach($errors->all() as $error)
+                                {{$error}}
+                            @endforeach
+                        </div>
+                    </div>
+                </center>
+                @endif 
              <div class="col-lg-9">
                         <div class="card">
                             <div class="card-title">
@@ -119,4 +128,11 @@
         });
     });
 </script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        @if($errors->any())
+            $("#error_msg").fadeOut(3000);
+        @endif
+    });
+  </script>
 @include('admin/footer')

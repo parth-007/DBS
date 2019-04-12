@@ -23,6 +23,17 @@
                     
                     <div class="col-md-12">
                         <div class="card card-body">
+                            @if($errors->any())
+                                <center>
+                                    <div id="error_msg" style="position: fixed;top: 52px; left: 20%; right: 20%; z-index: 9999;background: #cc0000;color:white"><div class="alert alert-error">
+                                            <strong>Error!</strong> 
+                                            @foreach($errors->all() as $error)
+                                                {{$error}}
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                </center>
+                            @endif 
                             <h3 class="box-title m-b-0">Profile</h3>
                             <p class="text-muted m-b-30 font-13">Update Profile</p>
                             <div class="row">  
@@ -172,5 +183,12 @@
                     }
                 });
             });
+            </script>
+            <script type="text/javascript">
+                $(document).ready(function(){
+                    @if($errors->any())
+                        $("#error_msg").fadeOut(3000);
+                    @endif
+                });
             </script>
 @include('client/footer')

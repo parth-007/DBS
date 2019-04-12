@@ -1,5 +1,4 @@
-<?php
-
+<?php 
 namespace App\Http\Controllers\client;
 
 use Illuminate\Http\Request;
@@ -22,7 +21,6 @@ class Login_controller extends Controller
         $req->validate([
             "mail2"=>"bail|required|email",
             "name2"=>"bail|required",
-            "usertypeid"=>"bail|required",
             "mobile2"=>"bail|required|size:10|regex:'^[6-9][0-9]+$'",
             "password2"=>"bail|required"
         ]);

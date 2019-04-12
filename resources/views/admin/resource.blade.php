@@ -143,7 +143,17 @@
 <div class="container-fluid">
     <div class="card">
         <div class="card-body">
-            
+            @if($errors->any())
+                <center>
+                    <div id="error_msg" style="position: fixed;top: 52px; left: 20%; right: 20%; z-index: 9999;background: #cc0000;color:white"><div class="alert alert-error">
+                            <strong>Error!</strong> 
+                            @foreach($errors->all() as $error)
+                                {{$error}}
+                            @endforeach
+                        </div>
+                    </div>
+                </center>
+            @endif 
             <!-- <button type="button" class="btn btn-info">Add building</button> -->
                     <div class="col-mid-12 col-lg-12">
                         <button type="button" class="btn btn-info col-md-3 col-lg-3" data-toggle="modal" data-target="#myModal" data-whatever="@mdo" style="display: inline-block">Add resource</button>
@@ -360,4 +370,11 @@
 
     </body>
     </html>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            @if($errors->any())
+                $("#error_msg").fadeOut(4000);
+            @endif
+        });
+    </script>
 @include("admin/footer")
