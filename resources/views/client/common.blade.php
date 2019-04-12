@@ -13,7 +13,7 @@
     <meta name="author" content="">
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="{{asset('client/assets/images/logo-icon.png')}}">
-    <title>DBS | DA Booking System Any Place Any Time</title>
+    <title>DBS | DA Booking System - Book Any Place Any Time</title>
     <!-- Bootstrap Core CSS -->
     <link href="{{asset('client/assets/plugins/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
     {{-- <!-- chartist CSS -->
@@ -81,7 +81,7 @@
                 <!-- Logo -->
                 <!-- ============================================================== -->
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="index.html">
+                    <a class="navbar-brand" href="{{url('dashboard')}}">
                         <!-- Logo icon -->
                         <b>
                             <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
