@@ -500,4 +500,27 @@ class AdminDashBoard extends Controller
             return redirect('login')->with('error','Invalid Activation Link');
         }
     }
+    function showInquiry()
+    {
+        $data['inquiry']=DB::table('tblinquiry')->paginate(10);
+        $data["c"]=0;
+        return view('admin/inquiry',$data);
+    }
+    function replayToInquirydata(Request $req)
+    {
+        $req->validate([
+            "id"=>"bail|required",
+            "txt_message"=>"bail|required"
+        ]);
+        $data=DB::table('tblinquiry')->where('id',$req->id)->update(['replay'=>$req->txt_message]);
+        echo $data;
+    }
+    function getinquiryreplaydata(Request $req)
+    {
+        $req->validate([
+            "id"=>"bail|required"
+        ]);
+        $data=DB::table('tblinquiry')->where('id',$req->id)->first();
+        echo $data->replay;
+    }
 }

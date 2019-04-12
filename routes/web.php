@@ -48,6 +48,11 @@ Route::get('admin/faculty','admin\AdminDashBoard@faculty');
 Route::get('client/Login_controller/activate_account/{userid}/{activate_code}', 'client\Login_controller@activate_account');
 Route::post('admin/add_faculty','admin\AdminDashBoard@add_faculty');
 Route::get('admin/AdminDashBoard/verify_faculty/{email}/{code}/{pass}','admin\AdminDashBoard@verify_faculty');
+Route::post('addinquiry','mailController@addinquiry');
+Route::get('admin/inquiry','admin\AdminDashBoard@showInquiry');
+Route::post('replaytoinquiry','admin\AdminDashBoard@replayToInquirydata');
+Route::post('getinquiryreplay','admin\AdminDashBoard@getinquiryreplaydata');
+
 
 ?>
 
