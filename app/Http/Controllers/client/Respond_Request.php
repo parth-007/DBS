@@ -77,4 +77,9 @@ class Respond_Request extends Controller
                 }
                 return redirect('\request');
     }
+    function Cancel($bookingid)
+    {
+        DB::table('tblbooking')->where('bookingid',$bookingid)->update(['status'=>'Denied']);
+        return redirect('\request');
+    }
 }

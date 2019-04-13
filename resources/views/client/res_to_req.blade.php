@@ -26,13 +26,13 @@
         // var hid2 = $("#hid_val_uid").val();
         // console.log(hid1 , hid2);
     }
-    function DeniedModal($rid,$uid)
+    function DeniedModal($rid)
     {
-      console.log($rid , $uid);
+      console.log($rid);
         $("#AModal").modal('hide');
         $("#DModal").modal();
         $("#hid_val_rid").val($rid);
-        $("#hid_val_uid").val($uid);
+        // $("#hid_val_uid").val($uid);
         // var hid1 = $("#hid_val_rid").val();
         // var hid2 = $("#hid_val_uid").val();
         // console.log(hid1 , hid2);
@@ -46,8 +46,9 @@
     }
     function Denied_Req()
     {
-        var id = $("#hid_val").val();
-        console.log(id);    
+        var hid1 = $("#hid_val_rid").val();
+        var hid2 = $("#hid_val_uid").val();
+        window.location = "/Cancel_Request/"+hid1;
     }
     $(document).ready(function(){
         
@@ -88,11 +89,11 @@
             <tbody>
                  @foreach($request_data as $u)
                 <tr>
-                    <th scope="row" style="vertical-align: middle;">{{++$c}}</th>
+                    <th scope="row">{{++$c}}</th>
                     <td>
                     <table class="inner-tb">
                     <tr>
-                        <th>UserName :</th>
+                        <th>Requester's Name :</th>
                         <td>{{$u->username}}</td>
                     </tr>
                     <tr>
@@ -150,7 +151,7 @@
                 
                     <td style="vertical-align: middle;">
                         <button id="accept_button" class="btn btn-success" onclick="AcceptModal(<?php echo $u->bookingid ?>,<?php echo $u->b1_bookingid ?>)"><span class="fa fa-check"></span></button>
-                        <button id="denied_button"  class="btn btn-danger" onclick="DeniedModal(<?php echo $u->bookingid ?>,<?php echo $u->b1_bookingid ?>)"><span class="fa fa-times"></span></button>
+                        <button id="denied_button"  class="btn btn-danger" onclick="DeniedModal(<?php echo $u->bookingid ?>)"><span class="fa fa-times"></span></button>
                     </td>
                 </tr>
 
@@ -193,7 +194,7 @@
                            <p>You are about to cancel request</p>
                             <p>Do you want to proceed?</p>
                             <input type="hidden" id="hid_val_rid">
-                            <input type="hidden" id="hid_val_uid">
+                            
                         </div>
                         <div class="modal-footer">
                             <a id="btnYes" class="btn btn-danger" onclick="Denied_Req();">Yes</a>
