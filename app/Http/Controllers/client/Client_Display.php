@@ -95,6 +95,6 @@ class Client_Display extends Controller
                 }
         }
        
-        // return redirect('client_display');
+         return redirect('client_display');
     }
 }

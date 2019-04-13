@@ -12,7 +12,7 @@
 });
 </script>
 <script type="text/javascript">
-    function main_task(id,status="",date="",from="",to=""){
+    function main_task(id,status="",date="",from="",to="",usertype="",bookingid=""){
         $('#mainid').val(id);
         // alert(status);
         if(status=='')
@@ -24,13 +24,16 @@
             $('#i1').text("Request");
             $('#sta1').val('Request');
         }
-        
+        if(usertype==3)
+        {
+            $('#i1').text("Book Now");
+        }
         $('#stt').val(date+' '+from+":00");
         $('#ett').val(date+' '+to+":00");
 
         $('#from1').text(date+' '+from);
         $('#to1').text(to);
-
+        $('#bookid').val(bookingid);
     }
 </script>
 <script type="text/javascript">
@@ -228,6 +231,7 @@
         <div class="modal-body">
         <input type="hidden" id="mainid" name="mainid">
         <input type="hidden" id="sta1" name="sta1">
+        <input type="hidden" id="bookid" name="bookid">
           <label>Time: <span id="from1" style="margin-left:20px"></span> To <span id="to1"></span> </label><input type="hidden" value="" name="stt" id="stt"><input type="hidden" value="" name="ett" id="ett">
           <br>
           <label>Purpose:</label><input type="text" name="purpose" placeholder="Purpose" style="margin-left:17px;">

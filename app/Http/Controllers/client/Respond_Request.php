@@ -75,11 +75,11 @@ class Respond_Request extends Controller
                 {
                    DB::table('tblbooking as b')->where('bookingid',$rbookingid)->update(['status'=>'Booked']);
                 }
-                return redirect('\request');
+                return redirect('request');
     }
     function Cancel($bookingid)
     {
         DB::table('tblbooking')->where('bookingid',$bookingid)->update(['status'=>'Denied']);
-        return redirect('\request');
+        return redirect('request');
     }
 }
