@@ -35,34 +35,39 @@
 </script>
 <script type="text/javascript">
     $(document).ready(function(){
+        $("#myform1").validate({
+
+        });
         $('#myform1').submit(function(e){
             e.preventDefault();
+            if($("#myform1").valid())
+            {
+                var formData = new FormData($(this)[0]);  
+                var cdate = $('#cdate').val();
+                var res = $('#b1').val();
+                var from = $('#from').val();
+                var to = $('#to').val();
+                $.ajax({
+                    type:"post",
+                    headers:{
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    url:"{{url('client/show_slots')}}",
+                    data:formData,
+                     async: false,   
+                           cache: false,
+                           contentType: false,
+                           enctype: 'multipart/form-data',
+                           processData: false,
 
-            var formData = new FormData($(this)[0]);  
-            var cdate = $('#cdate').val();
-            var res = $('#b1').val();
-            var from = $('#from').val();
-            var to = $('#to').val();
-
-            $.ajax({
-                type:"post",
-                headers:{
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                url:"{{url('client/show_slots')}}",
-                data:formData,
-                 async: false,   
-                       cache: false,
-                       contentType: false,
-                       enctype: 'multipart/form-data',
-                       processData: false,
-
-                       success:function(data)
-                       {
-                            $('#myresult').html(data);
-                       }
-            });
+                           success:function(data)
+                           {
+                                $('#myresult').html(data);
+                           }
+                });
+            }
         });
+        
     });
 </script>
 
@@ -110,12 +115,13 @@
                                         <div class="row">
                                             <div class="col-sm-3 text-right">Date</div>
                                             <div class="col-sm-5">
-                                                <div class="input-group">
+                                                <div class="input-group" style="display: flex;flex-wrap: wrap;">
                                                     <div class="input-group-addon">
                                                      <i class="fa fa-calendar">
                                                      </i>
                                                     </div>
-                                                    <input class="form-control" id="cdate" name="mybd" value="" placeholder="YYYY/MM/DD" type="text" style="background: inherit;" required readonly>
+                                                    <input class="form-control" id="cdate" name="mybd" value="" placeholder="YYYY/MM/DD" type="text" style="background: inherit;width:80%" required readonly>
+                                                    <br/>
                                                 </div>
                                             </div>
                                         </div>
@@ -125,7 +131,7 @@
                                              <div class="col-sm-3 text-right">Select Building</div>
                                             <div class="col-sm-5">
                                                 <div class="form-group">
-                                                    <select class="form-control" name="building" id="b1">
+                                                    <select class="form-control" name="building" id="b1" required>
                                                         <option value="">Please Select</option>
                                                             @foreach($building as $b)
                                                                 <option value="{{$b->buildingid}}">{{$b->buildingname}}</option>
@@ -139,14 +145,14 @@
                                         <div class="row">
                                      <div class="col-sm-3 text-right">Select Time</div>
                                         <div class="col-sm-2">
-                                             <div class="form-group input-group clockpicker">
-                                    <input type="text" id="from" name="from" class="form-control" placeholder="From" style="background: inherit;" required readonly>
+                                             <div class="form-group input-group clockpicker" style="display: block;">
+                                    <input type="text" id="from" name="from" class="form-control" placeholder="From" style="background: inherit;width:100%;" required readonly>
                                         </div>
                                     </div>
 
                                      <div class="col-sm-2">
-                                             <div class="form-group input-group clockpicker">
-                                    <input type="text" id="to" name="to" class="form-control" placeholder="To" style="background: inherit;" required readonly>
+                                             <div class="form-group input-group clockpicker" style="display: block;width:100%;">
+                                    <input type="text" id="to" name="to" class="form-control" placeholder="To" style="background: inherit;width:100%;" required readonly>
                                         </div>
                                     </div>
                                 </div>

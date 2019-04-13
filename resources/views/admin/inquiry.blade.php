@@ -28,7 +28,7 @@
                     <center>
                     <div id="succ_msg" style="position: fixed;top: 30px; left: 20%; right: 20%; z-index: 999999;padding:10px 5px;background: blue;color:white;display: none;">
                         <div class="">
-                        <strong>Done!</strong> Replay Was sended
+                        <strong>Done!</strong> Reply is send
                         </div>
                     </div>
                     </center>  
@@ -64,7 +64,7 @@
     <div class="modal-content">
 
     <div class="modal-header">
-    <h4 class="modal-title">Replay</h4>
+    <h4 class="modal-title">Reply</h4>
     <button type="button" class="close" data-dismiss="modal">&times;</button>
     </div>
     
@@ -72,7 +72,7 @@
     {{csrf_field()}}
         <div class="modal-body">
 
-                <label for="building" class="col-form-label">Replay message:</label>
+                <label for="building" class="col-form-label">Reply message:</label>
                 <div class="form-group">
                     <textarea rows="4" cols="60" name="txt_message" id="txt_message" style="resize: none;" required></textarea>
                 </div>
@@ -80,7 +80,7 @@
         <input type="hidden" name="aid" id="aid">
         <div class="modal-footer">
             <button type="button" id="btn_close" class="btn btn-danger" data-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-info">Replay</button>
+            <button type="submit" class="btn btn-info">Reply</button>
         </div>
     </form>
 </div>

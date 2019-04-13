@@ -25,7 +25,7 @@
                                 <button type="button"  class="close" data-dismiss="modal">&times;</button>
                                 </div>
                                 
-                                <form action='{{url("admin/insert_club_committee")}}' method="post">
+                                <form action='{{url("admin/insert_club_committee")}}' id="frm_cc" method="post">
                                 {{csrf_field()}}
                                     <div class="modal-body">
                                     <div class="form-group">
@@ -63,7 +63,7 @@
                     </div>
                 </div>
 
-             <div class="col-lg-9">
+             <div class="col-lg-12">
                         <!-- <div class="card"> -->
                             <!-- <div class="card-body"> -->
                                 <div class="table-responsive m-t-40">
@@ -114,4 +114,26 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    $(document).ready(function($) {
+        $.validator.addMethod("damail", function(value, element) {
+                return this.optional(element) || /^[a-z0-9_]+@daiict\.ac\.in$/i.test(value);
+            }, "Please Enter Valid DA-IICT Email");
+
+        $.validator.addMethod("phoneno", function(value, element) {
+                    return this.optional(element) || /^[6-9][0-9]+$/i.test(value);
+                }, "Enter valid mobile no");   
+
+        $("#frm_cc").validate({
+            rules:{
+                phone:{
+                    phoneno:true,
+                },
+                email:{
+                    damail:true
+                }
+            }
+        }); 
+    });
+</script>
 @include('admin/footer')

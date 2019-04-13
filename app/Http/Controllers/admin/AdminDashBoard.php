@@ -516,7 +516,7 @@ class AdminDashBoard extends Controller
             ->insert(['userid'=>$email,'link'=>$activation_code]);
 
         Mail::to($email)->send(new club_committee_verify($link,$passcode));
-        return redirect('admin/clubs_committees');
+        return redirect('admin/Clubs_Committees');
     }
     function add_faculty(Request $req)
     {
