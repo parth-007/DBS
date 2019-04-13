@@ -5,6 +5,8 @@ namespace App\Http\Controllers\admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Mail\FacultyVerify;
+use App\Mail\club_committee_verify;
+use App\Mail\inquiry_mail;
 use DB;
 use Mail;
 use Validator;
@@ -57,6 +59,19 @@ class AdminDashBoard extends Controller
         $count['bookings_count_today']=DB::table('tblbooking')
                 ->orWhere('tblbooking.status','Booked')
                 ->whereRaw('date(starttime) = ?',$todayDate)->count();
+
+        // INM 13-04-2019
+        $count['users_cc']=DB::table('tbluser')
+                ->join('tbluser_type','tbluser_type.usertypeid','=','tbluser.usertypeid')
+                ->orWhere('tbluser_type.usertype','committee')
+                ->orWhere('tbluser_type.usertype','club')
+                ->count();
+
+                // INM 13-04-2019
+        $count['faculty_count']=DB::table('tbluser')
+                ->join('tbluser_type','tbluser_type.usertypeid','=','tbluser.usertypeid')
+                ->where('tbluser_type.usertype','faculty')
+                ->count();
     	return view('admin/dashboard',$count);
     }
     function building(){
@@ -67,16 +82,20 @@ class AdminDashBoard extends Controller
         $req->validate([
             "buildingname"=>"bail|required"
         ]);
-        if($req->aid){
-            $a = $req->buildingname;
-            DB::table("tblbuilding")->where('buildingid',$req->aid)->update(['buildingname'=>$a]);
-        }
-        else{
-            $a = $req->buildingname;
-            DB::table('tblbuilding')->insert(['buildingname'=>$a]);
-        }
+        $a = $req->buildingname;
+        DB::table('tblbuilding')->insert(['buildingname'=>$a]);
         return redirect('admin/buildings');
     }
+    // INM 12-04-2019
+    public function updatebuilding(Request $req){
+        // $req->validate([
+        //     "buildingname"=>"bail|required"
+        // ]);
+        $a = $req->buildingname;
+        DB::table("tblbuilding")->where('buildingid',$req->uid)->update(['buildingname'=>$a]);
+        return redirect('admin/buildings');
+    }
+
     public function delete($id){
         DB::table('tblbuilding')->where('buildingid',$id)->delete();
         return redirect('admin/buildings');
@@ -458,6 +477,48 @@ class AdminDashBoard extends Controller
         // session()->forget('error1');
         return view('admin/faculty_view',$data);
     }
+    // INM 12-04-2019
+    function Clubs_Committees(){
+        // ->join('tblresource','tblresource.resource_id','=','tblbooking.resourceid')
+        $data['sel_c_c'] = DB::table('tbluser_type')
+            ->orWhere('tbluser_type.usertype','committee')
+            ->orWhere('tbluser_type.usertype','club')
+            ->select('tbluser_type.usertypeid','tbluser_type.usertype')
+            ->get();
+
+        $data['c_c'] = DB::table('tbluser')
+            ->join('tbluser_type','tbluser_type.usertypeid','=','tbluser.usertypeid')
+            ->orWhere('tbluser_type.usertype','committee')
+            ->orWhere('tbluser_type.usertype','club')
+            ->select('tbluser.email','username','tbluser.phonenumber','tbluser_type.usertype','tbluser.is_active','tbluser.is_verified')
+            // ->orderBy('tbluser_type.usertypeid','asc')
+            ->paginate(5);
+        
+        return view('admin/Clubs_Committees',$data);
+    }
+    // INM 12-04-2019 
+    function insert_club_committee(Request $req)
+    {
+        $email = $req->email;
+        $name = $req->name;
+        $phone = $req->phone;
+        $usertypeid = $req->selclubs_committees;
+        $length = 8;
+
+        $passcode=substr(str_shuffle(str_repeat($x='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil($length/strlen($x)) )),1,$length);
+        DB::table('tbluser')
+            ->insert(['email'=>$email,'username'=>$name,'phonenumber'=>$phone,'usertypeid'=>$usertypeid,'password'=>$passcode,'is_verified'=>0,'is_active'=>0]);
+
+        $length = 30;
+        $activation_code=substr(str_shuffle(str_repeat($x='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil($length/strlen($x)) )),1,$length);
+        
+        $link=$req->root().'/admin/AdminDashBoard/verify_club_committee/'.$email.'/'.$activation_code.'/'.$passcode;
+        DB::table('tblverify_linkes')
+            ->insert(['userid'=>$email,'link'=>$activation_code]);
+
+        Mail::to($email)->send(new club_committee_verify($link,$passcode));
+        return redirect('admin/Clubs_Committees');
+    }
     function add_faculty(Request $req)
     {
         $req->validate([
@@ -471,22 +532,33 @@ class AdminDashBoard extends Controller
         $length = 8;
 
         $passcode=substr(str_shuffle(str_repeat($x='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil($length/strlen($x)) )),1,$length);
-
-
-
         $typeid = DB::table('tbluser_type')->where('tbluser_type.usertype','faculty')->first()->usertypeid;
         DB::table('tbluser')->insert(['email'=>$email,'username'=>$name,'phonenumber'=>$phone,'usertypeid'=>$typeid,'password'=>$passcode,'is_verified'=>0,'is_active'=>0]);
 
         $length = 30;
         $activation_code=substr(str_shuffle(str_repeat($x='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil($length/strlen($x)) )),1,$length);
 
-         $link=$req->root().'/admin/AdminDashBoard/verify_faculty/'.$email.'/'.$activation_code.'/'.$passcode;
+        $link=$req->root().'/admin/AdminDashBoard/verify_faculty/'.$email.'/'.$activation_code.'/'.$passcode;
         DB::table('tblverify_linkes')->insert(['userid'=>$email,'link'=>$activation_code]);
 
          Mail::to($email)->send(new FacultyVerify($link,$passcode));
         session(['error1'=>'Faculty will get verified once they click on the link sent.']);
         return redirect('admin/faculty');
 
+    }
+    // INM 13-04-2019
+    function verify_club_committee($email,$code,$pass){
+        $data = DB::table('tblverify_linkes')->where(['userid'=>$email,'link'=>$code])->first();
+        if($data)
+        {
+            DB::table('tbluser')->where('email',$email)->update(['is_verified'=>1,'is_active'=>1]);
+            DB::table('tblverify_linkes')->where(['userid'=>$email,'link'=>$code])->delete();
+            session(['error1'=>'Please Login.']);
+            return redirect('login');
+        }
+        else{
+            return redirect('login')->with('error','Invalid Activation Link');
+        }
     }
     function verify_faculty($email,$code,$pass){
         $data = DB::table('tblverify_linkes')->where(['userid'=>$email,'link'=>$code])->first();
@@ -500,5 +572,33 @@ class AdminDashBoard extends Controller
         else{
             return redirect('login')->with('error','Invalid Activation Link');
         }
+    }
+    function showInquiry()
+    {
+        $data['inquiry']=DB::table('tblinquiry')->where(["replay"=>""])->paginate(10);
+        $data["c"]=0;
+        return view('admin/inquiry',$data);
+    }
+    function replayToInquirydata(Request $req)
+    {
+        $req->validate([
+            "id"=>"bail|required",
+            "txt_message"=>"bail|required"
+        ]);
+        $data=DB::table('tblinquiry')->where('id',$req->id)->update(['replay'=>$req->txt_message]);
+
+
+        $data5= DB::table('tblinquiry')->where('id',$req->id)->first();
+        Mail::to($data5->email)->send(new inquiry_mail($data5->message,$req->txt_message));
+
+        echo $data;
+    }
+    function getinquiryreplaydata(Request $req)
+    {
+        $req->validate([
+            "id"=>"bail|required"
+        ]);
+        $data=DB::table('tblinquiry')->where('id',$req->id)->first();
+        echo $data->replay;
     }
 }

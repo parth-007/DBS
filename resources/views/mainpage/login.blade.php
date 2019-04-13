@@ -3,10 +3,10 @@
 
 <head>
     <title>DBS | Login</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="Image/png" href="http://localhost:8000/mainpage/Images/favicon.png">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" type="text/css" media="screen" href="{{asset('mainpage/CSS/fontawesomeWeb/css/all.css')}}" />
-
     <link rel="stylesheet" type="text/css" media="screen" href="{{asset('mainpage/CSS/main.css')}}" />
     <link rel="stylesheet" type="text/css" media="screen" href="{{asset('mainpage/CSS/basic.css')}}" />
     <style>
@@ -20,10 +20,11 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/additional-methods.min.js"></script>
 <script type="text/javascript">
+    
     function pop_up() {
-    // alert("Hi");
-    document.body.style.overflow = "hidden";
-    document.getElementById('pop-up').className = "popup-show";
+        // alert("Hi");
+        document.body.style.overflow = "hidden";
+        document.getElementById('pop-up').className = "popup-show";
     }
 
     function pop_down() {
@@ -120,6 +121,7 @@
         $("#popup_email").blur(function(e){
             e.preventDefault();
             var mail = $("#popup_email").val();
+            
                 $.ajax({
                     type: 'POST',
                     url: '/client/reset_mail',
@@ -219,8 +221,9 @@
         <div class="fl-rght hdr-div">
             <div>
                 <h4>
-                    <a href="#about">
-                        About <i class="far fa-question-circle mrg-l5" style=" color: rgb(23, 200, 183);"></i>
+                    <a href="{{url('/')}}">
+                        Home <i class="fas fa-home mrg-l5" style=" color: rgb(23, 200, 183);"></i>
+                        
                     </a>
                 </h4>
             </div>

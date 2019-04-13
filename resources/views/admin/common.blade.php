@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <!-- Tell the browser to be responsive to screen width -->
@@ -10,10 +11,11 @@
     <meta name="author" content="">
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
-    <title>DBS Admin Dashboard</title>
+    <title>DBS | DA Booking System - Book  Any Place Any Time</title>
     <!-- Bootstrap Core CSS -->
     <link href="{{asset('admin/css/lib/bootstrap/bootstrap.min.css')}}" rel="stylesheet">
     <!-- Custom CSS -->
+
 
     <link href="{{asset('admin/css/lib/calendar2/semantic.ui.min.css')}}" rel="stylesheet">
     <link href="{{asset('admin/css/lib/calendar2/pignose.calendar.min.css')}}" rel="stylesheet">
@@ -76,7 +78,11 @@
                 <!-- Logo -->
                 <div class="navbar-header">
                     <a class="navbar-brand" href="{{url('admin/dashboard')}}">
-                        <h3>DBS-Admin</h3>
+                        <!-- Logo icon -->
+                        <b><img src="images/logo.png" alt="homepage" class="dark-logo" /></b>
+                        <!--End Logo icon -->
+                        <!-- Logo text -->
+                        <span><img src="images/logo-text.png" alt="homepage" class="dark-logo" /></span>
                     </a>
                 </div>
                 <!-- End Logo -->
@@ -112,8 +118,11 @@
                                 <li><a href="{{url('admin/users')}}">Users</a></li>
                                 <li><a href="{{url('admin/disableusers')}}">Enable/Disable Users</a></li>
                                 <li><a href="{{url('admin/faculty')}}">Faculty</a></li>
+                                <!-- // INM 12-04-2019 -->
+                                <li><a href="{{url('admin/Clubs_Committees')}}">Clubs/Committees</a></li>
                                 <!-- // INM 09-04-2019 -->
                                 <li><a href="{{url('admin/bookings')}}">Bookings</a></li> 
+                                <li><a href="{{url('admin/inquiry')}}">Inquiry</a></li> 
                             </ul>
                         </li>
                     </ul>
