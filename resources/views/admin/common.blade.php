@@ -88,6 +88,8 @@
                                 <li><a href="{{url('admin/users')}}">Users</a></li>
                                 <li><a href="{{url('admin/disableusers')}}">Enable/Disable Users</a></li>
                                 <li><a href="{{url('admin/faculty')}}">Faculty</a></li>
+                                <!-- // INM 12-04-2019 -->
+                                <li><a href="{{url('admin/Clubs_Committees')}}">Clubs/Committees</a></li>
                                 <!-- // INM 09-04-2019 -->
                                 <li><a href="{{url('admin/bookings')}}">Bookings</a></li> 
                             </ul>

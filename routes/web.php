@@ -22,6 +22,7 @@ Route::get('admin/buildings','admin\AdminDashBoard@building');
 Route::get('admin/bookings_print_todays','admin\AdminDashBoard@bookings_print_todays');// INM 09-04-2019
 Route::get('admin/bookings','admin\AdminDashBoard@bookings');// INM 09-04-2019
 Route::post('admin/buildings/insertbuilding','admin\AdminDashBoard@insert');
+Route::post('admin/buildings/updatebuilding','admin\AdminDashBoard@updatebuilding');// INM 12-04-2019
 Route::get('admin/AdminDashBoard/fetch_account/{id}','admin\AdminDashBoard@fetch_account');
 Route::post('admin/AdminDashBoard/status_change/','admin\AdminDashBoard@status_change');//INM 06-04-2019
 Route::post('admin/AdminDashBoard/showHint/','admin\AdminDashBoard@showHint');//INM 06-04-2019
@@ -45,9 +46,11 @@ Route::post('client/reset','client\Login_controller@reset');
 Route::get('admin/profile','admin\AdminDashBoard@userProfile');
 Route::post('admin/updateProfile','admin\AdminDashBoard@updateProfile');
 Route::get('admin/faculty','admin\AdminDashBoard@faculty');
+Route::get('admin/Clubs_Committees','admin\AdminDashBoard@Clubs_Committees');// INM 12-04-2019
+Route::post('admin/insert_club_committee','admin\AdminDashBoard@insert_club_committee');// INM 12-04-2019
 Route::get('client/Login_controller/activate_account/{userid}/{activate_code}', 'client\Login_controller@activate_account');
 Route::post('admin/add_faculty','admin\AdminDashBoard@add_faculty');
 Route::get('admin/AdminDashBoard/verify_faculty/{email}/{code}/{pass}','admin\AdminDashBoard@verify_faculty');
-
+Route::get('admin/AdminDashBoard/verify_club_committee/{email}/{code}/{pass}','admin\AdminDashBoard@verify_club_committee');
 ?>
 
