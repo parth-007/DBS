@@ -2,7 +2,12 @@
         <script>
             $(document).ready(function(){
                 $(document).on("click","#today_bookings",function(){
-                    window.open('{{url('admin/bookings_print_todays')}}','_blank');
+                    if($("#bookings_count_today").text()=='0' || $("#bookings_count_today").text()==0)
+                    {
+                        alert("No booking today");
+                    }
+                    else
+                        window.open('{{url('admin/bookings_print_todays')}}','_blank');
                 });
             });
         </script>
@@ -33,7 +38,7 @@
                                         <span><i class="fa fa-calendar-check-o f-s-40 color-danger"></i></span>
                                     </div>
                                     <div class="media-body media-text-right">
-                                        <h2>{{$bookings_count_today}}</h2>
+                                        <h2 id="bookings_count_today">{{$bookings_count_today}}</h2>
                                         <p class="m-b-0">Today's bookings</p>
                                     </div>
                                 </div>
@@ -98,6 +103,36 @@
                                 <div class="media-body media-text-right">
                                     <h2>{{$buildings_count}}</h2>
                                     <p class="m-b-0">Total buildings</p>
+                                </div>
+                            </div>
+                        </div>
+                        </a>
+                    </div>
+                    <div class="col-md-4" >
+                    <a href="{{url('admin/Clubs_Committees')}}" >
+                        <div class="card p-30">
+                            <div class="media">
+                                <div class="media-left meida media-middle">
+                                    <span><i class="fa fa-users f-s-40 color-success"></i></span>
+                                </div>
+                                <div class="media-body media-text-right">
+                                    <h2>{{$users_cc}}</h2>
+                                    <p class="m-b-0">Total clubs/committes</p>
+                                </div>
+                            </div>
+                        </div>
+                        </a>
+                    </div>
+                    <div class="col-md-4" >
+                    <a href="{{url('admin/faculty')}}" >
+                        <div class="card p-30">
+                            <div class="media">
+                                <div class="media-left meida media-middle">
+                                    <span><i class="fas fa-chalkboard-teacher f-s-40 color-success"></i></span>
+                                </div>
+                                <div class="media-body media-text-right">
+                                    <h2>{{$faculty_count}}</h2>
+                                    <p class="m-b-0">Total faculties</p>
                                 </div>
                             </div>
                         </div>
