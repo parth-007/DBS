@@ -120,6 +120,7 @@
                                 <li><a href="{{url('admin/Clubs_Committees')}}">Clubs/Committees</a></li>
                                 <!-- // INM 09-04-2019 -->
                                 <li><a href="{{url('admin/bookings')}}">Bookings</a></li> 
+                                <li><a href="{{url('admin/inquiry')}}">Inquiry</a></li> 
                             </ul>
                         </li>
                     </ul>
