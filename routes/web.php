@@ -63,5 +63,7 @@ Route::post('replaytoinquiry','admin\AdminDashBoard@replayToInquirydata');
 Route::post('getinquiryreplay','admin\AdminDashBoard@getinquiryreplaydata');
 
 
+Route::post('inspect_slots','main\Main@all_booked_slots');
+Route::post('check_fac','main\Main@check_faculty');
 ?>
 

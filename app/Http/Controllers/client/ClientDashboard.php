@@ -17,8 +17,8 @@ class ClientDashboard extends Controller
     
 	}
     function index(){
-
-      
+date_default_timezone_set('Asia/Kolkata');
+    
     	return view('client/dashboard');
     }
 
@@ -373,19 +373,18 @@ class ClientDashboard extends Controller
         $endtime = $req->ett;
         $purpose = $req->purpose;
         $audi = $req->audi;
-        echo $useremail;
-        echo $resourceid;
-        echo $starttime;
-        echo $endtime;
-        echo $purpose;
-        echo $audi;
-        echo $req->sta1;
+        
         if($req->sta1 == 'Book')
         {
           DB::table('tblbooking')->insert(['starttime'=>$starttime,'endtime'=>$endtime,'useremail'=>$useremail,'resourceid'=>$resourceid
           ,'purpose'=>$purpose,'expected_audience'=>$audi,'status'=>'Booked']);
         }
         else{
+
+
+          //take $useremail and check with priority that which type of user it is and then 
+          //if it is admin then status will be Booked and the person whose booking is alreadyy confieremed then it should changed to cancelled. 
+          //and mails will be sent to all the parties involved.
           DB::table('tblbooking')->insert(['starttime'=>$starttime,'endtime'=>$endtime,'useremail'=>$useremail,'resourceid'=>$resourceid
           ,'purpose'=>$purpose,'expected_audience'=>$audi,'status'=>'Requested']);
         }

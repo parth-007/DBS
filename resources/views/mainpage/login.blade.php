@@ -4,7 +4,7 @@
 <head>
     <title>DBS | Login</title>
     <link rel="icon" type="Image/png" href="http://localhost:8000/mainpage/Images/favicon.png">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" type="text/css" media="screen" href="{{asset('mainpage/CSS/fontawesomeWeb/css/all.css')}}" />
     <link rel="stylesheet" type="text/css" media="screen" href="{{asset('mainpage/CSS/main.css')}}" />
@@ -100,6 +100,7 @@
         $("#popup_email").blur(function(e){
             e.preventDefault();
             var mail = $("#popup_email").val();
+            
                 $.ajax({
                     type: 'POST',
                     url: '/client/reset_mail',

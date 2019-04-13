@@ -109,7 +109,7 @@ class Login_controller extends Controller
             "password"=>"bail|required"
             
         ]);
-    	$num = DB::table('tbluser')->where('email',$req->mail)->where('password',$req->password)->where('is_verified',1)->where('is_active',1)->count();
+    	$num = DB::table('tbluser')->where('email',$req->mail)->where(['password',$req->password,'is_verified'=>1,'is_active'=>1])->count();
     	if($num==0)
     	{
             //change session('error'=>Invalid)
