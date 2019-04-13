@@ -100,6 +100,7 @@
         $("#popup_email").blur(function(e){
             e.preventDefault();
             var mail = $("#popup_email").val();
+            
                 $.ajax({
                     type: 'POST',
                     url: '/client/reset_mail',
