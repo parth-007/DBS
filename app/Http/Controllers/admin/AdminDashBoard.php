@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Mail\FacultyVerify;
 use App\Mail\club_committee_verify;
+use App\Mail\inquiry_mail;
 use DB;
 use Mail;
 use Validator;
@@ -552,6 +553,7 @@ class AdminDashBoard extends Controller
         {
             DB::table('tbluser')->where('email',$email)->update(['is_verified'=>1,'is_active'=>1]);
             DB::table('tblverify_linkes')->where(['userid'=>$email,'link'=>$code])->delete();
+            session(['error1'=>'Please Login.']);
             return redirect('login');
         }
         else{
@@ -584,6 +586,11 @@ class AdminDashBoard extends Controller
             "txt_message"=>"bail|required"
         ]);
         $data=DB::table('tblinquiry')->where('id',$req->id)->update(['replay'=>$req->txt_message]);
+
+
+        $data5= DB::table('tblinquiry')->where('id',$req->id)->first();
+        Mail::to($data5->email)->send(new inquiry_mail($data5->message,$req->txt_message));
+
         echo $data;
     }
     function getinquiryreplaydata(Request $req)

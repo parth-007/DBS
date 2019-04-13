@@ -28,7 +28,7 @@
                     <center>
                     <div id="succ_msg" style="position: fixed;top: 30px; left: 20%; right: 20%; z-index: 999999;padding:10px 5px;background: blue;color:white;display: none;">
                         <div class="">
-                        <strong>Done!</strong> Reply is send
+                        <strong>Done!</strong> Reply is sent.
                         </div>
                     </div>
                     </center>  
