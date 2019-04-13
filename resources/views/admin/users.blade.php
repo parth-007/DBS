@@ -129,7 +129,7 @@
                       @endforeach
                     
                       <tr> 
-                      <td colspan="7">{{$users->render()}}</td>
+                        <td colspan="7">{{$users->render()}}</td>
                       </tr>
                       </tbody>
                   </table>

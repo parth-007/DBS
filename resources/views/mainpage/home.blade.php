@@ -11,8 +11,14 @@
     <link rel="stylesheet" type="text/css" media="screen" href="{{asset('mainpage/CSS/basic.css')}}" />
 
     <script src="{{asset('mainpage/JS/home-slider.js')}}"></script>
-    <script src="{{asset('admin/js/lib/jquery/jquery.min.js')}}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/additional-methods.min.js"></script>
+    <style type="text/css">
+        .error{
+            color:red;
+        }
+    </style>
 </head>
 <script type="text/javascript">
     $(document).ready(function(){
@@ -134,6 +140,13 @@
             <div>
                 <h3 class="mrg-l20 disp-no">Welcome User</h3>
             </div>
+                <center>
+                <div id="succ_msg" style="position: fixed;top: 30px; left: 20%; right: 20%; z-index: 2;padding:10px 5px;background: #15C3B6;display: none">
+                    <div class="alert alert-success">
+                    <strong>Done!</strong> Thank you we will contact you shortly
+                    </div>
+                </div>
+            </center>
         </div>
         <div class="fl-rght hdr-div">
             <div>
@@ -226,16 +239,15 @@
             </div>
         </div>
         <div class="contact-frm">
-            <form name="contact" method="post" id="form1">
-                {{csrf_field()}}
+            <form id="frm_pingus" name="pingus" method="post">
                 <h2>Ping Us</h2>
                 <hr style="border: none; background: rgba(255, 255, 255, 0.3); height: .5px;">
                 <div class="input-grp">
-                    <input type="email" name="email" id="email" required>
+                    <input type="email" name="txt_ping_email" required>
                     <label>Email : </label>
                 </div>
                 <div class="input-grp">
-                    <textarea rows="4" cols="40" name="message" style="resize: none;" id="message" required></textarea>
+                    <textarea rows="4" cols="40" name="txt_message" style="resize: none;" required></textarea>
                     <label>Message : </label>
                 </div>
                 <div class="tx-al-rght">
@@ -256,5 +268,52 @@
         </div>
     </footer>
 </body>
+<script type="text/javascript">
+    $(document).ready(function($) {
+        $("#frm_pingus").validate({
+            errorPlacement: function(error, element) {
+            var placement = $(element).data('error');
+            if (placement) {
+                $(placement).append(error)
+            } else {
+                error.insertBefore(element);
+            }
+            }
+        });  
 
+        $("#frm_pingus").submit(function(e){
+            e.preventDefault();
+            if($("#frm_pingus").valid())
+            {
+                $.ajax({
+                    url: 'addinquiry',
+                    type: 'POST',
+                    data: $("#frm_pingus").serialize()+"&_token="+"{{csrf_token()}}",
+                })
+                .done(function(response) {
+                    if(response=="1" || response==1)
+                    {
+                        $("#frm_pingus").trigger("reset");
+                        $("#succ_msg").fadeIn();
+                        $("#succ_msg").fadeOut(4000);
+                    }
+                    console.log("success");
+                })
+                .fail(function() {
+                    console.log("error");
+                })
+                .always(function() {
+                    console.log("complete");
+                });
+            }
+        }); 
+    });
+</script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        @if($errors->any())
+            $("#error_msg").fadeOut(3000);
+        @endif
+    });
+</script>
 </html>

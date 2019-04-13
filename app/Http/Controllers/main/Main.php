@@ -15,6 +15,20 @@ class Main extends Controller
     function index(){
         return view('mainpage/home');
     }
+    function check_cc(Request $req)
+    {
+      
+      $num = DB::table('tbluser')->where('email',$req->em1)->where('is_verified',1)->where('is_active',1)->count();
+
+      if($num==0)
+      {
+        echo "1";
+      }
+      else
+      {
+        echo "0";
+      }
+    }
     function check_faculty(Request $req){
       
       
