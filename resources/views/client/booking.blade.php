@@ -9,7 +9,7 @@
 <script type="text/javascript">
     $(document).ready(function(){
  $('.clockpicker').clockpicker();
-}
+});
 </script>
 <script type="text/javascript">
     $(document).ready(function(){

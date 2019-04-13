@@ -37,7 +37,6 @@
             <table id="example23" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
                     <thead>
                         <tr>
-                            <th>Sr. No.</th>
                             <th>Email</th>
                             <th>Inquiry</th>
                             <th>Action</th>
@@ -46,9 +45,8 @@
                     <tbody>
                         @foreach($inquiry as $inq)
                             <tr>
-                                <td><?php echo ++$c;?></td>
                                 <td>{{ $inq->email}}</td>
-                                <td>{{ $inq->message}}</td>
+                                <td style="word-break: break-word;">{{ $inq->message}}</td>
                                 <td><a data-toggle="modal" data-target="#myModal_replay"><button id="{{$inq->id}}" class="btn btn-success btn_req_response"><span class="fa fa-reply"></span></button></a></td>
                             </tr>
                         @endforeach
@@ -97,23 +95,6 @@
         var id;
         $(document).on("click",".btn_req_response",function(){
             id=$(this).attr("id");
-            $.ajax({
-                url: '{{url("getinquiryreplay")}}',
-                type: 'POST',
-                dataType:"JSON",
-                data: {'id': id,"_token":"{{csrf_token()}}"}
-            })
-            .done(function() {
-                console.log("success");
-            })
-            .fail(function() {
-                console.log("error");
-            })
-            .always(function(response) {
-                $("#txt_message").val(response["responseText"]);
-                console.log("complete");
-            });
-            
         });
         $("#frm_replay").validate({
 
@@ -131,10 +112,11 @@
                 .done(function(response) {
                     if(response==1 || response=="1")
                     {
-                        $("#txt_message").text("");
+                        $("#txt_message").val("");
                         $("#btn_close").trigger('click');
                         $("#succ_msg").fadeIn();
                         $("#succ_msg").fadeOut(4000);
+                        $("#"+id).parent().parent().parent().remove();
                     }
                     console.log("success");
                 })

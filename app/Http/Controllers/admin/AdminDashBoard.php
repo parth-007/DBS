@@ -502,7 +502,7 @@ class AdminDashBoard extends Controller
     }
     function showInquiry()
     {
-        $data['inquiry']=DB::table('tblinquiry')->paginate(10);
+        $data['inquiry']=DB::table('tblinquiry')->where(["replay"=>""])->paginate(10);
         $data["c"]=0;
         return view('admin/inquiry',$data);
     }
