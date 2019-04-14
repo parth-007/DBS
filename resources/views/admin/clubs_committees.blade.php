@@ -1,4 +1,5 @@
 @include('admin/common')
+      
 <div class="page-wrapper">
             <!-- Bread crumb -->
             <div class="row page-titles">
