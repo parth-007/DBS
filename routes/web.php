@@ -32,6 +32,7 @@ Route::post('admin/AdminDashBoard/showHint/','admin\AdminDashBoard@showHint');//
 Route::get('admin/buildings/delete/{id}','admin\AdminDashBoard@delete');
 Route::get('admin/users','admin\AdminDashBoard@user');
 Route::get('admin/disableusers','admin\AdminDashBoard@disableusers');// INM 07-04-2019
+Route::post('admin/inserttimetableslot','admin\AdminDashBoard@inserttimetableslot');// INM 14-04-2019
 Route::POST('admin/AdminDashBoard/showBySearchPattern/','admin\AdminDashBoard@showBySearchPattern');// INM 07-04-2019
 Route::POST('admin/AdminDashBoard/multiplestudentstatusupdate/','admin\AdminDashBoard@multiplestudentstatusupdate');// INM 07-04-2019
 Route::get('admin/resources','admin\AdminDashBoard@resource');

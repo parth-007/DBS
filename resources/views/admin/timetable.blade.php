@@ -1,14 +1,14 @@
 @include('admin/common')
 <script>
 function checkme()
-{
+{   
     if(document.getElementById("prg").selectedIndex==1)
     {
-        var t1=document.getElementById("c1");
-        t1.innerHTML="";
+        if((document.getElementById("rdbtnWinter").checked))
+        {
         
-            /*document.getElementById("c1").options[i]=new Option("Surat");
-            document.getElementById("c1").options[i]=new Option("Vadodara");*/
+            var t1=document.getElementById("c1");
+            t1.innerHTML="";
             
             var option=document.createElement("Option");
             option.text="2";
@@ -25,19 +25,69 @@ function checkme()
             option2.value="6";
             c1.add(option2);
 
-        //alert("54");
-    }
-    else if(document.getElementById("prg").selectedIndex==2)
-    {
+            var option=document.createElement("Option");
+            option.text="8";
+            option.value="8";
+            c1.add(option);
+        }
+        else if(document.getElementById("rdbtnAutumn").checked)
+        {
             var t1=document.getElementById("c1");
-        t1.innerHTML="";
-        var option=document.createElement("Option");
-            option.text="2";
-            option.value="2";
+            t1.innerHTML="";
+
+            var option=document.createElement("Option");
+            option.text="1";
+            option.value="1";
             c1.add(option);
             
-         
-    //  alert("2");
+            var option=document.createElement("Option");
+            option.text="3";
+            option.value="3";
+            c1.add(option);
+
+            var option=document.createElement("Option");
+            option.text="5";
+            option.value="5";
+            c1.add(option);
+
+            var option=document.createElement("Option");
+            option.text="7";
+            option.value="7";
+            c1.add(option);
+        }
+    }
+    else if(document.getElementById("prg").selectedIndex==2 || document.getElementById("prg").selectedIndex==3 )
+    {
+            if(document.getElementById("rdbtnWinter").checked)
+            {
+                var t1=document.getElementById("c1");
+                t1.innerHTML="";
+
+                var option=document.createElement("Option");
+                option.text="2";
+                option.value="2";
+                c1.add(option);
+
+                var option=document.createElement("Option");
+                option.text="4";
+                option.value="4";
+                c1.add(option);
+            }
+            else if(document.getElementById("rdbtnAutumn").checked)
+            {
+                var t1=document.getElementById("c1");
+                t1.innerHTML="";
+
+                var option=document.createElement("Option");
+                option.text="1";
+                option.value="1";
+                c1.add(option);
+
+                var option=document.createElement("Option");
+                option.text="3";
+                option.value="3";
+                c1.add(option);
+            }
     }
 }
 </script>
@@ -60,22 +110,24 @@ function checkme()
                 }
                 $("#lbl_timerr").hide();
                 $.ajax({
-                    url: '/path/to/file',
-                    type: 'default GET (Other values: POST)',
-                    dataType: 'default: Intelligent Guess (Other values: xml, json, script, or html)',
-                    data: {param1: 'value1'},
+                    url: "{{url('admin/inserttimetableslot')}}",
+                    type: 'POST',
+                    data: $("#frm_timetable").serialize()+"&_token={{csrf_token()}}",
                 })
                 .done(function(res) {
-                    console.log("success");
+                    if(res==1 || res=="1")
+                    {
+                        $("#frm_timetable").trigger("reset");
+                        //make your success popup
+                    }   
+
                 })
-                .fail(function() {
-                    console.log("error");
+                .fail(function(res) {
+
                 })
                 .always(function() {
-                    console.log("complete");
+
                 });
-                    
-                
             }
         });
     });
@@ -94,19 +146,19 @@ function checkme()
                 </div>
             </div>
             <div class="container-fluid">
-                <div class="card">
-                    <div class="card-body">
-                            
                         <!-- <button type="button" class="btn btn-info">Add building</button> -->
                         <div class="col-lg-12">
-                        <div class="card">
-                            <div class="card-title">
-                                <h4>Add Slot</h4>
-
-                            </div>
+                           
                             <div class="card-body">
                                 <div class="basic-form">
                                     <form id="frm_timetable" method="post">
+
+                                        <div class="form-group">
+                                            <label>Select Semester Type:</label><br/>
+                                            <input type="radio" name="Semester_Type" id="rdbtnAutumn" onchange="checkme()" value="Autumn">Autumn
+                                            <input type="radio" name="Semester_Type" id="rdbtnWinter"  onchange="checkme()" value="Winter">Winter
+                                        </div>
+
                                         <div class="form-group">
                                             <label>Select Programme</label>
                                             <select name="programme" id="prg" class="form-control" onchange="checkme()" required="">
@@ -123,9 +175,7 @@ function checkme()
                                             <label>Select Semester</label>
                                             <select name="semester" id="c1" class="form-control" required="">
                                                 <option value="">Select</option>
-                                            }
                                             </select>
-
                                         </div>
 
                                         <div class="form-group">
@@ -139,7 +189,7 @@ function checkme()
                                                 <option value="friday">Friday</option>
                                                 <option value="saturday">Saturday</option>
                                                 <option value="Sundayday">Sunday</option>
-                                            }
+                                            
                                             </select>
 
                                         </div>
@@ -164,51 +214,36 @@ function checkme()
                                             <label>Select Faculty</label>
                                            <select id="fac" name="faculty" class="form-control">
                                             <option value="">Select</option>
-                                            @foreach($fac_data as $f){
-                                            <option value="{{$f->email}}">{{$f->username}}
-                                            </option>
+                                            @foreach($fac_data as $f)
+                                            {
+                                                <option value="{{$f->email}}">{{$f->username}}
+                                                </option>
                                             }
-                                        @endforeach
+                                            @endforeach
                                     </select>
                                         </div>
-
                                          <div class="form-group">
                                             <label>Course ID</label>
                                             <input name="courseid" id="cid" class="form-control" required="">
-                                                
-                                            
-                                            
-
                                         </div>
-
-
-
                                          <div class="form-group">
                                             <label>Select Resource</label>
                                            <select id="resource" name="resource" class="form-control" required="">
                                             <option value="">Select</option>
-                                            @foreach($res_data as $r){
+                                            @foreach($res_data as $r)
+                                            {
                                             <option value="{{$r->resource_id}}">{{$r->resourcename}}
                                             </option>
                                             }
                                         @endforeach
                                     </select>
                                         </div>
-
-
-
-
-                                        
-                                        <button type="submit" class="btn btn-default">Submit</button>
+                                        <button type="submit" class="btn btn-info">Submit</button>
                                     </form>
                                 </div>
                             </div>
-                        </div>
+                        
                     </div>
                        
-                    </div>
-                </div>
-                 
-           
         </div>
-                @include('admin/footer')
+@include('admin/footer')

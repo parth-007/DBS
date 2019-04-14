@@ -36,6 +36,25 @@ class AdminDashBoard extends Controller
         // $data['time'] = date('Gi.s', $data[]);
             return view('admin/bookings_print_todays',$data);
     }
+    // INM 14-04-2019
+    function inserttimetableslot(Request $req){
+        
+        $tm=DB::table("tbltimetable_master")
+                    ->where(["programmeid"=>$req->programme,"semester"=>$req->semester])
+                    ->first()
+                    ->timetablemasterid; 
+
+        $res=DB::table('tbltimetable_child')->insert([
+                                    'masterid'=>$tm,
+                                    'dayofweek'=>$req->day, 
+                                    'timestart'=>$req->time_start,
+                                    'timeend'=>$req->time_end,
+                                    'resourceid'=>$req->resource,
+                                    'courseid'=>$req->courseid,
+                                    'faculty_email'=>$req->faculty
+                                    ]);
+        echo $res;
+    }
     // INM 09-04-2019
     function bookings(){
         // ->join('tbluser_type','tbluser_type.usertypeid','=','tbluser.usertypeid')
