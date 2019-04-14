@@ -50,6 +50,30 @@
 
     <div id="main-wrapper">
         <!-- header header  -->
+
+<script type="text/javascript">
+      $(document).ready(function(){
+          $('#succ').hide();
+      });
+    </script>
+
+    @if(session('error1'))
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('#succ').show();   
+           $('#succ').fadeOut(8000); 
+        });
+    </script>
+@endif
+
+@if(session('error1'))
+<center>
+<div id="succ" style="position: fixed;top: 5px; left: 20%; right: 20%; z-index: 2;padding:10px 5px;background: #15C3B6"><div class="alert alert-success">
+                <strong>Done!</strong> {{session('error1')}}
+              </div>
+            </div></center>
+@endif
+        
         <div class="header">
      
             <nav class="navbar top-navbar navbar-expand-md navbar-light">

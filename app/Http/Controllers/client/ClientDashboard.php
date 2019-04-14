@@ -8,6 +8,8 @@ use DB;
 use DateTime;
 use Carbon\Carbon;
 use Validator;
+use Mail;
+use App\Mail\CancelMail;
 
 class ClientDashboard extends Controller
 {
@@ -414,6 +416,17 @@ $data['user_data'] = DB::table('tbluser')->where('email',session('email'))->firs
           ,'purpose'=>$purpose,'expected_audience'=>$audi,'status'=>'Booked']);
 
             DB::table('tblbooking')->where('bookingid',$bookingid)->update(['status'=>'Cancelled']);
+
+            $fac_name = DB::table('tbluser')->where('email',$useremail)->first()->username;
+
+            $permail = DB::table('tblbooking')->where('bookingid',$bookingid)->first();
+
+            Mail::to($permail->useremail)->send
+            (new CancelMail
+              ($fac_name,$permail->purpose,
+                date('H:i:s',strtotime($permail->starttime)),
+                date('H:i:s',strtotime($permail->endtime)),
+                $purpose));
             //Now write the code to inform the user that his booking got cancelled.
             // here will be the code to send mail to the user whose booking got cancelled.
             //use bookingid to fetch details and username.

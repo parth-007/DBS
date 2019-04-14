@@ -316,7 +316,7 @@ class AdminDashBoard extends Controller
             ->join('tbluser_type','tbluser.usertypeid','=','tbluser_type.usertypeid')
             ->select('tbluser.email','username','tbluser.phonenumber','tbluser_type.usertype','tbluser.is_active','tbluser.is_verified')
             ->orderBy('tbluser_type.usertypeid','asc')
-            ->paginate(5);
+            ->paginate(10);
         return view('admin/users',$data);
     }
     //INM 07-04-2019
@@ -522,10 +522,10 @@ class AdminDashBoard extends Controller
         $link=$req->root().'/admin/AdminDashBoard/verify_club_committee/'.$email.'/'.$activation_code.'/'.$passcode;
         DB::table('tblverify_linkes')
             ->insert(['userid'=>$email,'link'=>$activation_code]);
-
+        
         Mail::to($email)->send(new club_committee_verify($link,$passcode));
 
-        return redirect('admin/Clubs_Committees');
+        return redirect('admin/Clubs_Committees')->with('error1','Club/Committee will be verified once they click on the link');
     }
     function add_faculty(Request $req)
     {
@@ -551,7 +551,7 @@ class AdminDashBoard extends Controller
 
          Mail::to($email)->send(new FacultyVerify($link,$passcode));
         
-        return redirect('admin/faculty');
+        return redirect('admin/faculty')->with('error1','Club/Committee will be verified once they click on the link');
 
     }
     // INM 13-04-2019
