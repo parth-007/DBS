@@ -2,9 +2,10 @@
 <html>
 
 <head>
-    <title>DBS | Home</title>
+    <title>DBS | DA Booking System  - Book Any Place Any Time</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="icon" type="Image/png" href="http://localhost:8000/mainpage/Images/favicon.png">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
     <link rel="stylesheet" type="text/css" media="screen" href="{{asset('mainpage/CSS/fontawesomeWeb/css/all.css')}}" />
     <link rel="stylesheet" type="text/css" media="screen" href="{{asset('mainpage/CSS/main.css')}}" />
     <link rel="stylesheet" type="text/css" media="screen" href="{{asset('mainpage/CSS/basic.css')}}" />
@@ -19,7 +20,110 @@
         }
     </style> -->
 </head>
+<script type="text/javascript">
+    $(document).ready(function(){
+            $('#email').blur(function(){
+                
+                                                var email=$('#email').val();
+                                                var remail=/^\b[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i;
+                                                if(email.trim()=='')
+                                                {
+                                                    $('#email').css('border-color','yellow');
+                                                    
+                                                }else if(remail.test(email)==false)
+                                                {
+                                                    $('#email').css('border-color','yellow');
+                                                   
+                                                }else
+                                                {
+                                                    $('#email').css('border-color','green');
+                                                 
+                                                }
+                                            });
 
+            $('#message').blur(function(){
+
+                                                var message=$('#message').val();
+                                                var remsg=/^[A-Za-z0-9 '.,-]{3,250}$/i;
+                                                if(message.trim()=='')
+                                                {
+                                                    $('#message').css('border-color','yellow');
+                                                    
+                                                }else if(remsg.test(message)==false)
+                                                {
+                                                    $('#message').css('border-color','yellow');
+                                                   
+                                                }else
+                                                {
+                                                    $('#message').css('border-color','green');
+                                                 
+                                                }
+                                            });
+
+            $('#form1').submit(function(e){
+            e.preventDefault();
+            var flag=[];
+            var formData = new FormData($('#form1')[0]);   
+            console.log(FormData);
+            var email=$('#email').val();
+            var emailreg=/^\b[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i;
+            var message=$('#message').val();
+
+            if(email=='' || email.trim()=='' || emailreg.test(email)==false)
+            {
+                $('#email').css('border-color','yellow');
+                flag.push('email');
+            }
+            else
+            {
+                $('#email').css('border-color','green');
+            }
+
+              var message=$('#message').val();
+              var remsg=/^[A-Za-z0-9 '.,-]{3,250}$/i;
+
+                if(message=='' || message.trim()=='' || remsg.test(message)==false)
+            {
+                $('#message').css('border-color','yellow');
+                flag.push('msg');
+            }
+            else
+            {
+                $('#message').css('border-color','green');
+            }              
+
+
+        if(flag.length==0)
+        
+             {
+             $.ajax({
+                    
+                      headers: {
+    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+  },
+                            url:'{{url("inquiry")}}',
+                            type:"POST",
+                            data:formData,
+                     async: false,   
+                       cache: false,
+                       contentType: false,
+                     
+                     
+                            processData: false,
+                    success:function(data)
+                    {
+                         $('#msg').fadeIn('slow', function(){
+               $('#msg').delay(3000).fadeOut(); 
+                $('#email').val('');
+               $('#message').val('');
+                    
+            });
+                    }
+                });
+            }
+        });
+    })
+</script>
 <body>
     <header>
         <div class="fl-lft hdr-div">
@@ -34,7 +138,7 @@
                 </a>
             </div>
             <div>
-                <h3 class="mrg-l20">Welcome User</h3>
+                <h3 class="mrg-l20 disp-no">Welcome User</h3>
             </div>
                 <center>
                 <div id="succ_msg" style="position: fixed;top: 30px; left: 20%; right: 20%; z-index: 2;padding:10px 5px;background: #15C3B6;display: none">
@@ -85,7 +189,7 @@
                 <source srcset="{{asset('mainpage/Images/banner2.jpg')}}">
                 <img src="{{asset('mainpage/Images/banner3.jpg')}}" style="width:100%; min-width: 400px;">
             </picture>
-            <div class="text"><a href="#"><button class="btn">Book Now</button></a></div>
+            <div class="text"><a href="{{url('client/booking')}}"><button class="btn">Book Now</button></a></div>
         </div>
 
         <div class="mySlides fade">
@@ -150,7 +254,8 @@
                 <div class="tx-al-rght">
                     <input type="submit" value="Send" class="btn">
                 </div>
-                <label class="disp-no">*Sent Successfully.</label>
+                <!-- <label class="disp-no">*Sent Successfully.</label> -->
+                <span id="msg" style="display:none;padding-left: 192px;font-size: large;color: white">Message Sent!</span>
             </form>
         </div>
         <div class="contact-info tx-al-lft">
@@ -159,7 +264,7 @@
                 <p><b>Mobile no.:</b></p>
                 <p>+91-9876543210</p><br>
                 <p><b>Email: </b></p>
-                <p>bookresources@daiict.ac.in</p>
+                <p>daiictbooking@gmail.com</p>
             </div>
         </div>
     </footer> -->

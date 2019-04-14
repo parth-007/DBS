@@ -4,7 +4,7 @@
 <head>
     <title>DBS | Login</title>
     <link rel="icon" type="Image/png" href="http://localhost:8000/mainpage/Images/favicon.png">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" type="text/css" media="screen" href="{{asset('mainpage/CSS/fontawesomeWeb/css/all.css')}}" />
     <link rel="stylesheet" type="text/css" media="screen" href="{{asset('mainpage/CSS/main.css')}}" />
@@ -75,6 +75,27 @@
             }
             }   
         });
+        $("#mail").blur(function(){
+            var mail = $("#mail").val();
+            $.ajax({
+                type: 'POST',
+                url: '/dup_mail',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data: { 'mail': mail },
+                success: function(msg) {
+                    if(msg == 0)
+                    {
+                        $("#log_label").removeClass("disp-no");
+                    }
+                    else
+                    {
+                        $("#log_label").addClass("disp-no");
+                    }
+                }
+            });
+        });
         $("#mail2").blur(function(){
             var mail = $("#mail2").val();
             $.ajax({
@@ -100,6 +121,7 @@
         $("#popup_email").blur(function(e){
             e.preventDefault();
             var mail = $("#popup_email").val();
+            
                 $.ajax({
                     type: 'POST',
                     url: '/client/reset_mail',
@@ -222,7 +244,7 @@
                 <h2>Login</h2>
                 <hr style="border: none; background: rgba(255, 255, 255, 0.3); height: .5px;">
                 <div class="input-grp">
-                    <label class="disp-no">*Mail ID not valid</label>
+                    <label id="log_label" class="disp-no" style="color: red;">*Please Signup or Active your account</label>
                     <input type="email" id="mail" name="mail" required>
                     <label>DA Mail-ID : </label>
                 </div>

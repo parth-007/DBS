@@ -293,7 +293,7 @@ form.inspect-form{
     background: rgb(245, 245, 245)
 }
 
-.inspect-div > div.card{
+.inspect-div div.card{
     display: inline-block;
     width: 32.9%;
     min-width: 350px;
@@ -304,13 +304,13 @@ form.inspect-form{
     transition: box-shadow .3s, background-color .3s, color .3s;
 }
 
-.inspect-div > div.card:hover{
+.inspect-div div.card:hover{
     box-shadow: 0 0 8px rgba(60, 60, 60, .7);
     background: rgb(14, 206, 180);
     color: rgb(30, 30, 30);
 }
 
-.inspect-div > div.card > *{
+.inspect-div div.card > *{
     margin: 10px;
 }
 
@@ -319,13 +319,13 @@ form.inspect-form{
 }
 
 @media only screen and (max-width: 1180px){
-    .inspect-div > div{
+    .inspect-div div.card{
         width: 49.4%;
     }
 }
 
 @media only screen and (max-width: 761px){
-    .inspect-div > div{
+    .inspect-div div.card{
         width: 99.5%;
     }
 }

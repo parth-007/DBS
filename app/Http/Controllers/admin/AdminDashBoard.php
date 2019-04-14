@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Mail\FacultyVerify;
 use App\Mail\club_committee_verify;
+use App\Mail\inquiry_mail;
 use DB;
 use Mail;
 use Validator;
@@ -148,7 +149,14 @@ class AdminDashBoard extends Controller
             }
             echo strval($data);
     }
-    
+    function addtimetable_slot()
+    {
+        $data['prog_data'] = DB::table('tblprogramme')->get();
+        $myid = DB::table('tbluser_type')->where('usertype','faculty')->first()->usertypeid;
+        $data['fac_data'] = DB::table('tbluser')->where('usertypeid',$myid)->get();
+        $data['res_data'] = DB::table('tblresource')->get();
+        return view('admin/timetable',$data);
+    }
     function resource(){
         
         $data['resource'] = DB::table("tblresource")->paginate(20);
@@ -516,6 +524,7 @@ class AdminDashBoard extends Controller
             ->insert(['userid'=>$email,'link'=>$activation_code]);
 
         Mail::to($email)->send(new club_committee_verify($link,$passcode));
+
         return redirect('admin/Clubs_Committees');
     }
     function add_faculty(Request $req)
@@ -541,7 +550,7 @@ class AdminDashBoard extends Controller
         DB::table('tblverify_linkes')->insert(['userid'=>$email,'link'=>$activation_code]);
 
          Mail::to($email)->send(new FacultyVerify($link,$passcode));
-        session(['error1'=>'Faculty will get verified once they click on the link sent.']);
+        
         return redirect('admin/faculty');
 
     }
@@ -552,6 +561,7 @@ class AdminDashBoard extends Controller
         {
             DB::table('tbluser')->where('email',$email)->update(['is_verified'=>1,'is_active'=>1]);
             DB::table('tblverify_linkes')->where(['userid'=>$email,'link'=>$code])->delete();
+            session(['error1'=>'Please Login.']);
             return redirect('login');
         }
         else{
@@ -584,6 +594,11 @@ class AdminDashBoard extends Controller
             "txt_message"=>"bail|required"
         ]);
         $data=DB::table('tblinquiry')->where('id',$req->id)->update(['replay'=>$req->txt_message]);
+
+
+        $data5= DB::table('tblinquiry')->where('id',$req->id)->first();
+        Mail::to($data5->email)->send(new inquiry_mail($data5->message,$req->txt_message));
+
         echo $data;
     }
     function getinquiryreplaydata(Request $req)

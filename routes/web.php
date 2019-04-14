@@ -16,6 +16,7 @@ Route::post('signup','client\Login_controller@signup');
 Route::post('client/login','client\Login_controller@log_in');
 Route::get('logout','client\Login_controller@log_out');
 Route::post('dup_mail','ajax\Ajax@dup_mail_check');
+Route::get('dup_mail/{email}','ajax\Ajax@dup_mail_check');
 Route::post('log_check','ajax\Ajax@log_info_check');
 Route::get('send','mailController@send');
 Route::get('admin/login','admin\admin_login_controller@index');
@@ -53,7 +54,16 @@ Route::post('admin/insert_club_committee','admin\AdminDashBoard@insert_club_comm
 Route::get('client/Login_controller/activate_account/{userid}/{activate_code}', 'client\Login_controller@activate_account');
 Route::post('admin/add_faculty','admin\AdminDashBoard@add_faculty');
 Route::get('admin/AdminDashBoard/verify_faculty/{email}/{code}/{pass}','admin\AdminDashBoard@verify_faculty');
+Route::post('admin/forget_password','admin\admin_login_controller@forget_password');
+Route::get('admin/admin_login_controller/reset_password/{userid}/{activate_code}', 'admin\admin_login_controller@reset_pass');
+Route::post('admin/reset','admin\admin_login_controller@reset');
+Route::get('client/del_booking/{booking_id}','client\Client_Display@delete_booking');
 Route::post('client/add_slot','client\ClientDashboard@slots_manage');
+Route::get('Respond_Request/{rbookingid}/{ubookingid}','client\Respond_Request@respond');
+Route::get('Cancel_Request/{bookingid}','client\Respond_Request@Cancel');
+Route::any('client/add_slot','client\ClientDashboard@slots_manage');
+Route::any('inquiry','main\Main@my_mail');
+
 Route::get('admin/AdminDashBoard/verify_club_committee/{email}/{code}/{pass}','admin\AdminDashBoard@verify_club_committee');
 Route::post('addinquiry','mailController@addinquiry');
 Route::get('admin/inquiry','admin\AdminDashBoard@showInquiry');
@@ -61,5 +71,10 @@ Route::post('replaytoinquiry','admin\AdminDashBoard@replayToInquirydata');
 Route::post('getinquiryreplay','admin\AdminDashBoard@getinquiryreplaydata');
 
 
+Route::post('inspect_slots','main\Main@all_booked_slots');
+Route::post('check_fac','main\Main@check_faculty');
+Route::post('check_cc','main\Main@check_cc');
+Route::get('admin/timetable_slot','admin\AdminDashBoard@addtimetable_slot');
 ?>
+
 

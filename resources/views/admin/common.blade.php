@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <!-- Tell the browser to be responsive to screen width -->
@@ -10,10 +11,11 @@
     <meta name="author" content="">
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
-    <title>DBS Admin Dashboard</title>
+    <title>DBS | DA Booking System - Book  Any Place Any Time</title>
     <!-- Bootstrap Core CSS -->
     <link href="{{asset('admin/css/lib/bootstrap/bootstrap.min.css')}}" rel="stylesheet">
     <!-- Custom CSS -->
+
 
     <link href="{{asset('admin/css/lib/calendar2/semantic.ui.min.css')}}" rel="stylesheet">
     <link href="{{asset('admin/css/lib/calendar2/pignose.calendar.min.css')}}" rel="stylesheet">
@@ -49,29 +51,7 @@
     <div id="main-wrapper">
         <!-- header header  -->
         <div class="header">
-            <script type="text/javascript">
-      $(document).ready(function(){
-          $('#succ1').hide();
-      });
-    </script>
-
-    @if(session('error1'))
-    <script type="text/javascript">
-        $(document).ready(function(){
-            $('#succ1').show();   
-           $('#succ1').fadeOut(6000); 
-        });
-    </script>
-@endif
-
-@if(session('error1'))
-<center>
-<div id="succ1" style="position: fixed;top: 5px; left: 20%; right: 20%; z-index: 2;padding:10px 5px;background: #15C3B6;color: black"><div>
-                <strong>Done!</strong> {{session('error1')}}
-              </div>
-            </div></center>
-            
-@endif
+     
             <nav class="navbar top-navbar navbar-expand-md navbar-light">
                 <!-- Logo -->
                 <div class="navbar-header">
@@ -121,6 +101,7 @@
                                 <!-- // INM 09-04-2019 -->
                                 <li><a href="{{url('admin/bookings')}}">Bookings</a></li> 
                                 <li><a href="{{url('admin/inquiry')}}">Inquiry</a></li> 
+                                <li><a href="{{url('admin/timetable_slot')}}">Add Timetable Slot</a></li> 
                             </ul>
                         </li>
                     </ul>

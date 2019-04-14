@@ -17,9 +17,19 @@ class ClientDashboard extends Controller
     
 	}
     function index(){
+date_default_timezone_set('Asia/Kolkata');
+    
+     
 
-      
-    	return view('client/dashboard');
+    //today bookings
+    //total bookings
+    //total requests
+    //total requests recieved.
+  $todayDate = date("Y-m-d");
+  $data['tb'] = DB::table('tblbooking')->where('useremail',session('email'))->whereRaw('date(starttime) = ?',$todayDate)->count();
+  $data['tob'] = DB::table('tblbooking')->where('useremail',session('email'))->count();
+$data['user_data'] = DB::table('tbluser')->where('email',session('email'))->first();
+     	return view('client/dashboard',$data);
     }
 
     function book(){
@@ -32,6 +42,11 @@ class ClientDashboard extends Controller
 
       date_default_timezone_set('Asia/Kolkata');
    		
+
+      $faulcty_typeid = DB::table('tbluser_type')->where('usertype','faculty')->first()->usertypeid;
+          
+          $cnt = DB::table('tbluser')->where('email',session('email'))->first()->usertypeid;
+
       $date=new DateTime($req->mybd.' '.$req->from);
       $fromT = $date->getTimestamp();
       $ts = date('Y-m-d H:i:s',$fromT);
@@ -53,16 +68,22 @@ class ClientDashboard extends Controller
       $mybd = date('Y-m-d',strtotime($req->mybd));
       
       // booking query
-      $data['bk_data'] = DB::table('tblresource as r')->select('r.resource_id','r.resourcename','r.capacity','f.ac',
-      'f.computers','f.mic','f.projector','f.podium','b.bookingid','b.starttime','b.endtime','b.useremail',
-      'b.purpose','b.expected_audience','u.username','u.phonenumber','b.status')
-      ->Join(DB::raw('(select * from tblbooking where status NOT IN ("Cancelled") )b'),'r.resource_id','=','b.resourceid','left outer')
-      ->Join('tbluser as u','u.email','=','b.useremail','left')->
-      Join('tblfacility as f','f.facilityid','=','r.facilityid','left')->
-      Join('tblbuilding as tb','tb.buildingid','=','r.buildingid','left')
-      ->where('r.isAllocate',1)->where('r.buildingid','like',$req->building.'%'
-      )->where(function($q) use($mybd){
-         $q->whereNull('b.bookingid')->orWhere('b.starttime','like',$mybd.'%')->orWhere('b.endtime','like',$mybd.'%');})->get();
+
+      $data['bk_data'] = DB::table('tblresource as r')->select('r.resource_id','r.resourcename','r.capacity','f.ac','f.computers','f.mic','f.projector','f.podium','b.bookingid','b.starttime','b.endtime','b.useremail',
+      'b.purpose','b.expected_audience','u.username','u.phonenumber','b.status')->Join(DB::raw('(select * from tblbooking tmp where tmp.starttime like "'.$req->mybd.'%" and status not in ("Cancelled","Denied"))b'),'r.resource_id','=','b.resourceid','left outer')->Join('tblfacility as f','f.facilityid','=','r.facilityid','left')->Join('tbluser as u','u.email','=','b.useremail','left')->
+      Join('tblbuilding as tb','tb.buildingid','=','r.buildingid','left')->where('r.isAllocate',1)->where('r.buildingid','like',$req->building.'%')->get();
+
+
+      // $data['bk_data'] = DB::table('tblresource as r')->select('r.resource_id','r.resourcename','r.capacity','f.ac',
+      // 'f.computers','f.mic','f.projector','f.podium','b.bookingid','b.starttime','b.endtime','b.useremail',
+      // 'b.purpose','b.expected_audience','u.username','u.phonenumber','b.status')
+      // ->Join(DB::raw('(select * from tblbooking where status NOT IN ("Cancelled") )b'),'r.resource_id','=','b.resourceid','left outer')
+      // ->Join('tbluser as u','u.email','=','b.useremail','left')->
+      // Join('tblfacility as f','f.facilityid','=','r.facilityid','left')->
+      // Join('tblbuilding as tb','tb.buildingid','=','r.buildingid','left')
+      // ->where('r.isAllocate',1)->where('r.buildingid','like',$req->building.'%'
+      // )->where(function($q) use($mybd){
+      //    $q->whereNull('b.bookingid')->orWhere('b.starttime','like',$mybd.'%')->orWhere('b.endtime','like',$mybd.'%');})->get();
 
 
        $data['tt_data'] = DB::table('tblresource as r')->select('r.resource_id','r.resourcename','r.capacity','f.ac',
@@ -110,10 +131,10 @@ class ClientDashboard extends Controller
                 // print_r($value);echo "\nGRAY\n\n";
                  array_push($data['copy_data'] , $value);
                  echo "<div class='col-lg-4 col-md-6'>
-                 <a href='#'>
-                     <div class='card' style='box-shadow: 0 0 8px rgba(0,0,0,.3);background:rgb(125,125,125);min-height:360px;'>
+                 <a href='javascript:void(0);'>
+                     <div class='card' style='box-shadow: 0 0 8px rgba(0,0,0,.3);background:rgb(125,125,125);min-height:392px;'>
                          <div class='card-body'>
-                             <h4 class='card-title' style='color:white'>{$value->resourcename}</h4>
+                             <h4 class='card-title' style='color:white'>{$value->resourcename}<span style='float:right;'>Timetable Slot</span></h4>
                              <hr color='white' style='opacity:0.4;border:0;background:white;height:1px;'>
                              <table class='card-tbl1' style='font-size:14px;color:white' cellpadding='5'>
                                  <tr ><th>Time: </th><td>{$value->timestart} To {$value->timeend}</td></tr>
@@ -184,7 +205,7 @@ class ClientDashboard extends Controller
               if($value->status=='Booked')
               {
                 echo "<div class='col-lg-4 col-md-6'>
-                <span onclick=main_task({$value->resource_id},'{$value->status}','{$req->mybd}','{$req->from}','{$req->to}') data-toggle='modal' data-target='#myModal'>
+                <span onclick=main_task({$value->resource_id},'{$value->status}','{$req->mybd}','{$req->from}','{$req->to}',{$cnt},{$value->bookingid}) data-toggle='modal' data-target='#myModal'>
                     <div class='card' style='box-shadow: 0 0 8px rgba(0,0,0,.3);background:rgb(200,44,44);'>
                         <div class='card-body'>
                             <h4 class='card-title' style='color:white'>{$value->resourcename}<span style='float:right;'>Booked</span></h4>
@@ -213,7 +234,7 @@ class ClientDashboard extends Controller
               }
               else{
                 echo "<div class='col-lg-4 col-md-6'>
-                <span onclick=main_task({$value->resource_id},'{$value->status}','{$req->mybd}','{$req->from}','{$req->to}') data-toggle='modal' data-target='#myModal'>
+                <span onclick=main_task({$value->resource_id},'{$value->status}','{$req->mybd}','{$req->from}','{$req->to}',{$cnt},{$value->bookingid}) data-toggle='modal' data-target='#myModal'>
                     <div class='card' style='box-shadow: 0 0 8px rgba(0,0,0,.3);background:rgb(220,178,38);'>
                         <div class='card-body'>
                             <h4 class='card-title' style='color:white'>{$value->resourcename}<span style='float:right;'>Requested</span></h4>
@@ -282,7 +303,7 @@ class ClientDashboard extends Controller
 
                 //this is Green
                 echo "<div class='col-lg-4 col-md-6'>
-                <span onclick=main_task({$value->resource_id},'{$value->status}','{$req->mybd}','{$req->from}','{$req->to}') data-toggle='modal' data-target='#myModal'>
+                <span onclick=main_task({$value->resource_id},'{$value->status}','{$req->mybd}','{$req->from}','{$req->to}',{$cnt}) data-toggle='modal' data-target='#myModal'>
                     <div class='card' style='box-shadow: 0 0 8px rgba(0,0,0,.3);background:rgb(0,153,0);min-height:390px;'>
                         <div class='card-body'>
                             <h4 class='card-title' style='color:white'>{$value->resourcename}<span style='float:right;'>Available</span></h4>
@@ -363,27 +384,50 @@ class ClientDashboard extends Controller
     }
     function slots_manage(Request $req)
     {
-        $useremail = session('email');
-        $resourceid = $req->mainid;
+          if(!$req->session()->has('email'))
+          {
+              return redirect('login');
+          }
+         $useremail = session('email');
+         $bookingid = $req->bookid;
+                 $resourceid = $req->mainid;
         $starttime = $req->stt;
         $endtime = $req->ett;
         $purpose = $req->purpose;
         $audi = $req->audi;
-        echo $useremail;
-        echo $resourceid;
-        echo $starttime;
-        echo $endtime;
-        echo $purpose;
-        echo $audi;
-        echo $req->sta1;
+        
         if($req->sta1 == 'Book')
         {
           DB::table('tblbooking')->insert(['starttime'=>$starttime,'endtime'=>$endtime,'useremail'=>$useremail,'resourceid'=>$resourceid
           ,'purpose'=>$purpose,'expected_audience'=>$audi,'status'=>'Booked']);
         }
         else{
-          DB::table('tblbooking')->insert(['starttime'=>$starttime,'endtime'=>$endtime,'useremail'=>$useremail,'resourceid'=>$resourceid
+
+          $faulcty_typeid = DB::table('tbluser_type')->where('usertype','faculty')->first()->usertypeid;
+          
+          $cnt = DB::table('tbluser')->where('email',session('email'))->first()->usertypeid;
+          if($cnt == $faulcty_typeid)
+          {
+            // echo $cnt;
+            // echo $faulcty_typeid;die;
+            DB::table('tblbooking')->insert(['starttime'=>$starttime,'endtime'=>$endtime,'useremail'=>$useremail,'resourceid'=>$resourceid
+          ,'purpose'=>$purpose,'expected_audience'=>$audi,'status'=>'Booked']);
+
+            DB::table('tblbooking')->where('bookingid',$bookingid)->update(['status'=>'Cancelled']);
+            //Now write the code to inform the user that his booking got cancelled.
+            // here will be the code to send mail to the user whose booking got cancelled.
+            //use bookingid to fetch details and username.
+          }
+          else{
+             DB::table('tblbooking')->insert(['starttime'=>$starttime,'endtime'=>$endtime,'useremail'=>$useremail,'resourceid'=>$resourceid
           ,'purpose'=>$purpose,'expected_audience'=>$audi,'status'=>'Requested']);
+          }
+          
+          //take $useremail and check with priority that which type of user it is and then 
+          //if it is admin then status will be Booked and the person whose booking is alreadyy confieremed then it should changed to cancelled. 
+          //and mails will be sent to all the parties involved.
+
+         
         }
         return redirect('client_display');
     }

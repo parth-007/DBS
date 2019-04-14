@@ -35,7 +35,7 @@
                                                 <label for="building" class="col-form-label">Enter DAIICT Id:</label>
                                                 <input type="text" class="form-control" name="email" id="email" required>
                                             </div>
-
+ <p class="tx-al-lft" id="res_mail" style="color: red;">Email is acquired by other Faculty.</p>
                                             <div class="form-group">
                                                 <label for="building" class="col-form-label">Enter Name:</label>
                                                 <input type="text" class="form-control" name="name" id="name" required>
@@ -109,6 +109,39 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#res_mail').hide();
+        $('#email').blur(function(e){
+            e.preventDefault();
+            var em = $(this).val();
+            
+            $.ajax({
+                type:"post",
+                headers:{
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url:"{{url('check_fac')}}",
+                data:{'em1':em},
+
+                success:function(data){
+                    
+                    if(data==1)
+                    {
+                        $('#res_mail').hide();
+                        // $('#res_mail').css('visibility','hidden');
+                    }
+                    else{
+                        $('#res_mail').show();
+                        
+                        // $('#res_mail').css('visibility','visible');
+                    }
+                
+                }
+            });
+        });
+    });
+</script>
 <script>
     $(document).ready(function(){
         $.validator.addMethod("phoneno", function(value, element) {
