@@ -35,6 +35,12 @@
 </script>
 <script type="text/javascript">
     $(document).ready(function(){
+
+        function isValidTime(start,end)
+        {
+            return end>=start;
+        }
+
         $("#myform1").validate({
 
         });
@@ -47,6 +53,17 @@
                 var res = $('#b1').val();
                 var from = $('#from').val();
                 var to = $('#to').val();
+                var tmp2=parseInt(to.split(":")[0]*60)+parseInt(to.split(":")[1]);
+                var tmp1=parseInt(from.split(":")[0]*60)+parseInt(from.split(":")[1]);
+                if(!isValidTime(tmp1,tmp2))
+                {
+                    $("#lbl_timerror").show();
+                    return;
+                }
+                else
+                {
+                    $("#lbl_timerror").hide();
+                }
                 $.ajax({
                     type:"post",
                     headers:{
@@ -155,6 +172,8 @@
                                     <input type="text" id="to" name="to" class="form-control" placeholder="To" style="background: inherit;width:100%;" required readonly>
                                         </div>
                                     </div>
+                                    <br/>
+                                    <label id="lbl_timerror" class="" style="display: none;color:red;">Invalid Time</label>
                                 </div>
                                        
 

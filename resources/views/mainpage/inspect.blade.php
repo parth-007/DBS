@@ -11,7 +11,10 @@
     <link rel="stylesheet" type="text/css" media="screen" href="{{asset('mainpage/CSS/clockpicker.css')}}" />
     <link rel="stylesheet" type="text/css" media="screen" href="{{asset('mainpage/CSS/standalone.css')}}" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/additional-methods.min.js"></script>
     <script src="{{asset('mainpage/JS/clockpicker.js')}}"></script>
+    
 
 </head>
 
@@ -31,6 +34,13 @@
             <div>
                 <h3 class="mrg-l20">Welcome User</h3>
             </div>
+            <center>
+                <div id="succ_msg" style="position: fixed;top: 30px; left: 20%; right: 20%; z-index: 2;padding:10px 5px;background: #15C3B6;display: none">
+                    <div class="alert alert-success">
+                    <strong>Done!</strong> Thank you we will contact you shortly
+                    </div>
+                </div>
+            </center>
         </div>
         <div class="fl-rght hdr-div">
             <div>
@@ -85,7 +95,7 @@
                     </span>
                     <input type="submit" class="btn" value="Go" style="border-color: white;">
                     <script type="text/javascript">
-                        $('.clockpicker').clockpicker();
+                        $('.clockpicker').clockpicker();    
                     </script>
                 </form>
             </div>
@@ -141,7 +151,7 @@
         </div>
     </div>
 
-    <footer id="contactus">
+    <!-- <footer id="contactus">
         <div class="fl-lft hdr-div">
             <div>
                 <a href="{{url('/')}}">
@@ -181,7 +191,8 @@
                 <p>bookresources@daiict.ac.in</p>
             </div>
         </div>
-    </footer>
+    </footer> -->
+    @include('mainpage\footer')
 </body>
 
 </html>

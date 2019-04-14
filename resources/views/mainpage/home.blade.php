@@ -13,11 +13,11 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/additional-methods.min.js"></script>
-    <style type="text/css">
+    <!-- <style type="text/css">
         .error{
             color:red;
         }
-    </style>
+    </style> -->
 </head>
 
 <body>
@@ -121,7 +121,8 @@
             </span>
         </div>
     </div>
-    <footer id="contactus">
+    @include('mainpage\footer')
+    <!-- <footer id="contactus">
         <div class="fl-lft hdr-div">
             <div>
                 <a href="{{url('/')}}">
@@ -161,9 +162,9 @@
                 <p>bookresources@daiict.ac.in</p>
             </div>
         </div>
-    </footer>
+    </footer> -->
 </body>
-<script type="text/javascript">
+<!-- <script type="text/javascript">
     $(document).ready(function($) {
         $("#frm_pingus").validate({
             errorPlacement: function(error, element) {
@@ -210,5 +211,5 @@
             $("#error_msg").fadeOut(3000);
         @endif
     });
-</script>
+</script> -->
 </html>
