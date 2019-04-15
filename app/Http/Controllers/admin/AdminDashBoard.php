@@ -17,8 +17,7 @@ class AdminDashBoard extends Controller
 {
     function __construct(){
         $this->middleware('CheckisAdmin');
-        $this->middleware('Backend');
-        
+        $this->middleware('Backend'); 
     }
     // INM 09-04-2019
     function bookings_print_todays(){
@@ -91,7 +90,7 @@ class AdminDashBoard extends Controller
         // $req->validate([
         //     "buildingname"=>"bail|required"
         // ]);
-        $a = $req->buildingname;
+        $a = $req->buildingname_update;
         DB::table("tblbuilding")->where('buildingid',$req->uid)->update(['buildingname'=>$a]);
         return redirect('admin/buildings');
     }

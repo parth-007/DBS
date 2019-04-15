@@ -293,7 +293,7 @@
                 <div class="tx-al-rght">
                     <input type="submit" value="Send" class="btn">
                 </div>
-                <!-- <label class="disp-no">*Sent Successfully.</label> -->
+                <label class="disp-no">*Sent Successfully.</label>
                 <span id="msg" style="display:none;padding-left: 192px;font-size: large;color: white">Message Sent!</span>
             </form>
         </div>
