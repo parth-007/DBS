@@ -160,7 +160,10 @@
         $.validator.addMethod("phoneno", function(value, element) {
                     return this.optional(element) || /^[6-9][0-9]+$/i.test(value);
                 }, "Enter valid mobile no");   
-
+        
+        $.validator.addMethod("validname", function(value, element) {
+            return this.optional(element) || /^[a-zA-Z][a-zA-Z0-9]*$/i.test(value);
+        }, "Must start with alphabet");
         $("#frm_cc").validate({
             rules:{
                 phone:{
@@ -168,6 +171,9 @@
                 },
                 email:{
                     damail:true
+                },
+                name:{
+                    validname:true
                 }
             }
         }); 

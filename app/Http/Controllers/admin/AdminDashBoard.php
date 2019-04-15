@@ -176,8 +176,9 @@ class AdminDashBoard extends Controller
         return view('admin/timetable',$data);
     }
     function resource(){
-        
-        $data['resource'] = DB::table("tblresource")->paginate(20);
+        $data['resource'] = DB::table("tblresource")
+                            ->orderBy('tblresource.resource_id','asc')
+                            ->paginate(20);
         $data['buildings']=DB::table('tblbuilding')->get();
         return view('admin/resource',$data);
     }

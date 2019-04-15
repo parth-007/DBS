@@ -140,16 +140,23 @@
         @if($errors->any())
             $("#error_msg").fadeOut(4000);
         @endif 
-
+        $.validator.addMethod("validname", function(value, element) {
+                return this.optional(element) || /^[a-zA-Z][a-zA-Z0-9]*$/i.test(value);
+            }, "Must start with alphabet");
         $("#frm_update").validate({
             rules:{
                 buildingname_update:{
-                    required:true
+                    required:true,
+                    validname:true
                 }
             }
         });
         $("#frm_Add").validate({
-            
+            rules:{
+                buildingname:{
+                    validname:true
+                }
+            }
         }); 
         
     });
