@@ -7,24 +7,22 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class inquiry_mail extends Mailable
+class book_cancel extends Mailable
 {
     use Queueable, SerializesModels;
 
     /**
      * Create a new message instance.
      *
-
      * @return void
      */
-
-    public $msg;
-    public $que;
-    public function __construct($que,$msg)
+   public $purpose,$timestart,$timeend,$user;
+    public function __construct($user,$purpose,$timestart,$timeend)
     {
-        $this->msg=$msg;
-        $this->que=$que;
-        //
+        $this->purpose = $purpose;
+        $this->timestart = $timestart;
+        $this->timeend = $timeend;
+        $this->user = $user;
     }
 
     /**
@@ -34,6 +32,6 @@ class inquiry_mail extends Mailable
      */
     public function build()
     {
-        return $this->subject('Message From DBS')->view('admin/content_mail');
+        return $this->subject('Booking Confirmed')->view('client/book_cancel');
     }
 }
