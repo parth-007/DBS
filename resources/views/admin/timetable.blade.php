@@ -92,7 +92,10 @@ function checkme()
 }
 </script>
 <script>
+
     $(document).ready(function($) {
+        $('#succ').hide();
+
         $("#frm_timetable").validate({
 
         });   
@@ -115,6 +118,10 @@ function checkme()
                     data: $("#frm_timetable").serialize()+"&_token={{csrf_token()}}",
                 })
                 .done(function(res) {
+
+                            $('#succ').show();
+                            
+                            $('#succ').fadeOut(3000);
                     if(res==1 || res=="1")
                     {
                         $("#frm_timetable").trigger("reset");
@@ -132,8 +139,12 @@ function checkme()
         });
     });
 </script>
+ <div id="succ" style="position: fixed;top: 125px;right: 40%;z-index: 10;"><div class="alert alert-success" style="color:black">
+                <strong>Success!</strong> Timeslot Added.
+              </div>
+            </div>
 <div class="page-wrapper">
-        
+       
             <!-- Bread crumb -->
             <div class="row page-titles">
                 <div class="col-md-5 align-self-center">
