@@ -86,7 +86,7 @@ class AdminDashBoard extends Controller
                 ->orWhere('tbluser_type.usertype','club')
                 ->count();
 
-                // INM 13-04-2019
+        // INM 13-04-2019
         $count['faculty_count']=DB::table('tbluser')
                 ->join('tbluser_type','tbluser_type.usertypeid','=','tbluser.usertypeid')
                 ->where('tbluser_type.usertype','faculty')
