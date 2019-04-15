@@ -23,7 +23,7 @@
     <thead>
       <tr>
         <th>Link</th>
-        <td>{{$link}}</td>
+        <td><a href="{{$link}}">Click Here!</a></td>
       </tr>
     </thead>
     <tbody>

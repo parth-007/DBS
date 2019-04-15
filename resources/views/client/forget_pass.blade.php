@@ -11,7 +11,7 @@
 <body>
 
 	<div>
-    Hi, This is Password Reset Link : {{ $link }}
+    Hi, This is Password Reset Link : <a href="{{ $link }}">Click Here</a>
     <br>
     Click on this link to Reset your account.
 </div>
