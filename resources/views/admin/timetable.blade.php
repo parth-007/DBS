@@ -92,17 +92,24 @@ function checkme()
 }
 </script>
 <script>
+
     $(document).ready(function($) {
+        $('#succ').hide();
+        $('#succ2').hide();
         $("#frm_timetable").validate({
 
         });   
         function checktime(start,end){
-            return end>=start;
+            return end>start;
+        }
+        function checkdate(dt){
+            return dt>=new Date();
         }
         $("#frm_timetable").submit(function(e){
             e.preventDefault();
             if($("#frm_timetable").valid())
             {
+                if(checkdata($("#")))
                 if(!checktime($("#time_start").val(),$("#time_end").val()))
                 {
                     $("#lbl_timerr").show();
@@ -115,6 +122,10 @@ function checkme()
                     data: $("#frm_timetable").serialize()+"&_token={{csrf_token()}}",
                 })
                 .done(function(res) {
+
+                            $('#succ').show();
+                            
+                            $('#succ').fadeOut(3000);
                     if(res==1 || res=="1")
                     {
                         $("#frm_timetable").trigger("reset");
@@ -123,7 +134,9 @@ function checkme()
 
                 })
                 .fail(function(res) {
-
+                    $('#succ2').show();
+                            
+                            $('#succ2').fadeOut(3000);
                 })
                 .always(function() {
 
@@ -132,8 +145,17 @@ function checkme()
         });
     });
 </script>
+ <div id="succ" style="position: fixed;top: 125px;right: 40%;z-index: 10;"><div class="alert alert-success" style="color:black">
+                <strong>Success!</strong> Timeslot Added.
+              </div>
+            </div>
+
+            <div id="succ2" style="position: fixed;top: 125px;right: 40%;z-index: 10;"><div class="alert alert-danger" style="color:black">
+                <strong>Failure!</strong> Some Error Occured.
+              </div>
+            </div>
 <div class="page-wrapper">
-        
+       
             <!-- Bread crumb -->
             <div class="row page-titles">
                 <div class="col-md-5 align-self-center">

@@ -41,7 +41,11 @@
 
         function isValidTime(start,end)
         {
-            return end>=start;
+            return end>start;
+        }
+        function isValidDate(dt)
+        {
+            return (new Date(dt))>=(new Date(new Date().toISOString().slice(0,10).split("-").join(",")));
         }
 
         $("#myform1").validate({
@@ -58,15 +62,18 @@
                 var to = $('#to').val();
                 var tmp2=parseInt(to.split(":")[0]*60)+parseInt(to.split(":")[1]);
                 var tmp1=parseInt(from.split(":")[0]*60)+parseInt(from.split(":")[1]);
+                if(!isValidDate($("#cdate").val()))
+                {
+                    $("#lbl_daterror").show();
+                    return;
+                }
+                $("#lbl_daterror").hide();
                 if(!isValidTime(tmp1,tmp2))
                 {
                     $("#lbl_timerror").show();
                     return;
                 }
-                else
-                {
-                    $("#lbl_timerror").hide();
-                }
+                $("#lbl_timerror").hide();
                 $.ajax({
                     type:"post",
                     headers:{
@@ -140,7 +147,8 @@
                                                      <i class="fa fa-calendar">
                                                      </i>
                                                     </div>
-                                                    <input class="form-control" id="cdate" name="mybd" value="" placeholder="YYYY/MM/DD" type="text" style="background: inherit;width:80%" required readonly>
+                                                    <input class="form-control" id="cdate" name="mybd" value="" placeholder="YYYY/MM/DD" type="date" style="background: inherit;width:80%" required readonly>
+                                                    <label id="lbl_daterror" class="" style="display: none;color:red;">Invalid date</label>
                                                     <br/>
                                                 </div>
                                             </div>
@@ -245,17 +253,17 @@
           <h4 class="modal-title">Information</h4>
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
-        <form method="post" action="{{url('client/add_slot')}}">
+        <form method="post" action="{{url('client/add_slot')}}" id="frm_booking">
         {{csrf_field()}}
         <div class="modal-body">
-        <input type="hidden" id="mainid" name="mainid">
+        <input type="hidden" id="mainid" name="mainid"> 
         <input type="hidden" id="sta1" name="sta1">
         <input type="hidden" id="bookid" name="bookid">
           <label>Time: <span id="from1" style="margin-left:20px"></span> To <span id="to1"></span> </label><input type="hidden" value="" name="stt" id="stt"><input type="hidden" value="" name="ett" id="ett">
           <br>
-          <label>Purpose:</label><input type="text" name="purpose" placeholder="Purpose" style="margin-left:17px;">
+          <label>Purpose:</label><input type="text" name="purpose" placeholder="Purpose" style="margin-left:17px;"  required="">
           <br>
-          <label>Audience:</label><input type="text" name="audi" placeholder="Expected Audience" style="margin-left:10px;">
+          <label>Audience:</label><input type="number" name="audi" placeholder="Expected Audience" style="margin-left:10px;" required="">
         </div>
         <div class="modal-footer">
         
@@ -275,7 +283,6 @@
               
 
                 $(document).ready(function(){
-
                     var date_input=$('input[name="mybd"]'); //our date input has the name "date"
                     var container=$('.bootstrap-iso .form').length>0 ? $('.bootstrap-iso .form').parent() : "body";
                     date_input.datepicker({
@@ -284,6 +291,7 @@
                         todayHighlight: true,
                         autoclose: true,
                     })
+
                 })
             </script>
             <script type="text/javascript">
@@ -291,6 +299,9 @@
                     @if($errors->any())
                         $("#error_msg").fadeOut(3000);
                     @endif
+                    $("#frm_booking").validate({
+
+                    });
                 });
             </script>
 @include('client/footer')

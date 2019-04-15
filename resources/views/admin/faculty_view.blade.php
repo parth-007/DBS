@@ -67,7 +67,7 @@
                     </div>
                 </center>
                 @endif 
-             <div class="col-lg-9">
+             <div class="col-lg-12">
                         <div class="card">
                             <div class="card-title">
                                 <h4>Faculties</h4>
