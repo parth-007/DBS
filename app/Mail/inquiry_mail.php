@@ -34,6 +34,6 @@ class inquiry_mail extends Mailable
      */
     public function build()
     {
-        return $this->view('admin/content_mail');
+        return $this->subject('Message From DBS')->view('admin/content_mail');
     }
 }

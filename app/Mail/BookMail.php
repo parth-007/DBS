@@ -33,6 +33,6 @@ class BookMail extends Mailable
      */
     public function build()
     {
-        return $this->view('client/succ_mail');
+        return $this->subject('Successful Booking')->view('client/succ_mail');
     }
 }

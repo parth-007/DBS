@@ -32,6 +32,6 @@ class QueryMail extends Mailable
      */
     public function build()
     {
-        return $this->view('mainpage/querypage');
+        return $this->subject('Query')->view('mainpage/querypage');
     }
 }

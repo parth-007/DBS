@@ -33,6 +33,6 @@ class CancelMail extends Mailable
      */
     public function build()
     {
-        return $this->view('client/cancel_mail');
+        return $this->subject('Booking Cancelled')->view('client/cancel_mail');
     }
 }

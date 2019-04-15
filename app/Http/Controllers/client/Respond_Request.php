@@ -6,7 +6,9 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use DB;
 use Validator;
-
+use Mail;
+use App\Mail\req_accept;
+use App\Mail\deny_mail;
 class Respond_Request extends Controller
 {
 	function __construct()
@@ -78,6 +80,14 @@ class Respond_Request extends Controller
                 if($bid==0)
                 {
                     //request accept mail @$rbookingid
+
+                    $bookmydata = DB::Table('tblbooking')->where('bookingid',$rbookingid)->first();
+                    
+                    $res_name = DB::table('tblresource')->where('resource_id',$bookmydata->resourceid)->first()->resourcename;
+
+                    Mail::to($bookmydata->useremail)->send(new req_accept($bookmydata->purpose,$bookmydata->starttime,$bookmydata->endtime,$res_name,$bookmydata->useremail));
+
+
                     DB::table('tblbooking as b')->where('bookingid',$rbookingid)->update(['status'=>'Booked']);
                 }
                 return redirect('request');
@@ -85,6 +95,12 @@ class Respond_Request extends Controller
     function Cancel($bookingid)
     {
         //request denied mail
+
+                    $bookmydata = DB::Table('tblbooking')->where('bookingid',$bookingid)->first();
+                    $res_name = DB::table('tblresource')->where('resource_id',$bookmydata->resourceid)->first()->resourcename;
+
+                    Mail::to($bookmydata->useremail)->send(new deny_mail($bookmydata->purpose,$bookmydata->starttime,$bookmydata->endtime,$res_name,$bookmydata->useremail));
+
         DB::table('tblbooking')->where('bookingid',$bookingid)->update(['status'=>'Denied']);
         return redirect('request');
     }

@@ -29,6 +29,6 @@ class forget_password extends Mailable
      */
     public function build()
     {
-        return $this->view('client/forget_pass');
+        return $this->subject('Password Reset')->view('client/forget_pass');
     }
 }

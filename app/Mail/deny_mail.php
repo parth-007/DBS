@@ -7,7 +7,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class req_accept extends Mailable
+class deny_mail extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -25,6 +25,7 @@ class req_accept extends Mailable
         $this->resource = $resource;
         $this->user = $user;
     }
+
     /**
      * Build the message.
      *
@@ -32,6 +33,6 @@ class req_accept extends Mailable
      */
     public function build()
     {
-        return $this->subject('Request Accepted')->view('client/req_accepted');
+        return $this->subject('Request Denied')->view('client/req_denied');
     }
 }
