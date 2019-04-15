@@ -72,9 +72,16 @@ $data['user_data'] = DB::table('tbluser')->where('email',session('email'))->firs
       
       // booking query
 
-      $data['bk_data'] = DB::table('tblresource as r')->select('r.resource_id','r.resourcename','r.capacity','f.ac','f.computers','f.mic','f.projector','f.podium','b.bookingid','b.starttime','b.endtime','b.useremail',
-      'b.purpose','b.expected_audience','u.username','u.phonenumber','b.status')->Join(DB::raw('(select * from tblbooking tmp where tmp.starttime like "'.$req->mybd.'%" and status not in ("Cancelled","Denied"))b'),'r.resource_id','=','b.resourceid','left outer')->Join('tblfacility as f','f.facilityid','=','r.facilityid','left')->Join('tbluser as u','u.email','=','b.useremail','left')->
-      Join('tblbuilding as tb','tb.buildingid','=','r.buildingid','left')->where('r.isAllocate',1)->where('r.buildingid','like',$req->building.'%')->get();
+      $data['bk_data'] = DB::table('tblresource as r')
+                        ->select('r.resource_id','r.resourcename','r.capacity','f.ac','f.computers','f.mic','f.projector','f.podium','b.bookingid','b.starttime','b.endtime','b.useremail',
+                          'b.purpose','b.expected_audience','u.username','u.phonenumber','b.status')
+                        ->Join(DB::raw('(select * from tblbooking tmp where tmp.starttime like "'.$req->mybd.'%" and status not in ("Cancelled","Denied"))b'),'r.resource_id','=','b.resourceid','left outer')
+                        ->Join('tblfacility as f','f.facilityid','=','r.facilityid','left')
+                        ->Join('tbluser as u','u.email','=','b.useremail','left')
+                        ->Join('tblbuilding as tb','tb.buildingid','=','r.buildingid','left')
+                        ->where('r.isAllocate',1)
+                        ->where('r.buildingid','like',$req->building.'%')
+                        ->get();
 
 
       // $data['bk_data'] = DB::table('tblresource as r')->select('r.resource_id','r.resourcename','r.capacity','f.ac',

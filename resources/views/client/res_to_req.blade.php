@@ -17,7 +17,7 @@
 <script type="text/javascript">
     function AcceptModal($rid,$uid)
     {
-        console.log($rid , $uid);
+        // console.log($rid , $uid);
         $("#DModal").modal('hide');
         $("#AModal").modal();
         $("#hid_val_rid").val($rid);
@@ -28,7 +28,7 @@
     }
     function DeniedModal($rid)
     {
-      console.log($rid);
+      // console.log($rid);
         $("#AModal").modal('hide');
         $("#DModal").modal();
         $("#hid_val_rid").val($rid);
@@ -60,7 +60,7 @@
             <div class="card-body">
                 <h4 class="card-title">Request</h4>
             <?php
-        if ($request_data->count()>0) {
+        if (count($request_data)) {
                     $c=0;
             ?>   
         <table class="table table-hover">
