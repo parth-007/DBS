@@ -11,7 +11,9 @@
 <body>
 
 	<div>
-    Hi, This is Activation Link : {{ $link }}
+    Hi, Please Click below link to activate your account. <Br> 
+
+     <a href="{{ $link }}">Click Here</a>
     <br>
     Click on this link to activate your account.
 </div>
