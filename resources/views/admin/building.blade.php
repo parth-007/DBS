@@ -4,7 +4,7 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/additional-methods.min.js"></script>
-<link href="{{asset('client/css/lib/sweetalert/sweetalert.css')}}" rel="stylesheet">
+<!-- <link href="{{asset('client/css/lib/sweetalert/sweetalert.css')}}" rel="stylesheet"> -->
 <script>
         function fetch_account(aid){
             $.ajax({
@@ -12,18 +12,13 @@
                 type:"get",
                 success:function(data)
                 {
-                    $("#btnsubmit_update").html('Update');
                     var ob=JSON.parse(data);
                     $("#uid").val(ob.buildingid);
                     $("#buildingname_update").val(ob.buildingname);
                 }
             });
         }
-        $(document).ready(function(){
-            $("#frm_Add").validate({
-                
-            });
-        });
+        
 
 </script>
 
@@ -100,35 +95,10 @@
                                 <td id="bid">{{ $building->buildingid}}</td>
                                 <td>{{ $building->buildingname}}</td>
                                 <td style="text-align:center"><a data-toggle="modal" data-target="#myModal_update" data-backdrop="static"
-                                data-keyboard="false" href="" onclick="fetch_account({{@$building->buildingid}})" data-toggle="modal" data-target="#myModal_update" data-whatever="@mdo" class="fa fa-edit f-s-30 color-info"></a></td>
+                                data-keyboard="false" href="" onclick="fetch_account({{@$building->buildingid}})" data-toggle="modal" data-whatever="@mdo" class="fa fa-edit f-s-30 color-info"></a></td>
 
                                 <!-- <button type="button" class="btn btn-info" id="btn_model" data-toggle="modal" data-target="#myModal_update" data-whatever="@mdo">Add building</button> -->
-                            <div class="container">
-                            <div class="modal" id="myModal_update">
-                                <div class="modal-dialog">
-                                <div class="modal-content">
-                
-                                <div class="modal-header">
-                                <h4 class="modal-title">Update building</h4>
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                </div>
-                                
-                                <form action='{{url("admin/buildings/updatebuilding")}}' method="post">
-                                {{csrf_field()}}
-                                    <div class="modal-body">
-                                            <div class="form-group">
-                                                <label for="building" class="col-form-label">Building name:</label>
-                                                <input type="text" class="form-control" name="buildingname" id="buildingname_update">
-                                            </div>
-                                    </div>
-                                    <input type="hidden" name="uid" id="uid">
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                                        <button type="submit" id="btnsubmit_update" class="btn btn-info">Update building</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>    
+                            
                                 <td style="text-align:center"><a href='{{ url("admin/buildings/delete/{$building->buildingid}")}}' class="fa fa-trash f-s-30 color-danger"></a></td>
                             </tr>
                         @endforeach
@@ -138,11 +108,50 @@
         </div>
     </div>
 </div>
+<div class="modal" id="myModal_update">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+            <h4 class="modal-title">Update building</h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            
+            <form id="frm_update" action='{{url("admin/buildings/updatebuilding")}}' method="post">
+            {{csrf_field()}}
+                <div class="modal-body">
+                        <div class="form-group">
+                            <label for="building" class="col-form-label">Building name:</label>
+                            <input type="text" class="form-control" name="buildingname_update" id="buildingname_update" required>
+                        </div>
+                </div>
+                <input type="hidden" name="uid" id="uid">
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    <button type="submit" id="btnsubmit_update" class="btn btn-info">Update</button>
+                </div>
+            </form>
+        </div>
+    </div> 
+</div>
+                        
 <script type="text/javascript">
     $(document).ready(function(){
         @if($errors->any())
             $("#error_msg").fadeOut(4000);
-        @endif
+        @endif 
+
+        $("#frm_update").validate({
+            rules:{
+                buildingname_update:{
+                    required:true
+                }
+            }
+        });
+        $("#frm_Add").validate({
+            
+        }); 
+        
     });
 </script>
 @include("admin/footer")

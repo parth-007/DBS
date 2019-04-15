@@ -100,12 +100,16 @@ function checkme()
 
         });   
         function checktime(start,end){
-            return end>=start;
+            return end>start;
+        }
+        function checkdate(dt){
+            return dt>=new Date();
         }
         $("#frm_timetable").submit(function(e){
             e.preventDefault();
             if($("#frm_timetable").valid())
             {
+                if(checkdata($("#")))
                 if(!checktime($("#time_start").val(),$("#time_end").val()))
                 {
                     $("#lbl_timerr").show();
