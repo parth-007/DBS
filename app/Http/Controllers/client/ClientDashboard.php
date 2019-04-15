@@ -53,16 +53,18 @@ date_default_timezone_set('Asia/Kolkata');
       $mybd = date('Y-m-d',strtotime($req->mybd));
       
       // booking query
-      $data['bk_data'] = DB::table('tblresource as r')->select('r.resource_id','r.resourcename','r.capacity','f.ac',
+      $data['bk_data'] = DB::table('tblresource as r')
+                        ->select('r.resource_id','r.resourcename','r.capacity','f.ac',
       'f.computers','f.mic','f.projector','f.podium','b.bookingid','b.starttime','b.endtime','b.useremail',
       'b.purpose','b.expected_audience','u.username','u.phonenumber','b.status')
-      ->Join(DB::raw('(select * from tblbooking where status NOT IN ("Cancelled") )b'),'r.resource_id','=','b.resourceid','left outer')
-      ->Join('tbluser as u','u.email','=','b.useremail','left')->
-      Join('tblfacility as f','f.facilityid','=','r.facilityid','left')->
-      Join('tblbuilding as tb','tb.buildingid','=','r.buildingid','left')
-      ->where('r.isAllocate',1)->where('r.buildingid','like',$req->building.'%'
-      )->where(function($q) use($mybd){
-         $q->whereNull('b.bookingid')->orWhere('b.starttime','like',$mybd.'%')->orWhere('b.endtime','like',$mybd.'%');})->get();
+                        ->Join(DB::raw('(select * from tblbooking where status NOT IN ("Cancelled") )b and '),'r.resource_id','=','b.resourceid','left outer')
+                        ->Join('tbluser as u','u.email','=','b.useremail','left')
+                        ->Join('tblfacility as f','f.facilityid','=','r.facilityid','left')
+                        ->Join('tblbuilding as tb','tb.buildingid','=','r.buildingid','left')
+                        ->where('r.isAllocate',1)
+                        ->where('r.buildingid','like',$req->building.'%'
+                        )->where(function($q) use($mybd){
+                        $q->whereNull('b.bookingid')->orWhere('b.starttime','like',$mybd.'%')->orWhere('b.endtime','like',$mybd.'%');})->get();
 
 
        $data['tt_data'] = DB::table('tblresource as r')->select('r.resource_id','r.resourcename','r.capacity','f.ac',
