@@ -95,7 +95,7 @@ function checkme()
 
     $(document).ready(function($) {
         $('#succ').hide();
-
+        $('#succ2').hide();
         $("#frm_timetable").validate({
 
         });   
@@ -130,7 +130,9 @@ function checkme()
 
                 })
                 .fail(function(res) {
-
+                    $('#succ2').show();
+                            
+                            $('#succ2').fadeOut(3000);
                 })
                 .always(function() {
 
@@ -141,6 +143,11 @@ function checkme()
 </script>
  <div id="succ" style="position: fixed;top: 125px;right: 40%;z-index: 10;"><div class="alert alert-success" style="color:black">
                 <strong>Success!</strong> Timeslot Added.
+              </div>
+            </div>
+
+            <div id="succ2" style="position: fixed;top: 125px;right: 40%;z-index: 10;"><div class="alert alert-danger" style="color:black">
+                <strong>Failure!</strong> Some Error Occured.
               </div>
             </div>
 <div class="page-wrapper">
