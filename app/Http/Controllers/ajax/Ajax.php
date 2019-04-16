@@ -45,7 +45,7 @@ class Ajax extends Controller
             "password"=>"bail|required"
         ]);
 		// $num = DB::table('tbluser')->where('email',$req->mail)->where('password',$req->password)->count();
-		$num = DB::table('tbluser')->where('email',$req->mail)->where('password',$req->password)->where('is_active',1)->where('is_verified',1)->count();
+		$num = DB::table('tbluser')->where('email',$req->mail)->where('password',md5($req->password))->where('is_active',1)->where('is_verified',1)->count();
     	if($num==0)
     	{
     		echo "1";
