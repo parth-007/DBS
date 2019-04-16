@@ -164,6 +164,8 @@
         $("#frm_cc").validate({
             rules:{
                 phone:{
+                    minlength:10,
+                    maxlength:10,
                     phoneno:true,
                 },
                 email:{

@@ -74,7 +74,7 @@
 
                 <label for="building" class="col-form-label">Reply message:</label>
                 <div class="form-group">
-                    <textarea rows="4" cols="60" name="txt_message" id="txt_message" style="resize: none;" required></textarea>
+                    <textarea rows="4" cols="50" name="txt_message" id="txt_message" style="resize: none;" required></textarea>
                 </div>
         </div>
         <input type="hidden" name="aid" id="aid">
