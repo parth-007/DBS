@@ -138,6 +138,21 @@
                         </div>
                         </a>
                     </div>
+                    <div class="col-md-4" >
+                    <a href="{{url('admin/inquiry')}}" >
+                        <div class="card p-30">
+                            <div class="media">
+                                <div class="media-left meida media-middle">
+                                    <span><i class="fa fa-send-o f-s-40 color-danger"></i></span>
+                                </div>
+                                <div class="media-body media-text-right">
+                                    <h2>{{$inquiries_count}}</h2>
+                                    <p class="m-b-0">Total inquiries</p>
+                                </div>
+                            </div>
+                        </div>
+                        </a>
+                    </div>
                 </div>
 
                 <div class="row bg-white m-l-0 m-r-0 box-shadow ">

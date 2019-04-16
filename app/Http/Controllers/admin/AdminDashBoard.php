@@ -90,6 +90,10 @@ class AdminDashBoard extends Controller
                 ->join('tbluser_type','tbluser_type.usertypeid','=','tbluser.usertypeid')
                 ->where('tbluser_type.usertype','faculty')
                 ->count();
+
+        // INM 16-04-2019
+        $count['inquiries_count']=DB::table('tblinquiry')
+                ->count();
     	return view('admin/dashboard',$count);
     }
     function building(){
