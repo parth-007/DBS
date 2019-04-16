@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Validator;
+use Mail;
+use App\Mail\user_cancel;
+use App\Mail\book_cancel;
 
 class Client_Display extends Controller
 {
@@ -28,68 +31,48 @@ class Client_Display extends Controller
     }
     function delete_booking(Request $req)
     {
+        // echo $req->booking_id;
+        $resultset = DB::table('tblbooking')->where('bookingid',$req->booking_id)->first();
+        $username = DB::table('tbluser')->where('email',session('email'))->first()->username;
+        Mail::to(session('email'))->send(new user_cancel($username,$resultset->purpose,$resultset->starttime,$resultset->endtime));
         DB::table('tblbooking')
         ->where('bookingid',$req->booking_id)
         ->where('useremail',session('email'))
         ->update(['status'=>'Cancelled']);
+        
         $bid = $req->booking_id;
-        echo $bid;
         $uname = session('email');
-        $data1= DB::table('tblbooking as b')
-                                ->Join(DB::raw('(select * from tblbooking where useremail="'.$uname.'" )b1'),
-                                    function($join)
-                                    {
-                                    $join->on('b1.resourceid','=','b.resourceid');
-                                    })
-                                ->Join('tbluser as u','u.email','=','b.useremail')
-                                ->Join('tblresource as r','r.resource_id','=','b.resourceid')
-        ->whereIn('b.status',['Requested'])
-        ->where(function($q0) {
-        $q0->where(function($q1)  {
-          $q1->where('b.starttime','>=','b1.starttime')
-          ->orWhere('b.starttime','<','b1.endtime');
-        })
-        ->orWhere(function($q2) {
-        $q2->where('b.endtime','>','b1.starttime')
-        ->orWhere('b.endtime','<=','b1.endtime');
-        })
-        ->orWhere(function($q3) {
-        $q3->where('b.starttime','<=','b1.starttime')
-        ->orWhere('b.endtime','>=','b1.endtime');
-        });
-        })
-        ->where('b1.bookingid',$bid)
-        ->select('b.bookingid as requester')
-        ->get();
-        echo "<pre>";
-        print_r($data1);
-        echo "</pre>";
-        // print_r($data[0]['requester']);
+        $data1=  DB::select('select `b`.`bookingid` as `requester` from `tblbooking` as `b` inner join (select * from tblbooking where useremail="'.$uname.'" and bookingid = '.$bid.' )b1 on `b1`.`resourceid` = `b`.`resourceid` inner join `tbluser` as `u` on `u`.`email` = `b`.`useremail` inner join `tblresource` as `r` on `r`.`resource_id` = `b`.`resourceid` where `b`.`status` in ("Requested") and ( (`b`.`starttime` >= `b1`.`starttime` and `b`.`starttime` <= `b1`.`endtime`) or (`b`.`endtime` >= `b1`.`starttime` and `b`.`endtime` <= `b1`.`endtime`) or (`b`.`starttime` <= `b1`.`starttime` and `b`.`endtime` >= `b1`.`endtime`))');
         foreach($data1 as $u){
             $requester = $u->requester;
+            echo "<br>Requester ".$requester." ";
             $data = DB::table('tblbooking as b')->where('bookingid',$requester)->first();
-                    $bid  = DB::table('tblbooking as b')
+                $bid  = DB::table('tblbooking as b')
                 ->where('resourceid',$data->resourceid)
                 ->where('status',"Booked")
-                // ->where('useremail',session('email'))
+                
                 ->where(function($q0) use($data) {
                 $q0->where(function($q1) use($data)  {
                     $q1->where('b.starttime','>=',$data->starttime)
-                    ->orWhere('b.starttime','<',$data->endtime);
+                    ->Where('b.starttime','<=',$data->endtime);
                     })
                     ->orWhere(function($q2) use($data){
-                    $q2->where('b.endtime','>',$data->starttime)
-                    ->orWhere('b.endtime','<=',$data->endtime);
+                    $q2->where('b.endtime','>=',$data->starttime)
+                    ->Where('b.endtime','<=',$data->endtime);
                     })
                     ->orWhere(function($q3) use($data) {
-                    $q3->where('b.starttime','<=',$data->starttime)
-                    ->orWhere('b.endtime','>=',$data->endtime);
+                    $q3->where('b.starttime','<',$data->starttime)
+                    ->Where('b.endtime','>',$data->endtime);
                     });
                 })
                 ->select('b.bookingid')
                 ->count();
+                // ->get();
                 if($bid==0)
                 {
+                    $resultset1 = DB::table('tblbooking')->where('bookingid',$requester)->first();
+                    $username1 = DB::table('tbluser')->where('email',session('email'))->first()->username;
+                    Mail::to(session('email'))->send(new book_cancel($username1,$resultset1->purpose,$resultset1->starttime,$resultset1->endtime));
                    DB::table('tblbooking as b')->where('bookingid',$requester)->update(['status'=>'Booked']);
                    return redirect('client_display');
                 }

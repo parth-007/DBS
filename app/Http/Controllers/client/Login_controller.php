@@ -30,7 +30,7 @@ class Login_controller extends Controller
         	'username' => $req->name2,
         	'usertypeid' => $stud_id->usertypeid, 
         	'phonenumber' => $req->mobile2,
-        	'password' => $req->password2,
+        	'password' => md5($req->password2),
         	'is_verified' => 0]
         );
         $length = 60;
@@ -74,7 +74,7 @@ class Login_controller extends Controller
     {
             DB::table('tbluser')
                 ->where('email', $req->mail)
-                ->update(['password' => $req->password]);
+                ->update(['password' => md5($req->password)]);
             session(['error'=>'Login With your new Password.']);
             return redirect('login');    
         $req->validate([
@@ -83,7 +83,7 @@ class Login_controller extends Controller
         ]);
         DB::table('tbluser')
             ->where('email', $req->mail)
-            ->update(['password' => $req->password]);
+            ->update(['password' => md5($req->password)]);
         
         return redirect('login');    
     }
@@ -109,7 +109,7 @@ class Login_controller extends Controller
             "password"=>"bail|required"
             
         ]);
-    	$num = DB::table('tbluser')->where('email',$req->mail)->where(['password',$req->password,'is_verified'=>1,'is_active'=>1])->count();
+    	$num = DB::table('tbluser')->where('email',$req->mail)->where(['password',md5($req->password),'is_verified'=>1,'is_active'=>1])->count();
     	if($num==0)
     	{
             //change session('error'=>Invalid)

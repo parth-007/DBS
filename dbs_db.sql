@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Apr 09, 2019 at 05:23 PM
+-- Generation Time: Apr 15, 2019 at 02:20 PM
 -- Server version: 5.7.21
 -- PHP Version: 7.2.4
 
@@ -35,6 +35,7 @@ CREATE TABLE IF NOT EXISTS `tbladmin` (
   `email` varchar(50) NOT NULL,
   `password` varchar(100) NOT NULL,
   `phone` varchar(10) NOT NULL,
+  `link` varchar(65) DEFAULT NULL,
   PRIMARY KEY (`adminid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -42,8 +43,8 @@ CREATE TABLE IF NOT EXISTS `tbladmin` (
 -- Dumping data for table `tbladmin`
 --
 
-INSERT INTO `tbladmin` (`adminid`, `username`, `email`, `password`, `phone`) VALUES
-(1, 'admin', 'admin_booking@daiict.ac.in', 'admin', '89611616');
+INSERT INTO `tbladmin` (`adminid`, `username`, `email`, `password`, `phone`, `link`) VALUES
+(1, 'admin', 'admin_booking@daiict.ac.in', 'admin', '89611616', 'ItSBOdbJm3zy2EcWVYRe8v57aNiCnPQh16gHMjDKLATp0lZ9UGsofrxq4Fku');
 
 -- --------------------------------------------------------
 
@@ -58,22 +59,25 @@ CREATE TABLE IF NOT EXISTS `tblbooking` (
   `endtime` timestamp NOT NULL,
   `useremail` varchar(255) NOT NULL,
   `resourceid` int(11) NOT NULL,
-  `requesttime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `requesttime` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `purpose` varchar(300) NOT NULL,
   `expected_audience` int(11) NOT NULL,
-  `status` enum('Booked','Requested','Cancelled','') NOT NULL,
+  `status` enum('Booked','Requested','Cancelled','Denied') NOT NULL,
   PRIMARY KEY (`bookingid`),
   KEY `con11` (`useremail`),
   KEY `con15` (`resourceid`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tblbooking`
 --
 
 INSERT INTO `tblbooking` (`bookingid`, `starttime`, `endtime`, `useremail`, `resourceid`, `requesttime`, `purpose`, `expected_audience`, `status`) VALUES
-(1, '2019-04-06 15:30:00', '2019-04-06 17:30:00', 'alviskaka@daiict.ac.in', 14, '2019-04-06 14:28:15', 'Drama Discussion', 10, 'Booked'),
-(2, '2019-04-06 17:31:00', '2019-04-06 18:25:00', '201812108@daiict.ac.in', 14, '2019-04-06 14:28:15', 'Academic Discussion', 20, 'Booked');
+(10, '2019-04-16 21:30:00', '2019-04-17 00:30:00', '201812108@daiict.ac.in', 1, '2019-04-12 07:19:21', 'Jokes', 150, 'Cancelled'),
+(12, '2019-04-14 18:30:00', '2019-04-15 17:30:00', '201812108@daiict.ac.in', 20, '2019-04-13 14:28:07', 'Orientation', 290, 'Booked'),
+(25, '2019-04-20 14:30:00', '2019-04-20 16:30:00', '201812108@daiict.ac.in', 26, '2019-04-14 19:06:05', 'Nodejs Seminar', 60, 'Cancelled'),
+(26, '2019-04-20 15:30:00', '2019-04-20 17:30:00', 'mithil_panchal@daiict.ac.in', 26, '2019-04-14 19:08:21', 'Placement Preparation', 40, 'Booked'),
+(27, '2019-04-16 03:30:00', '2019-04-16 05:30:00', '201812108@daiict.ac.in', 2, '2019-04-15 07:36:05', 'Mail Testing', 100, 'Booked');
 
 -- --------------------------------------------------------
 
@@ -156,6 +160,21 @@ INSERT INTO `tblfacility` (`facilityid`, `ac`, `computers`, `podium`, `mic`, `pr
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `tblinquiry`
+--
+
+DROP TABLE IF EXISTS `tblinquiry`;
+CREATE TABLE IF NOT EXISTS `tblinquiry` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `email` varchar(255) NOT NULL,
+  `message` text NOT NULL,
+  `replay` text NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `tblprogramme`
 --
 
@@ -164,7 +183,7 @@ CREATE TABLE IF NOT EXISTS `tblprogramme` (
   `programmeid` int(11) NOT NULL AUTO_INCREMENT,
   `programmename` varchar(20) NOT NULL,
   PRIMARY KEY (`programmeid`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tblprogramme`
@@ -172,21 +191,8 @@ CREATE TABLE IF NOT EXISTS `tblprogramme` (
 
 INSERT INTO `tblprogramme` (`programmeid`, `programmename`) VALUES
 (1, 'BTECH'),
-(2, 'MSCIT');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tblreport`
---
-
-DROP TABLE IF EXISTS `tblreport`;
-CREATE TABLE IF NOT EXISTS `tblreport` (
-  `bookingid` int(11) NOT NULL,
-  `report` varchar(4000) NOT NULL,
-  `report_file` varchar(200) NOT NULL,
-  PRIMARY KEY (`bookingid`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+(2, 'MSCIT'),
+(3, 'MTECH');
 
 -- --------------------------------------------------------
 
@@ -205,7 +211,7 @@ CREATE TABLE IF NOT EXISTS `tblresource` (
   PRIMARY KEY (`resource_id`),
   KEY `k4` (`facilityid`),
   KEY `k30` (`buildingid`)
-) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tblresource`
@@ -257,7 +263,8 @@ INSERT INTO `tblresource` (`resource_id`, `resourcename`, `capacity`, `buildingi
 (43, 'Lab 208 - Research', 0, 3, 6, 0),
 (44, 'Lab 209', 67, 3, 5, 1),
 (45, 'Lab 211 - IOT', 0, 3, 6, 0),
-(46, 'Lab 213 - RL', 7, 3, 6, 0);
+(46, 'Lab 213 - RL', 7, 3, 6, 0),
+(47, 'Lab 004', 67, 3, 5, 1);
 
 -- --------------------------------------------------------
 
@@ -279,16 +286,33 @@ CREATE TABLE IF NOT EXISTS `tbltimetable_child` (
   KEY `con8` (`masterid`) USING BTREE,
   KEY `k79` (`resourceid`),
   KEY `k45` (`faculty_email`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbltimetable_child`
 --
 
 INSERT INTO `tbltimetable_child` (`timetable_childid`, `masterid`, `dayofweek`, `timestart`, `timeend`, `resourceid`, `courseid`, `faculty_email`) VALUES
-(1, 5, 'saturday', '14:36:00', '16:00:00', 12, 'SC332', 'club1@da.com'),
-(2, 5, 'saturday', '19:55:00', '21:00:00', 19, 'IT515', 'alviskaka@daiict.ac.in'),
-(3, 5, 'saturday', '08:00:00', '10:00:00', 14, 'SE206', 'asim_bhai@daiict.ac.in');
+(7, 5, 'monday', '09:00:00', '09:55:00', 14, 'IT632', 'lavneet_singh@daiict.ac.in'),
+(8, 5, 'monday', '11:00:00', '11:55:00', 14, 'IT602', 'lavneet_singh@daiict.ac.in'),
+(9, 5, 'monday', '12:00:00', '12:55:00', 14, 'IT632', 'asim_banerjee_1@daiict.ac.in'),
+(10, 5, 'monday', '14:00:00', '16:00:00', 26, 'IT602', 'lavneet_singh@daiict.ac.in'),
+(11, 5, 'tuesday', '09:00:00', '09:55:00', 14, 'IT628', 'amit_mankodi@daiict.ac.in'),
+(12, 5, 'tuesday', '10:00:00', '10:55:00', 14, 'IT694', 'pskalyan@daiict.ac.in'),
+(13, 5, 'tuesday', '11:00:00', '11:55:00', 14, 'IT632', 'asim_banerjee_1@daiict.ac.in'),
+(14, 5, 'tuesday', '14:00:00', '16:00:00', 26, 'IT632', 'asim_banerjee_1@daiict.ac.in'),
+(15, 5, 'wednesday', '09:00:00', '09:55:00', 14, 'IT629', 'lavneet_singh@daiict.ac.in'),
+(16, 5, 'wednesday', '10:00:00', '10:55:00', 14, 'IT694', 'pskalyan@daiict.ac.in'),
+(17, 5, 'wednesday', '11:00:00', '11:55:00', 14, 'IT602', 'lavneet_singh@daiict.ac.in'),
+(18, 5, 'wednesday', '12:00:00', '12:55:00', 14, 'IT628', 'amit_mankodi@daiict.ac.in'),
+(19, 5, 'wednesday', '14:00:00', '16:00:00', 26, 'IT694', 'pskalyan@daiict.ac.in'),
+(20, 5, 'thursday', '10:00:00', '10:55:00', 14, 'IT629', 'lavneet_singh@daiict.ac.in'),
+(21, 5, 'thursday', '12:00:00', '12:55:00', 14, 'IT602', 'lavneet_singh@daiict.ac.in'),
+(22, 5, 'thursday', '14:00:00', '16:00:00', 26, 'IT628', 'amit_mankodi@daiict.ac.in'),
+(23, 5, 'friday', '09:00:00', '09:55:00', 14, 'IT632', 'asim_banerjee_1@daiict.ac.in'),
+(24, 5, 'friday', '11:00:00', '11:55:00', 14, 'IT694', 'pskalyan@daiict.ac.in'),
+(25, 5, 'friday', '12:00:00', '12:55:00', 14, 'IT628', 'amit_mankodi@daiict.ac.in'),
+(26, 5, 'friday', '14:00:00', '16:00:00', 26, 'IT629', 'lavneet_singh@daiict.ac.in');
 
 -- --------------------------------------------------------
 
@@ -303,7 +327,7 @@ CREATE TABLE IF NOT EXISTS `tbltimetable_master` (
   `semester` int(11) NOT NULL,
   PRIMARY KEY (`timetablemasterid`),
   KEY `con11` (`programmeid`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbltimetable_master`
@@ -313,9 +337,16 @@ INSERT INTO `tbltimetable_master` (`timetablemasterid`, `programmeid`, `semester
 (1, 1, 2),
 (2, 1, 4),
 (3, 1, 6),
-(4, 1, 8),
 (5, 2, 2),
-(6, 2, 4);
+(7, 1, 1),
+(8, 1, 3),
+(9, 1, 5),
+(10, 1, 7),
+(11, 2, 1),
+(12, 2, 3),
+(13, 3, 1),
+(14, 3, 2),
+(15, 3, 3);
 
 -- --------------------------------------------------------
 
@@ -341,19 +372,17 @@ CREATE TABLE IF NOT EXISTS `tbluser` (
 --
 
 INSERT INTO `tbluser` (`email`, `username`, `usertypeid`, `phonenumber`, `password`, `is_verified`, `is_active`) VALUES
-('201812014@daiict.ac.in', 'Parth', 3, '9090909090', 'PbRJxC2d', 1, 1),
-('201812026@daiict.ac.in', 'Bansi', 3, '8989898989', 'Jxro7R9U', 0, 0),
-('201812046@daiict.ac.in', 'Alvis', 2, '1234567890', '123', 1, 0),
-('201812097@daiict.ac.in', 'Ishan Mehta', 2, '1234567890', 'ishan', 0, 1),
-('201812108@daiict.ac.in', 'Vivek MVC', 2, '8758979310', 'nicepicture', 1, 1),
+('201812108@daiict.ac.in', 'Vivek MVC', 2, '8758979310', '676767##', 1, 1),
 ('alviskaka@daiict.ac.in', 'Alvis Patel', 2, '8545745230', 'alvispatel123', 1, 1),
-('asim_bhai@daiict.ac.in', 'Asim Banerjee', 3, '7778889990', '74108520', 1, 1),
+('amit_mankodi@daiict.ac.in', 'Amit Mankodi', 3, '7891110003', 'spspspsp', 1, 1),
+('asim_banerjee_1@daiict.ac.in', 'Prof. Asim Banerjee', 3, '8238120001', 'software123', 1, 1),
 ('club1@da.com', 'club1', 5, '5204106307', '745896', 1, 1),
-('ishanmehta.im28@gmail.com', 'Ishan Mehta', 3, '8160819878', 'MxUgwyQd', 1, 1),
-('parth7897@gmail.com', 'Parth Patel', 2, '6546546543', 'ssaassdd', 1, 1),
-('surajshah2503@gmail.com', 'Suraj Shah', 2, '9876543210', '1234567890', 0, 1),
-('vaidyavishal39@gmail.com', 'Vaidya Vishal', 2, '9879879876', 'vishal123', 0, 1),
-('viru@gmail.com', 'Viru', 2, '7777775553', 'asdasdasd', 0, 1);
+('jayvirrathi@gmail.com', 'jayvir', 2, '8908908900', '89898989', 1, 1),
+('lavneet_singh@daiict.ac.in', 'Lavneet Singh', 3, '9032902391', 'indiaismine', 1, 1),
+('mithil_panchal@daiict.ac.in', 'Mithil Panchal', 3, '7778889990', '74108520', 1, 1),
+('music@daiict.ac.in', 'Raja', 5, '9023093211', 'vYDJfdU0', 1, 1),
+('pskalyan@daiict.ac.in', 'PS Kalyan Singh', 3, '7890123411', 'pskalyan123@', 1, 1),
+('vaidyavishal39@gmail.com', 'Vaidya Vishal', 2, '9879879876', 'vishal123', 0, 1);
 
 -- --------------------------------------------------------
 
@@ -374,7 +403,6 @@ CREATE TABLE IF NOT EXISTS `tbluser_type` (
 --
 
 INSERT INTO `tbluser_type` (`usertypeid`, `usertype`, `priority`) VALUES
-(1, 'admin', -1),
 (2, 'student', 3),
 (3, 'faculty', 1),
 (4, 'committee', 2),
@@ -393,19 +421,16 @@ CREATE TABLE IF NOT EXISTS `tblverify_linkes` (
   `link` varchar(200) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `k9` (`userid`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tblverify_linkes`
 --
 
 INSERT INTO `tblverify_linkes` (`id`, `userid`, `link`) VALUES
-(10, '201812097@daiict.ac.in', 'vBGxMVKOI4y09tuXCdLEYUfZp26q7NDSQwbAHiFj1olnJh5TsaRkem3c8rgW'),
-(11, '201812046@daiict.ac.in', 'JUpfBDVPdNvTgbilS1Q05rn2ACROKYehxEkGq8s963aoZX7IwzHMcWLjumF4'),
-(13, '201812026@daiict.ac.in', 'MvJGUOaYkdA1KtwRr5B0h8XPxVuoCf'),
-(15, 'surajshah2503@gmail.com', 'nAluKct5RwpTGydQHCNhJ1ak2Zqb93EVLUMPDYSBgf47mix8Ie0s6rzojXWO'),
 (16, 'vaidyavishal39@gmail.com', 'G6rI9HDesvPqtYZx7UBk5EKzo1LdRC0pFOAbNami3jTc8y2nQWwuJgS4fVlX'),
-(17, 'viru@gmail.com', 'wGyT6mIveafxtNRjVOF8s5zMQ4uP1kUX9dhJE0b3AKHlWcZ7LpqCSYiBgorn');
+(29, '201812108@daiict.ac.in', 'eUObrExyBPsmlj6C3VNz2dfK7kGn5YgAHc0Z94q8IFLMihDSuXT1tRapJvWo'),
+(33, '201812108@daiict.ac.in', 'jTAl4G8INd12qphW56gkXCfmJ3bLwacnO9sitzHuFYSe7ZKBVxDEy0QMvoPR');
 
 --
 -- Constraints for dumped tables
@@ -417,12 +442,6 @@ INSERT INTO `tblverify_linkes` (`id`, `userid`, `link`) VALUES
 ALTER TABLE `tblbooking`
   ADD CONSTRAINT `k1` FOREIGN KEY (`resourceid`) REFERENCES `tblresource` (`resource_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `k2` FOREIGN KEY (`useremail`) REFERENCES `tbluser` (`email`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `tblreport`
---
-ALTER TABLE `tblreport`
-  ADD CONSTRAINT `k3` FOREIGN KEY (`bookingid`) REFERENCES `tblbooking` (`bookingid`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `tblresource`

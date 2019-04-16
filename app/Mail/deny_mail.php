@@ -7,7 +7,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class BookMail extends Mailable
+class deny_mail extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -16,14 +16,14 @@ class BookMail extends Mailable
      *
      * @return void
      */
-    public $purpose,$timestart,$timeend,$resource;
-    public function __construct($purpose,$timestart,$timeend,$resource)
+    public $purpose,$timestart,$timeend,$resource,$user;
+    public function __construct($purpose,$timestart,$timeend,$resource,$user)
     {
         $this->purpose = $purpose;
         $this->timestart = $timestart;
         $this->timeend = $timeend;
         $this->resource = $resource;
-        
+        $this->user = $user;
     }
 
     /**
@@ -33,6 +33,6 @@ class BookMail extends Mailable
      */
     public function build()
     {
-        return $this->subject('Successful Booking')->view('client/succ_mail');
+        return $this->subject('Request Denied')->view('client/req_denied');
     }
 }

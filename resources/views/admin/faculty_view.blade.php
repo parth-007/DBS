@@ -151,6 +151,9 @@
         $.validator.addMethod("damail", function(value, element) {
                 return this.optional(element) || /^[a-z0-9_]+@daiict\.ac\.in$/i.test(value);
             }, "Please Enter Valid DA-IICT Email");
+        $.validator.addMethod("validname", function(value, element) {
+            return this.optional(element) || /^[a-zA-Z][a-zA-Z0-9]*$/i.test(value);
+        }, "Must start with alphabet");
 
         $("#frm_add_faculty").validate({
             rules:{
@@ -161,6 +164,9 @@
                 },
                 email:{
                     damail:true
+                },
+                name:{
+                    validname:true
                 }
             }
         });

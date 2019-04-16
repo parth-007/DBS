@@ -29,6 +29,6 @@ class FacultyVerify extends Mailable
      */
     public function build()
     {
-        return $this->view('admin/faculty_verify');
+        return $this->subject('Find the Credentials')->view('admin/faculty_verify');
     }
 }
