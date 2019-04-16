@@ -387,7 +387,7 @@ $data['user_data'] = DB::table('tbluser')->where('email',session('email'))->firs
         else{
             $data=DB::table('tbluser')
             ->where('email', $useremail)
-            ->update(['username'=>$req->txt_username,"phonenumber"=>$req->txt_phoneno,"password"=>$req->txt_password]);
+            ->update(['username'=>$req->txt_username,"phonenumber"=>$req->txt_phoneno,"password"=>md5($req->txt_password)]);
         }
         session(['username'=>$req->txt_username]);
         echo $data;

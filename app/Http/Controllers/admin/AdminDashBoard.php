@@ -494,7 +494,7 @@ class AdminDashBoard extends Controller
         else{
             $data=DB::table('tbladmin')
             ->where('email', $useremail)
-            ->update(['username'=>$req->txt_username,"phone"=>$req->txt_phoneno,"password"=>$req->txt_password]);
+            ->update(['username'=>$req->txt_username,"phone"=>$req->txt_phoneno,"password"=>md5($req->txt_password)]);
         }
         echo $data;
     }
@@ -537,7 +537,7 @@ class AdminDashBoard extends Controller
 
         $passcode=substr(str_shuffle(str_repeat($x='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil($length/strlen($x)) )),1,$length);
         DB::table('tbluser')
-            ->insert(['email'=>$email,'username'=>$name,'phonenumber'=>$phone,'usertypeid'=>$usertypeid,'password'=>$passcode,'is_verified'=>0,'is_active'=>0]);
+            ->insert(['email'=>$email,'username'=>$name,'phonenumber'=>$phone,'usertypeid'=>$usertypeid,'password'=>md5($passcode),'is_verified'=>0,'is_active'=>0]);
 
         $length = 30;
         $activation_code=substr(str_shuffle(str_repeat($x='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil($length/strlen($x)) )),1,$length);
@@ -564,7 +564,7 @@ class AdminDashBoard extends Controller
 
         $passcode=substr(str_shuffle(str_repeat($x='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil($length/strlen($x)) )),1,$length);
         $typeid = DB::table('tbluser_type')->where('tbluser_type.usertype','faculty')->first()->usertypeid;
-        DB::table('tbluser')->insert(['email'=>$email,'username'=>$name,'phonenumber'=>$phone,'usertypeid'=>$typeid,'password'=>$passcode,'is_verified'=>0,'is_active'=>0]);
+        DB::table('tbluser')->insert(['email'=>$email,'username'=>$name,'phonenumber'=>$phone,'usertypeid'=>$typeid,'password'=>md5($passcode),'is_verified'=>0,'is_active'=>0]);
 
         $length = 30;
         $activation_code=substr(str_shuffle(str_repeat($x='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil($length/strlen($x)) )),1,$length);

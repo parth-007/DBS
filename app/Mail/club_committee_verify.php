@@ -31,6 +31,6 @@ class club_committee_verify extends Mailable
      */
     public function build()
     {
-        return $this->subject('Request Accepted')->view('admin/club_committee_verify');
+        return $this->subject('Find the Credentials')->view('admin/club_committee_verify');
     }
 }
