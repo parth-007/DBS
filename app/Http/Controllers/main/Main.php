@@ -113,7 +113,7 @@ class Main extends Controller
                 if($value->status=='Booked')
                 {
                     echo "<div class='card'>
-                    <h3 class='tx-al-cntr'>CEP 108</h3>
+                    <h3 class='tx-al-cntr'>{$value->resourcename}</h3>
                     <table class='v-al-top-all' cellspacing='10px'>
                         <tr>
                             <th>Time: </th>
@@ -142,7 +142,7 @@ class Main extends Controller
                 else
                 {
                     echo "<div class='card'>
-                    <h3 class='tx-al-cntr'>CEP 108</h3>
+                    <h3 class='tx-al-cntr'>{$value->resourcename}</h3>
                     <table class='v-al-top-all' cellspacing='10px'>
                         <tr>
                             <th>Time: </th>
