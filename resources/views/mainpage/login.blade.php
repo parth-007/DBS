@@ -151,6 +151,9 @@
             }
             } 
         });
+        $("#frm_forgetpaswd").validate({
+
+        });
         $("#login").submit(function(e){
             e.preventDefault();
             var mail = $('#mail').val();
@@ -333,10 +336,10 @@
                 <span>Enter Email</span>
                 <span style="padding: 0 5px; cursor: pointer;" onclick="pop_down();">&times;</span>
             </h2>
-            <form action="\client\forget_pass" method="post" name="popup-form" class="tx-al-cntr">
+            <form action="\client\forget_pass" method="post" name="popup-form" id="frm_forgetpaswd" class="tx-al-cntr">
                  {{csrf_field()}}
                 <label class="mrg-r20">Enter DA-Mail ID </label>
-                <input type="text" name="popup_email" id="popup_email" placeholder="Mail-ID" required=""><br>
+                <input type="email" name="popup_email" id="popup_email" placeholder="Mail-ID" required=""><br>
                 <p class="tx-al-lft disp-no" id="res_mail" style="color: red;">*Email is not acquired by any user</p>
                 <p><input class="btn" type="submit" value="Submit"></p>
             </form>

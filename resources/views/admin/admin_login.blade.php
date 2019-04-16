@@ -20,39 +20,53 @@
     <!-- <link href="{{asset('admin/css/lib/owl.theme.default.min.css')}}" rel="stylesheet" /> -->
     <link href="{{asset('admin/css/helper.css')}}" rel="stylesheet">
     <!-- <link href="{{asset('admin/css/style.css')}}" rel="stylesheet"> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/additional-methods.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+
     <style type="text/css">
         .hid_label {
             visibility: hidden;
         }
+        .error{
+            color:red;
+        }
     </style>
-    <script src="{{asset('admin/js/lib/jquery/jquery.min.js')}}"></script>
     <script type="text/javascript">
         $(document).ready(function(){
-            $("#admin_button").click(function(){
-            var mail = $('#mail').val();
-            var password = $('#password').val();
-            $.ajax({
-                type: 'POST',
-                url: '/admin/log_check',
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                data: { 'mail': mail,'password': password },
-                success: function(msg) {
-                    if(msg == 1)
-                    {
-                        // alert("wrong");
-                        $("#hide_label").removeClass("hid_label");
-                    }
-                    else
-                    {
-                        window.location = "dashboard";
-                    }
-                }
+            $("#frm_login").validate({
+
             });
+            $("#frm_login").submit(function(e){
+            e.preventDefault();
+            if($("#frm_login").valid())
+            {
+                var mail = $('#mail').val();
+                var password = $('#password').val();
+                $.ajax({
+                    type: 'POST',
+                    url: '/admin/log_check',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    data: { 'mail': mail,'password': password },
+                    success: function(msg) {
+                        if(msg == 1)
+                        {
+                            // alert("wrong");
+                            $("#hide_label").removeClass("hid_label");
+                        }
+                        else
+                        {
+                            window.location = "dashboard";
+                        }
+                    }
+                });
+            }
         });
             $("#fog_span").click(function(){
                 $.ajax({
@@ -77,15 +91,15 @@
                 <div class="card-header">
                     <h4>Admin Login</h4>
                 </div>
-                <form method="post">
+                <form method="post" id="frm_login">
                     {{csrf_field()}}
                     <div class="form-group">
                         <label>Email address</label>
-                        <input type="email" id="mail" class="form-control" placeholder="Email" required="required">
+                        <input type="email" id="mail" class="form-control" placeholder="Email" required="">
                     </div>
                     <div class="form-group">
                         <label>Password</label>
-                        <input type="password" id="password" class="form-control" placeholder="Password" required="required">
+                        <input type="password" id="password" class="form-control" placeholder="Password" required="">
                         <label id="hide_label" class="hid_label" style="color: red;">*Incorrect login information.</label>
                     </div>
                     <label class="pull-right">
@@ -93,7 +107,7 @@
 
                     </label>
                     <br>
-                    <button type="button" id="admin_button" class="btn btn-default" >Login</button>
+                    <button type="submit" id="admin_button" class="btn btn-default" >Login</button>
                 </form>
                 <div class="container" style="color: black;">
                   <div class="modal fade" id="myModal" role="dialog">

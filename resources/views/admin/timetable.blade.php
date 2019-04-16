@@ -102,14 +102,10 @@ function checkme()
         function checktime(start,end){
             return end>start;
         }
-        function checkdate(dt){
-            return dt>=new Date();
-        }
         $("#frm_timetable").submit(function(e){
             e.preventDefault();
             if($("#frm_timetable").valid())
             {
-                if(checkdata($("#")))
                 if(!checktime($("#time_start").val(),$("#time_end").val()))
                 {
                     $("#lbl_timerr").show();
@@ -177,7 +173,7 @@ function checkme()
 
                                         <div class="form-group">
                                             <label>Select Semester Type:</label><br/>
-                                            <input type="radio" name="Semester_Type" id="rdbtnAutumn" onchange="checkme()" value="Autumn">Autumn
+                                            <input type="radio" name="Semester_Type" id="rdbtnAutumn" onchange="checkme()" value="Autumn" checked>Autumn
                                             <input type="radio" name="Semester_Type" id="rdbtnWinter"  onchange="checkme()" value="Winter">Winter
                                         </div>
 
@@ -234,7 +230,7 @@ function checkme()
 
                                         <div class="form-group">
                                             <label>Select Faculty</label>
-                                           <select id="fac" name="faculty" class="form-control">
+                                           <select id="fac" name="faculty" class="form-control" required>
                                             <option value="">Select</option>
                                             @foreach($fac_data as $f)
                                             {
