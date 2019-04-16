@@ -85,7 +85,7 @@ class AdminDashBoard extends Controller
                 ->orWhere('tbluser_type.usertype','club')
                 ->count();
 
-                // INM 13-04-2019
+        // INM 13-04-2019
         $count['faculty_count']=DB::table('tbluser')
                 ->join('tbluser_type','tbluser_type.usertypeid','=','tbluser.usertypeid')
                 ->where('tbluser_type.usertype','faculty')
@@ -176,8 +176,9 @@ class AdminDashBoard extends Controller
         return view('admin/timetable',$data);
     }
     function resource(){
-        
-        $data['resource'] = DB::table("tblresource")->paginate(20);
+        $data['resource'] = DB::table("tblresource")
+                            ->orderBy('tblresource.resource_id','asc')
+                            ->paginate(20);
         $data['buildings']=DB::table('tblbuilding')->get();
         return view('admin/resource',$data);
     }

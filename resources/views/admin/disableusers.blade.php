@@ -57,7 +57,8 @@
             $("#btn_inactive").prop('disabled',false);
             $("#btn_active").prop('disabled',false);
         }
-        if(selpattern!=-1 && str!=""){
+        if(selpattern!=-1 ){
+            // && str!=""
                 $.ajax({
                 url: '{{url('admin/AdminDashBoard/showBySearchPattern')}}',
                 type: 'POST',

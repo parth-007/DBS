@@ -1,16 +1,12 @@
 @include("admin/common")
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>Document</title>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/additional-methods.min.js"></script>
-        <script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/additional-methods.min.js"></script>
+    <script>
         $(document).ready(function(){
-
+            $.validator.addMethod("validname", function(value, element) {
+                return this.optional(element) || /^[a-zA-Z][a-zA-Z0-9]*$/i.test(value);
+            }, "Must start with alphabet");
             $(document).on("keyup","#txtSearch",function(){
                 var str=$(this).val();
                 $.ajax({
@@ -40,11 +36,19 @@
             });
              
             $("#frm_add_resource").validate({
-
+                rules:{
+                    resourcename:{
+                        validname:true
+                    }
+                }
             });
 
             $("#frm_update_resource").validate({
-                
+                rules:{
+                    updt_resourcename:{
+                        validname:true
+                    }
+                }
             });
         });
         function updateHandler(update_id){
@@ -123,10 +127,8 @@
         }
 
 
-        </script>
-        
-    </head>
-<body>
+    </script>
+   
 <div class="page-wrapper">
             <!-- Bread crumb -->
             <div class="row page-titles">
@@ -143,17 +145,7 @@
 <div class="container-fluid">
     <div class="card">
         <div class="card-body">
-            @if($errors->any())
-                <center>
-                    <div id="error_msg" style="position: fixed;top: 52px; left: 20%; right: 20%; z-index: 9999;background: #cc0000;color:white"><div class="alert alert-error">
-                            <strong>Error!</strong> 
-                            @foreach($errors->all() as $error)
-                                {{$error}}
-                            @endforeach
-                        </div>
-                    </div>
-                </center>
-            @endif 
+            
             <!-- <button type="button" class="btn btn-info">Add building</button> -->
                     <div class="col-mid-12 col-lg-12">
                         <button type="button" class="btn btn-info col-md-3 col-lg-3" data-toggle="modal" data-target="#myModal" data-whatever="@mdo" style="display: inline-block">Add resource</button>
@@ -218,7 +210,7 @@
                                                 </div>
                                                 <div>
                                                     <label for="capacity">Capacity :</label>
-                                                    <input type="number" class="form-control" name="capacity" required>
+                                                    <input type="number" class="form-control" name="capacity" min="1" required>
                                                 </div>
 
                                                 <div>
@@ -298,7 +290,7 @@
                                                 </div>
                                                 <div>
                                                     <label for="capacity">Capacity :</label>
-                                                    <input type="number" class="form-control" name="updt_capacity" id="updt_capacity" required>
+                                                    <input type="number" class="form-control" name="updt_capacity" id="updt_capacity" min="0" required>
                                                 </div>
                                                 <div>
                                                     <label for="isAllocate">isAllocate :</label>
@@ -331,7 +323,7 @@
                             <th>Resource-id</th>
                             <th>Resource-name</th>
                             <th>Capacity</th>
-                            <th>isAllcate</th>
+                            <th>Allocatable</th>
                             <th>Update</th>
                             <th>Delete</th>
                         </tr>
@@ -348,9 +340,9 @@
                                         No
                                     @endif
                                 </td>
-                                <td><a href="" onclick="updateHandler({{$res->resource_id}})" data-toggle="modal" data-target="#updateModal" class="badge badge-info">Update</a></td>
-                                <!-- <button type="button" class="btn btn-info" data-toggle="modal"  data-whatever="@mdo">Add resource</button> -->
-                                <td><a href='{{ url("admin/resourses/delete/{$res->resource_id}")}}' class="badge badge-info">Delete</a></td>
+                                <td><a href="" onclick="updateHandler({{$res->resource_id}})" data-toggle="modal" data-target="#updateModal" class="fa fa-edit f-s-30 color-info"></a></td>
+                                <td><a href='{{ url("admin/resourses/delete/{$res->resource_id}")}}' class="fa fa-trash f-s-30 color-danger"></a></td>
+                                
                             </tr>   
                         @endforeach
                         
@@ -366,15 +358,4 @@
     </div>
 </div>
 </div>
-
-
-    </body>
-    </html>
-    <script type="text/javascript">
-        $(document).ready(function(){
-            @if($errors->any())
-                $("#error_msg").fadeOut(4000);
-            @endif
-        });
-    </script>
 @include("admin/footer")
