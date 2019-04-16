@@ -33,6 +33,7 @@
         document.getElementById('pop-up').className = "popup-hid";
     }
     $(document).ready(function(){
+    var isreg=0;
     $.validator.addMethod("lettersonly", function(value, element) {
                 return this.optional(element) || /^[a-z\s]+$/i.test(value);
             }, "Only alphabetical characters");
@@ -109,10 +110,12 @@
                     if(msg == 1)
                     {
                         $("#dup_label").removeClass("disp-no");
+                        $("#btn_signup").prop("disabled","true");
                     }
                     else
                     {
                         $("#dup_label").addClass("disp-no");
+                        $('#btn_signup').removeAttr("disabled");
                     }
                 }
             });
@@ -133,6 +136,7 @@
                         if(msg != 1)
                         {
                             $("#res_mail").removeClass("disp-no");
+                            isreg=1;
                         }
                         else
                         {
@@ -141,6 +145,7 @@
                     }
                 });
         });
+
         $("#login").validate({
             errorPlacement: function(error, element) {
             var placement = $(element).data('error');
@@ -324,7 +329,8 @@
                 </div>
 
                 <div class="tx-al-rght">
-                    <input type="submit" name="signup" value="Sign Up" class="btn">
+                    <input type="hidden" name="isvalid" id="isvalid" value="1" required="">
+                    <input type="submit" id="btn_signup" name="signup" value="Sign Up" class="btn">
                 </div>
             </form>
         </div>
