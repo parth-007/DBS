@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Apr 15, 2019 at 02:20 PM
+-- Generation Time: Apr 16, 2019 at 02:01 PM
 -- Server version: 5.7.21
 -- PHP Version: 7.2.4
 
@@ -44,7 +44,7 @@ CREATE TABLE IF NOT EXISTS `tbladmin` (
 --
 
 INSERT INTO `tbladmin` (`adminid`, `username`, `email`, `password`, `phone`, `link`) VALUES
-(1, 'admin', 'admin_booking@daiict.ac.in', 'admin', '89611616', 'ItSBOdbJm3zy2EcWVYRe8v57aNiCnPQh16gHMjDKLATp0lZ9UGsofrxq4Fku');
+(1, 'admin', 'admin_booking@daiict.ac.in', 'admin', '89611616', '5Ac8RO6DFmjaGs9SYT1rIzpJtE3HQw0gK4VLPMoxhleXkyUdfv2CiBqubN7W');
 
 -- --------------------------------------------------------
 
@@ -66,7 +66,7 @@ CREATE TABLE IF NOT EXISTS `tblbooking` (
   PRIMARY KEY (`bookingid`),
   KEY `con11` (`useremail`),
   KEY `con15` (`resourceid`)
-) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tblbooking`
@@ -75,9 +75,10 @@ CREATE TABLE IF NOT EXISTS `tblbooking` (
 INSERT INTO `tblbooking` (`bookingid`, `starttime`, `endtime`, `useremail`, `resourceid`, `requesttime`, `purpose`, `expected_audience`, `status`) VALUES
 (10, '2019-04-16 21:30:00', '2019-04-17 00:30:00', '201812108@daiict.ac.in', 1, '2019-04-12 07:19:21', 'Jokes', 150, 'Cancelled'),
 (12, '2019-04-14 18:30:00', '2019-04-15 17:30:00', '201812108@daiict.ac.in', 20, '2019-04-13 14:28:07', 'Orientation', 290, 'Booked'),
-(25, '2019-04-20 14:30:00', '2019-04-20 16:30:00', '201812108@daiict.ac.in', 26, '2019-04-14 19:06:05', 'Nodejs Seminar', 60, 'Cancelled'),
+(25, '2019-04-20 14:30:00', '2019-04-20 16:30:00', '201812108@daiict.ac.in', 26, '2019-04-14 19:06:05', 'Nodejs Seminar', 60, 'Denied'),
 (26, '2019-04-20 15:30:00', '2019-04-20 17:30:00', 'mithil_panchal@daiict.ac.in', 26, '2019-04-14 19:08:21', 'Placement Preparation', 40, 'Booked'),
-(27, '2019-04-16 03:30:00', '2019-04-16 05:30:00', '201812108@daiict.ac.in', 2, '2019-04-15 07:36:05', 'Mail Testing', 100, 'Booked');
+(27, '2019-04-16 03:30:00', '2019-04-16 05:30:00', '201812108@daiict.ac.in', 2, '2019-04-15 07:36:05', 'Mail Testing', 100, 'Requested'),
+(28, '2019-04-18 03:30:00', '2019-04-18 05:30:00', '201812079@daiict.ac.in', 21, '2019-04-16 12:26:29', 'General Use', 230, 'Booked');
 
 -- --------------------------------------------------------
 
@@ -170,7 +171,16 @@ CREATE TABLE IF NOT EXISTS `tblinquiry` (
   `message` text NOT NULL,
   `replay` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tblinquiry`
+--
+
+INSERT INTO `tblinquiry` (`id`, `email`, `message`, `replay`) VALUES
+(1, 'parth911@gmail.com', 'Wonderful', 'Thanks'),
+(2, 'savan@gmail.com', 'if i can check', 'sure'),
+(3, 'parth911@gmail.com', 'Wonderful and Helpful', '');
 
 -- --------------------------------------------------------
 
@@ -286,7 +296,7 @@ CREATE TABLE IF NOT EXISTS `tbltimetable_child` (
   KEY `con8` (`masterid`) USING BTREE,
   KEY `k79` (`resourceid`),
   KEY `k45` (`faculty_email`)
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbltimetable_child`
@@ -312,7 +322,9 @@ INSERT INTO `tbltimetable_child` (`timetable_childid`, `masterid`, `dayofweek`, 
 (23, 5, 'friday', '09:00:00', '09:55:00', 14, 'IT632', 'asim_banerjee_1@daiict.ac.in'),
 (24, 5, 'friday', '11:00:00', '11:55:00', 14, 'IT694', 'pskalyan@daiict.ac.in'),
 (25, 5, 'friday', '12:00:00', '12:55:00', 14, 'IT628', 'amit_mankodi@daiict.ac.in'),
-(26, 5, 'friday', '14:00:00', '16:00:00', 26, 'IT629', 'lavneet_singh@daiict.ac.in');
+(26, 5, 'friday', '14:00:00', '16:00:00', 26, 'IT629', 'lavneet_singh@daiict.ac.in'),
+(27, 3, 'monday', '09:00:00', '09:55:00', 7, 'CS302', 'mithil_panchal@daiict.ac.in'),
+(28, 5, 'wednesday', '12:00:00', '13:00:00', 2, 'CE111', 'amit_mankodi@daiict.ac.in');
 
 -- --------------------------------------------------------
 
@@ -372,16 +384,22 @@ CREATE TABLE IF NOT EXISTS `tbluser` (
 --
 
 INSERT INTO `tbluser` (`email`, `username`, `usertypeid`, `phonenumber`, `password`, `is_verified`, `is_active`) VALUES
+('201812046@daiict.ac.in', 'Alvis Vadaliya', 2, '9011220011', 'cricket123', 1, 1),
+('201812071@daiict.ac.in', 'aaaa', 2, '9090909090', '90fbde6cb6708bfb35851e4eec90b712', 0, 1),
+('201812079@daiict.ac.in', 'avkash', 2, '9010901022', '93f8fe437bfde07fe6776e5ef0cce7c2', 1, 1),
 ('201812108@daiict.ac.in', 'Vivek MVC', 2, '8758979310', '676767##', 1, 1),
 ('alviskaka@daiict.ac.in', 'Alvis Patel', 2, '8545745230', 'alvispatel123', 1, 1),
 ('amit_mankodi@daiict.ac.in', 'Amit Mankodi', 3, '7891110003', 'spspspsp', 1, 1),
 ('asim_banerjee_1@daiict.ac.in', 'Prof. Asim Banerjee', 3, '8238120001', 'software123', 1, 1),
 ('club1@da.com', 'club1', 5, '5204106307', '745896', 1, 1),
+('dadc@daiict.ac.in', 'Dance and Drama Club', 5, '9023321221', '555c5181e1b7753054ef550929f6b499', 1, 1),
 ('jayvirrathi@gmail.com', 'jayvir', 2, '8908908900', '89898989', 1, 1),
 ('lavneet_singh@daiict.ac.in', 'Lavneet Singh', 3, '9032902391', 'indiaismine', 1, 1),
 ('mithil_panchal@daiict.ac.in', 'Mithil Panchal', 3, '7778889990', '74108520', 1, 1),
 ('music@daiict.ac.in', 'Raja', 5, '9023093211', 'vYDJfdU0', 1, 1),
 ('pskalyan@daiict.ac.in', 'PS Kalyan Singh', 3, '7890123411', 'pskalyan123@', 1, 1),
+('rahul_muthu2@daiict.ac.in', 'Rahul Muthu', 3, '9021012022', 'plQjScGk', 0, 0),
+('spc_5@daiict.ac.in', 'Student Placement Cell', 4, '9000000000', '05843973dbe5b33a1b3df9036cbc17a8', 1, 1),
 ('vaidyavishal39@gmail.com', 'Vaidya Vishal', 2, '9879879876', 'vishal123', 0, 1);
 
 -- --------------------------------------------------------
@@ -421,7 +439,7 @@ CREATE TABLE IF NOT EXISTS `tblverify_linkes` (
   `link` varchar(200) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `k9` (`userid`)
-) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tblverify_linkes`
@@ -430,7 +448,11 @@ CREATE TABLE IF NOT EXISTS `tblverify_linkes` (
 INSERT INTO `tblverify_linkes` (`id`, `userid`, `link`) VALUES
 (16, 'vaidyavishal39@gmail.com', 'G6rI9HDesvPqtYZx7UBk5EKzo1LdRC0pFOAbNami3jTc8y2nQWwuJgS4fVlX'),
 (29, '201812108@daiict.ac.in', 'eUObrExyBPsmlj6C3VNz2dfK7kGn5YgAHc0Z94q8IFLMihDSuXT1tRapJvWo'),
-(33, '201812108@daiict.ac.in', 'jTAl4G8INd12qphW56gkXCfmJ3bLwacnO9sitzHuFYSe7ZKBVxDEy0QMvoPR');
+(33, '201812108@daiict.ac.in', 'jTAl4G8INd12qphW56gkXCfmJ3bLwacnO9sitzHuFYSe7ZKBVxDEy0QMvoPR'),
+(44, 'rahul_muthu2@daiict.ac.in', 'b1VecOtmn5zSgv6hJWyfXkG83lAsCQ'),
+(49, '201812079@daiict.ac.in', 'DR5qVdFxuzpP94713rOEncJGNojwMgiS2lsZ8ftTXIe6HmKUCALWQvyYkh0b'),
+(52, '201812079@daiict.ac.in', 'huqNSCkdDf2OcUK6elbV8tApw34I9ZyQjE1Man0g7WvYoFiRmXJBsLzTPH5x'),
+(54, '201812071@daiict.ac.in', 'ax7GfPu6Jndm2qXbvONI5kYco0p8R1WjlThV4yZSADwCgtzL9sKFMBU3EQHi');
 
 --
 -- Constraints for dumped tables

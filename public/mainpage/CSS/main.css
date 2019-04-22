@@ -366,7 +366,7 @@ form.inspect-form{
     /* width: inherit; */
 }
 
-.popup-div input[type="text"], .popup-div input[type="submit"]{
+.popup-div input[type="text"], .popup-div input[type="email"], .popup-div input[type="submit"]{
     border-color: rgb(30, 30, 30);
     border-width: 1px;
     color: black;

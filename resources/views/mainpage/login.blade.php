@@ -157,7 +157,11 @@
             } 
         });
         $("#frm_forgetpaswd").validate({
-
+                messages:{
+                    popup_email:{
+                        email:"Invalid Email",
+                    }
+                }
         });
         $("#login").submit(function(e){
             e.preventDefault();

@@ -181,6 +181,7 @@ class AdminDashBoard extends Controller
     }
     function resource(){
         $data['resource'] = DB::table("tblresource")
+                            ->where('capacity','!=',-1)
                             ->orderBy('tblresource.resource_id','asc')
                             ->paginate(20);
         $data['buildings']=DB::table('tblbuilding')->get();
@@ -448,6 +449,7 @@ class AdminDashBoard extends Controller
         $resource=DB::table("tblresource")
         ->join('tblbuilding','tblbuilding.buildingid','=','tblresource.buildingid')
             ->where('buildingname','like','%'.$str.'%')
+            ->where('capacity','!=',-1)
             ->orWhere('resourcename', 'like', '%'.$str.'%')
             ->orWhere('capacity', 'like', '%'.$str.'%')
             ->select('resource_id','resourcename','capacity','isAllocate')
@@ -465,8 +467,8 @@ class AdminDashBoard extends Controller
                 <td>'.$res->resourcename.'</td>
                 <td>'.$res->capacity.'</td>
                 <td>'.$isAllocate_msg.'</td>
-                <td>'.'<a href="" onclick="updateHandler('.$res->resource_id.')" data-toggle="modal" data-target="#updateModal" class="badge badge-info">Update</a></td>
-                <td>'.'<a href=\'url("admin/resourses/delete/{'.$res->resource_id.'}")}}\' class="badge badge-info">Delete</a></td>';
+                <td>'.'<a href="" onclick="updateHandler('.$res->resource_id.')" data-toggle="modal" data-target="#updateModal" class="fa fa-edit f-s-30 color-info"></a></td>
+                <td>'.'<a href=\'url("admin/resourses/delete/{'.$res->resource_id.'}")}}\' class="fa fa-trash f-s-30 color-danger" ></a></td>';
                 $data.='</tr>';
             }
             echo strval($data);

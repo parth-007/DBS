@@ -17,16 +17,16 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/additional-methods.min.js"></script>
-    <title>Monster Admin Template - The Most Complete & Trusted Bootstrap 4 Admin Template</title>
+    <title>DBS | Admin Reset Password</title>
     <!-- Bootstrap Core CSS -->
    <!--  <link href="{{asset('client/assets/plugins/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
 
     <script src="{{asset('client/assets/plugins/jquery/jquery.min.js')}}"></script> -->
     <script type="text/javascript">
-    // $(document).ready(function(){
-    	// $.validator.addMethod("lettersonly", function(value, element) {
-     //            return this.optional(element) || /^[a-z\s]+$/i.test(value);
-     //        }, "Only alphabetical characters");
+    $(document).ready(function(){
+    	$.validator.addMethod("lettersonly", function(value, element) {
+                return this.optional(element) || /^[a-z\s]+$/i.test(value);
+            }, "Only alphabetical characters");
     	// $("#reset_frm").validate({
     	// 	rules:{
     	// 		password:{
@@ -45,25 +45,18 @@
      //        }
      //        } 
      //    });
-    //     $("#reset_frm").validate({
-    //         rules:{
-    //             password:{
-    //                 minlength:8,
-    //             },
-    //             password1:{
-    //                 equalTo:"#password2",
-    //             }
-    //         },
-    //         errorPlacement: function(error, element) {
-    //         var placement = $(element).data('error');
-    //         if (placement) {
-    //             $(placement).append(error)
-    //         } else {
-    //             error.insertBefore(element);
-    //         }
-    //         }   
-    //     });
-    // });
+        $("#reset_frm").validate({
+            rules:{
+                password:{
+                    minlength:8,
+                },
+                password1:{
+                    equalTo:"#password",
+                }
+            },
+             
+        });
+    });
     </script>
     <style type="text/css">
 	.login-form {
@@ -87,11 +80,14 @@
         font-size: 15px;
         font-weight: bold;
     }
+    .error{
+      color:red;
+    }
 </style>
 </head>
 <body>
-<div class="login-form" id="reset_frm">
-    <form id="" action="\admin\reset" method="post">
+<div class="login-form">
+    <form id="reset_frm" action="\admin\reset" method="post">
     	{{csrf_field()}}
         <h2 class="text-center">Reset Password</h2>       
         <div class="form-group">

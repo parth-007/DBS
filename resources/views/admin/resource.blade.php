@@ -5,7 +5,7 @@
     <script>
         $(document).ready(function(){
             $.validator.addMethod("validname", function(value, element) {
-                return this.optional(element) || /^[a-zA-Z][a-zA-Z0-9]*$/i.test(value);
+                return this.optional(element) || /^[a-zA-Z][a-zA-Z0-9 ]*$/i.test(value);
             }, "Must start with alphabet");
             $(document).on("keyup","#txtSearch",function(){
                 var str=$(this).val();
