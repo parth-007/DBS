@@ -11,11 +11,11 @@ You just have to signup and then you will get an email containing the password a
 
 you can use this by opening localhost:8080
 
---Book a resource
---Request a resource
---Cancel a booking
---Add Student/ Faculy
---Add resource
---Update Resource
---Emails for completion
---Conversation for different requested resource
+1. Book a resource
+1. Request a resource
+1. Cancel a booking
+1. Add Student/ Faculy
+1. Add resource
+1. Update Resource
+1. Emails for completion
+1. Conversation for different requested resource
